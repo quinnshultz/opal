@@ -7,11 +7,6 @@
  * Written by Quinn Shultz
  */
 
--- Creates a new database for user tables
-Create database opalPasswordManager;
-Use opalPasswordManager;
-
-
 
 /*********************************************************************************************************/
 /*                                                                                                       */
@@ -42,11 +37,6 @@ CREATE table accounts_template(ID int auto_increment
 , encryptionKey varchar(256)
 , notes varchar(10240)
 , primary key (id));
-
--- Make sure template tables seem appropriate
-SELECT * FROM opalUsers;
-SELECT * FROM accounts_template;
-
 
 /*********************************************************************************************************/
 /*                                                                                                       */
@@ -91,14 +81,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- For development user only! Removes the above procedure
-DROP procedure add_new_opaluser;
-
--- Test adding an user
-CALL add_new_opaluser('quinnshultz', 'Quinn Shultz', 'UTF-8', 'AES/CBC/PKCS5PADDING', 'AES');
-SELECT * FROM opalUsers;
-SELECT * FROM quinnshultz_accounts;
-
 /*
  * Removes an account by dropping MySQL table:
  * userName_accounts and deleting from opalUsers
@@ -129,14 +111,6 @@ BEGIN
 
 END //
 DELIMITER ;
-
--- For development user only! Removes the above procedure
-DROP procedure remove_opaluser;
-
--- Test adding an user
-CALL remove_opaluser('quinnshultz');
-SELECT * FROM opalUsers;
-SELECT * FROM quinnshultz_accounts;
 
 /*
  * Adds a new account to the password manager.
@@ -170,13 +144,6 @@ BEGIN
 END //
 DELIMITER ;
 
--- For development user only! Removes the above procedure
-DROP procedure add_account;
-
--- Test adding an account
-CALL add_account('BBB', 'quinnshultz', 'https://billsbackyardbees.com/', 'fakeusername', 'fakepassword', 'ABCDEFGHIJKLMNOP', 'A test account with credentials fakeusername and fakepassword');
-SELECT * FROM quinnshultz_accounts;
-
 /*
  * Removes an account from the password manager.
  *
@@ -200,18 +167,3 @@ BEGIN
 
 END //
 DELIMITER ;
-
--- For development user only! Removes the above procedure
-DROP procedure remove_account;
-
--- Test removing an account
-CALL remove_account('BBB', 'quinnshultz');
-SELECT * FROM quinnshultz_accounts;
-
-/*********************************************************************************************************/
-/*                                                                                                       */
-/*                                      EXPANDED TEST CASES                                              */
-/*                                                                                                       */
-/*********************************************************************************************************/
-DROP table opalUsers;
-DROP table accounts_template;
