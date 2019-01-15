@@ -1,6 +1,6 @@
 bin
 build
-lib
+doc
 .gradle
 .settings
 *.project
