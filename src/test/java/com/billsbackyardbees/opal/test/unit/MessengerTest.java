@@ -26,10 +26,18 @@ import com.billsbackyardbees.opal.util.Messenger;
  * @author Quinn Shultz
  */
 public class MessengerTest extends TestCase {
+	
+	Messenger printer;
 
+	protected void setUp() throws Exception {
+		super.setUp();
+		
+		printer = new Messenger();
+	}
+	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testMConstructor() {
+		assertNotNull(printer);
 	}
 
 }
