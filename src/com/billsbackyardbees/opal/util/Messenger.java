@@ -13,31 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package test;
+package com.billsbackyardbees.opal.util;
 
-import junit.framework.TestCase;
+/**
+ * Prints messages such as the menus and welcome screen.
+ * @author Quinn Shultz
+ * 
+ */
+public class Messenger {
 
-import org.junit.Test;
-
-import com.billsbackyardbees.opal.db.DBConnection;
-
-public class DBConnectionTest extends TestCase {
-	
-	private DBConnection connection;
-
-	/**
-	 * Constructs a new DBConnection Object
-	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-		connection = new DBConnection();
+	public Messenger() {
+		
 	}
 	
-	/**
-	 * Tests that a new DBConnection Object is constructed
-	 */
-	@Test
-	public void testDBCConstructor() {
-		assertNotNull(connection);
+	public void printWelcomeScreen() {
+		System.out.println("Opal");
+		System.out.println("A secure password manager.\n\n");
+	}
+	
+	public void printUserPrompt() {
+		System.out.print("opal> ");
 	}
 }

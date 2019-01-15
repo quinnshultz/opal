@@ -16,9 +16,10 @@
 package test;
 
 import junit.framework.TestCase;
-import pwmgr.AccountDBLoader;
 
 import org.junit.Test;
+
+import com.billsbackyardbees.opal.util.AccountDBLoader;
 
 /**
  * Tests for password encryption

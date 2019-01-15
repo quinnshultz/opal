@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pwmgr;
+package test;
+
+import junit.framework.TestCase;
+
+import org.junit.Test;
+
+import com.billsbackyardbees.opal.util.Messenger;
 
 /**
- * Prints messages such as the menus and welcome screen.
+ * Tests the Messenger class
  * @author Quinn Shultz
- * 
  */
-public class Messenger {
+public class MessengerTest extends TestCase {
 
-	public Messenger() {
-		
+	@Test
+	public void test() {
+		fail("Not yet implemented");
 	}
-	
-	public void printWelcomeScreen() {
-		System.out.println("Opal");
-		System.out.println("A secure password manager.\n\n");
-	}
-	
-	public void printUserPrompt() {
-		System.out.print("opal> ");
-	}
+
 }

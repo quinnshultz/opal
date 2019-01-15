@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package database;
+package com.billsbackyardbees.opal.db;
 
 import java.sql.*;
 /**
@@ -32,7 +32,7 @@ public class DBConnection {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			// It is recommended that you at least change the MySQL password to maximize security
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "password");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 		
 		} catch (SQLException e) {
 			System.out.println(e);

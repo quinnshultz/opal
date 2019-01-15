@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pwmgr;
+package com.billsbackyardbees.opal.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
