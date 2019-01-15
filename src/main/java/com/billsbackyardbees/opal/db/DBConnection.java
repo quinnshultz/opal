@@ -15,7 +15,10 @@
  */
 package com.billsbackyardbees.opal.db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  * A MySQL Database connection.
  * 
@@ -30,7 +33,7 @@ public class DBConnection {
 	 */
 	public DBConnection() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			// It is recommended that you at least change the MySQL password to maximize security
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 		
@@ -48,10 +51,10 @@ public class DBConnection {
 	 * @param sqlStatement Statement to be executed
 	 * @return ResultSet returned by JDBC, if exception occurs returns null
 	 */
-	public ResultSet executeStatement(String sqlStatement) {
-		ResultSet rs;
+	public java.sql.ResultSet executeStatement(String sqlStatement) {
+		java.sql.ResultSet rs;
 		try {
-			Statement stmt = con.createStatement();
+			java.sql.Statement stmt = con.createStatement();
 			rs = stmt.executeQuery(sqlStatement);
 			return rs;
 		} catch (SQLException e) {

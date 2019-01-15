@@ -35,6 +35,7 @@ public class Opal {
 		connection = new DBConnection();
 		typewriter = new Messenger();
 		cmdPrompt = new Scanner(System.in);
+		userInput = "";
 		
 		// Print first user prompt
 		typewriter.printUserPrompt();

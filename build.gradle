@@ -32,3 +32,9 @@ dependencies {
 
 // tag::wrapper[]
 // end::wrapper[]
+
+// tag::run[]
+run {
+	standardInput = System.in
+}
+// end::run[]
