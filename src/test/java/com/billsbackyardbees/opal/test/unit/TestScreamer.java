@@ -19,25 +19,25 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.db.DBConnection;
+import com.billsbackyardbees.opal.util.Screamer;
 
-public class DBConnectionTest extends TestCase {
+/**
+ * Tests the Screamer class
+ * @author Quinn Shultz
+ */
+public class TestScreamer extends TestCase {
 	
-	private DBConnection connection;
+	Screamer printer;
 
-	/**
-	 * Constructs a new DBConnection Object
-	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		connection = new DBConnection();
+		
+		printer = new Screamer();
 	}
 	
-	/**
-	 * Tests that a new DBConnection Object is constructed
-	 */
 	@Test
-	public void testDBCConstructor() {
-		assertNotNull(connection);
+	public void testMConstructor() {
+		assertNotNull(printer);
 	}
+
 }

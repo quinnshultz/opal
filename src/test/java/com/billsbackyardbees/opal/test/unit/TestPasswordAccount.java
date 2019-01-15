@@ -19,14 +19,14 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.util.AccountDBLoader;
+import com.billsbackyardbees.opal.pgm.PasswordAccount;
 
 /**
  * Tests for password encryption
  * @author quinnshultz
  *
  */
-public class AccountDBLoaderTest extends TestCase {
+public class TestPasswordAccount extends TestCase {
 	
 	private final String EXAMPLE_ACCOUNT_URL = "https://accounts.spotify.com/en/login";
 	private final String EXAMPLE_ACCOUNT_NAME = "Spotify";
@@ -35,7 +35,7 @@ public class AccountDBLoaderTest extends TestCase {
 	private final String EXAMPLE_ENCRYPTION_KEY = "ABCDEFGHIJKLMNOP";
 	private final String EXAMPLE_NOTES = "My favorite streaming service!";
 	
-	private AccountDBLoader encrypter;
+	private PasswordAccount encrypter;
 
 	/**
 	 * Constructs a new AccountDBLoader Object
@@ -43,7 +43,7 @@ public class AccountDBLoaderTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		encrypter = new AccountDBLoader();
+		encrypter = new PasswordAccount();
 	}
 	
 	/**

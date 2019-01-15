@@ -19,25 +19,17 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.util.Messenger;
+import com.billsbackyardbees.opal.util.NotePasser;
 
-/**
- * Tests the Messenger class
- * @author Quinn Shultz
- */
-public class MessengerTest extends TestCase {
+public class TestNotePasser extends TestCase {
 	
-	Messenger printer;
+	// TODO: Add NotePasser variable
 
+	/**
+	 *
+	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		
-		printer = new Messenger();
-	}
-	
-	@Test
-	public void testMConstructor() {
-		assertNotNull(printer);
 	}
 
 }
