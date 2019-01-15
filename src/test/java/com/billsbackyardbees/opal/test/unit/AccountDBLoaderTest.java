@@ -26,7 +26,7 @@ import com.billsbackyardbees.opal.util.AccountDBLoader;
  * @author quinnshultz
  *
  */
-public class AccountLoaderTest extends TestCase {
+public class AccountDBLoaderTest extends TestCase {
 	
 	private final String EXAMPLE_ACCOUNT_URL = "https://accounts.spotify.com/en/login";
 	private final String EXAMPLE_ACCOUNT_NAME = "Spotify";
