@@ -34,23 +34,21 @@ public class PasswordAccount implements PasswordManagerStorable {
 	private String name;				// Name for the account
 	private String username;			// Account username credential
 	private String encryptedPassword;
-	private String encryptionKey;
 	private String notes;
 	
-	private String opalName;			// Opal username
+	private int opalUser;				// Opal user account
 	private String characterEncoding;
 	private String cipherTransformation;
 	private String aesEncryptionAlgorithm;
-	
-	private boolean inDatabase;
-	private boolean updatedSinceSync;
+
+	private boolean modifiedFromDB;
 	
 	/**
 	 * Create a new credential account, may then be populated with a stored account from the database,
 	 * or completed with new information and stored to the database.
 	 */
 	public PasswordAccount() {
-		inDatabase = false;
+		
 	}
 	
 	/**
@@ -59,44 +57,19 @@ public class PasswordAccount implements PasswordManagerStorable {
 	 * @param accountID ID number corresponding to stored account in table: username_accounts
 	 */
 	public void retrieveFromDB(int accountID) {
-		inDatabase = true;
+		
 	}
 	
 	/**
 	 * Encrypt and save a password to this account.
 	 * 
 	 * @param password Desired password
-	 * @param key Encryption key
+	 * @param privateKey Encryption key
 	 */
-	public void storePassword(String password, String specifiedKey) {
-		encryptionKey = specifiedKey;
+	public void storePassword(String password, String privateKey) {
 		try {
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			byte[] key = encryptionKey.getBytes(characterEncoding);
-			SecretKeySpec secretKey = new SecretKeySpec(key, aesEncryptionAlgorithm);
-			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
-			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivparameterspec);
-			byte[] cipherText = cipher.doFinal(password.getBytes("UTF8"));
-			Base64.Encoder encoder = Base64.getEncoder();
-			encryptedPassword = encoder.encodeToString(cipherText);
-			
-		} catch (Exception e) {
-			System.err.println("Encrypt Exception : " + e.getMessage());
-		}
-	}
-	
-	/**
-	 * Encrypt and save a password to this account.
-	 * 
-	 * @param password Desired password
-	 */
-	public void storePassword(String password) {
-		if (encryptionKey.isEmpty()) {
-			encryptionKey = "ABCDEFGHIJKLMNOP";
-		}
-		try {
-			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			byte[] key = encryptionKey.getBytes(characterEncoding);
+			byte[] key = privateKey.getBytes(characterEncoding);
 			SecretKeySpec secretKey = new SecretKeySpec(key, aesEncryptionAlgorithm);
 			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivparameterspec);
@@ -112,13 +85,14 @@ public class PasswordAccount implements PasswordManagerStorable {
 	/**
 	 * Convert this account's password back to plain text and return.
 	 * 
+	 * @param privateKey Encryption key
 	 * @return Plain text password
 	 */
-	public String retrievePassword() {
+	public String retrievePassword(String privateKey) {
 		String decryptedText = "";
 		try {
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			byte[] key = encryptionKey.getBytes(characterEncoding);
+			byte[] key = privateKey.getBytes(characterEncoding);
 			SecretKeySpec secretKey = new SecretKeySpec(key, aesEncryptionAlgorithm);
 			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
 			cipher.init(Cipher.DECRYPT_MODE, secretKey, ivparameterspec);
@@ -188,20 +162,6 @@ public class PasswordAccount implements PasswordManagerStorable {
 	public String getEncryptedPassword() {
 		return encryptedPassword;
 	}
-	
-	/**
-	 * @return the encryption key
-	 */
-	public String getEncryptionKey() {
-		return encryptionKey;
-	}
-
-	/**
-	 * @param key the encryption key to set
-	 */
-	public void setEncryptionKey(String key) {
-		this.encryptionKey = key;
-	}
 
 	/**
 	 * @return the notes
@@ -220,15 +180,15 @@ public class PasswordAccount implements PasswordManagerStorable {
 	/**
 	 * @return the opal account name this belongs to
 	 */
-	public String getOpalName() {
-		return notes;
+	public int getOpalName() {
+		return opalUser;
 	}
 
 	/**
 	 * @param opalname the opal account these stored credentials belong to
 	 */
-	public void setOpalName(String opalname) {
-		this.opalName = opalname;
+	public void setOpalName(int opalname) {
+		this.opalUser = opalname;
 	}
 
 }
