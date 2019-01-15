@@ -23,13 +23,76 @@ import com.billsbackyardbees.opal.pgm.SecretNote;
 
 public class TestSecretNote extends TestCase {
 	
-	// TODO: Add SecretNote variable
+	private final String EXAMPLE_NOTE_NAME = "Shopping List";
+	private final String EXAMPLE_NOTES = "Eggs\nFlour\nSugar\nMilk";
+	private final String EXAMPLE_CHARACTER_ENCODING = "UTF-8";
+	private final String EXAMPLE_CIPHER_TRANSFORMATION = "AES/CBC/PKCS5PADDING";
+	private final String EXAMPLE_AES_ENCRYPTION_ALGORITHM = "AES";
+	
+	public SecretNote codedMessage;
 
 	/**
-	 *
+	 * Constructs a new SecretNote Object
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
+		codedMessage = new SecretNote();
+	}
+	
+	/**
+	 * Tests that a new SecretNote was constructed without error
+	 */
+	@Test
+	public void testConstructor() {
+		assertNotNull(codedMessage);
+	}
+
+	/**
+	 * Tests the getId() method
+	 */
+	@Test
+	public void testGetId() {
+		try {
+			assertEquals(codedMessage.getId(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getId()");
+		}
+	}
+	
+	/**
+	 * Tests the setName() method
+	 */
+	@Test
+	public void testSetName() {
+		try {
+			codedMessage.setName(EXAMPLE_NOTE_NAME);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setName()");
+		}
+	}
+	
+	/**
+	 * Tests the getName() method
+	 */
+	@Test
+	public void testGetName() {
+		try {
+			assertEquals(codedMessage.getName(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getName()");
+		}
+	}
+	
+	/**
+	 * Tests that the account name can be retrieved after it is set
+	 */
+	@Test
+	public void testGetNameAfterSetName() {
+		codedMessage.setName(EXAMPLE_NOTE_NAME);
+		assertEquals(codedMessage.getName(), EXAMPLE_NOTE_NAME);
 	}
 
 }

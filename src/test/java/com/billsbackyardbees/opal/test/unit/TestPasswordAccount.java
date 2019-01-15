@@ -22,18 +22,19 @@ import org.junit.Test;
 import com.billsbackyardbees.opal.pgm.PasswordAccount;
 
 /**
- * Tests for password encryption
- * @author quinnshultz
- *
+ * Tests class PasswordAccount
+ * @author Quinn Shultz
  */
 public class TestPasswordAccount extends TestCase {
 	
 	private final String EXAMPLE_ACCOUNT_URL = "https://accounts.spotify.com/en/login";
 	private final String EXAMPLE_ACCOUNT_NAME = "Spotify";
 	private final String EXAMPLE_USERNAME = "johndoe";
-	private final String EXAMPLE_ORIGINAL_PASSWORD = "Uu%W@7Z2iaWa5@q7";
-	private final String EXAMPLE_ENCRYPTION_KEY = "ABCDEFGHIJKLMNOP";
+	private final String EXAMPLE_PASSWORD = "Uu%W@7Z2iaWa5@q7";
 	private final String EXAMPLE_NOTES = "My favorite streaming service!";
+	private final String EXAMPLE_CHARACTER_ENCODING = "UTF-8";
+	private final String EXAMPLE_CIPHER_TRANSFORMATION = "AES/CBC/PKCS5PADDING";
+	private final String EXAMPLE_AES_ENCRYPTION_ALGORITHM = "AES";
 	
 	private PasswordAccount encrypter;
 
@@ -42,7 +43,6 @@ public class TestPasswordAccount extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		
 		encrypter = new PasswordAccount();
 	}
 	
@@ -50,69 +50,161 @@ public class TestPasswordAccount extends TestCase {
 	 * Tests that a new AccountDBLoader Object may be constructed without error
 	 */
 	@Test
-	public void testADBLConstructor() {
+	public void testConstructor() {
 		assertNotNull(encrypter);
+	}
+	
+	/**
+	 * Tests the getId() method
+	 */
+	@Test
+	public void testGetId() {
+		try {
+			assertEquals(encrypter.getId(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getId()");
+		}
+	}
+	
+	/**
+	 * Tests the setUrl() method
+	 */
+	@Test
+	public void testSetUrl() {
+		try {
+			encrypter.setUrl(EXAMPLE_ACCOUNT_URL);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setUrl()");
+		}
+	}
+	
+	/**
+	 * Tests the getUrl() method
+	 */
+	@Test
+	public void testGetUrl() {
+		try {
+			assertEquals(encrypter.getUrl(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getUrl()");
+		}
 	}
 	
 	/**
 	 * Tests that the URL can be retrieved after it is set
 	 */
 	@Test
-	public void testUrl() {
+	public void testGetUrlAfterSetUrl() {
 		encrypter.setUrl(EXAMPLE_ACCOUNT_URL);
 		assertEquals(encrypter.getUrl(), EXAMPLE_ACCOUNT_URL);
+	}
+	
+	/**
+	 * Tests the setName() method
+	 */
+	@Test
+	public void testSetName() {
+		try {
+			encrypter.setName(EXAMPLE_ACCOUNT_NAME);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setName()");
+		}
+	}
+	
+	/**
+	 * Tests the getName() method
+	 */
+	@Test
+	public void testGetName() {
+		try {
+			assertEquals(encrypter.getName(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getName()");
+		}
 	}
 	
 	/**
 	 * Tests that the account name can be retrieved after it is set
 	 */
 	@Test
-	public void testName() {
+	public void testGetNameAfterSetName() {
 		encrypter.setName(EXAMPLE_ACCOUNT_NAME);
 		assertEquals(encrypter.getName(), EXAMPLE_ACCOUNT_NAME);
+	}
+	
+	/**
+	 * Tests the setUsername() method
+	 */
+	@Test
+	public void testSetUsername() {
+		try {
+			encrypter.setUsername(EXAMPLE_USERNAME);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setUsername()");
+		}
+	}
+	
+	/**
+	 * Tests the getUsername() method
+	 */
+	@Test
+	public void testGetUsername() {
+		try {
+			assertEquals(encrypter.getUsername(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getUsername()");
+		}
 	}
 	
 	/**
 	 * Tests that the username can be retrieved after it is set
 	 */
 	@Test
-	public void testUsername() {
+	public void testGetUsernameAfterSetUsername() {
 		encrypter.setUsername(EXAMPLE_USERNAME);
 		assertEquals(encrypter.getUsername(), EXAMPLE_USERNAME);
 	}
 	
+	// TODO: Add password method tests
+	
 	/**
-	 * Tests that the password can be retrieved after it is set
+	 * Tests the setNotes() method
 	 */
 	@Test
-	public void testPassword() {
-		encrypter.storePassword(EXAMPLE_ORIGINAL_PASSWORD);
-		assertEquals(encrypter.retrievePassword(), EXAMPLE_ORIGINAL_PASSWORD);
+	public void testSetNotes() {
+		try {
+			encrypter.setNotes(EXAMPLE_NOTES);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setNotes()");
+		}
 	}
 	
 	/**
-	 * Tests that the password is encrypted when it is set
+	 * Tests the getNotes() method
 	 */
 	@Test
-	public void testEncryption() {
-		encrypter.storePassword(EXAMPLE_ORIGINAL_PASSWORD);
-		assertNotSame(encrypter.getEncryptedPassword(), EXAMPLE_ORIGINAL_PASSWORD);
-	}
-	
-	/**
-	 * Tests that the encryption key can be retrieved after it is set
-	 */
-	@Test
-	public void testEncryptionKey() {
-		encrypter.setEncryptionKey(EXAMPLE_ENCRYPTION_KEY);
-		assertEquals(encrypter.getEncryptionKey(), EXAMPLE_ENCRYPTION_KEY);
+	public void testGetNotes() {
+		try {
+			assertEquals(encrypter.getNotes(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getUsername()");
+		}
 	}
 	
 	/**
 	 * Tests that notes may be retrieved after they are set
 	 */
 	@Test
-	public void testNotes() {
+	public void testGetNotesAfterSetNotes() {
 		encrypter.setNotes(EXAMPLE_NOTES);
 		assertEquals(encrypter.getNotes(), EXAMPLE_NOTES);
 	}
