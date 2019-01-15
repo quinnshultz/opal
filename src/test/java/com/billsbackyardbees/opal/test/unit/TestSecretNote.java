@@ -94,5 +94,33 @@ public class TestSecretNote extends TestCase {
 		codedMessage.setName(EXAMPLE_NOTE_NAME);
 		assertEquals(codedMessage.getName(), EXAMPLE_NOTE_NAME);
 	}
+	
+	// TODO: Add note method tests
+	
+	/**
+	 * Tests the setCharacterEncoding method
+	 */
+	@Test
+	public void testSetCharacterEncoding() {
+		try {
+			codedMessage.setCharacterEncoding(EXAMPLE_CHARACTER_ENCODING);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setCharacterEncoding()");
+		}
+	}
+	
+	/**
+	 * Tests the getCharacterEncoding() method
+	 */
+	@Test
+	public void testGetCharacterEncoding() {
+		try {
+			assertEquals(codedMessage.getCharacterEncoding(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getCharacterEncoding()");
+		}
+	}
 
 }

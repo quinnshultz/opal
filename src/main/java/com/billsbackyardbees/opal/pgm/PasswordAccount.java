@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.util;
+package com.billsbackyardbees.opal.pgm;
 
 import java.util.Base64;
 
@@ -27,7 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Quinn Shultz
  *
  */
-public class AccountDBLoader {
+public class PasswordAccount implements PasswordManagerStorable {
 	
 	private int id;
 	private String url;
@@ -49,7 +49,7 @@ public class AccountDBLoader {
 	 * Create a new credential account, may then be populated with a stored account from the database,
 	 * or completed with new information and stored to the database.
 	 */
-	public AccountDBLoader() {
+	public PasswordAccount() {
 		inDatabase = false;
 	}
 	
@@ -135,6 +135,7 @@ public class AccountDBLoader {
 	/**
 	 * @return the id
 	 */
+	@Override
 	public int getId() {
 		return id;
 	}

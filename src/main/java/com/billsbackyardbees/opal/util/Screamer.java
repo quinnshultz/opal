@@ -20,9 +20,9 @@ package com.billsbackyardbees.opal.util;
  * @author Quinn Shultz
  * 
  */
-public class Messenger {
+public class Screamer {
 
-	public Messenger() {
+	public Screamer() {
 		
 	}
 	

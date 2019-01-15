@@ -19,21 +19,21 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import com.billsbackyardbees.opal.db.DBConnection;
-import com.billsbackyardbees.opal.util.Messenger;
+import com.billsbackyardbees.opal.db.DatabaseDriver;
+import com.billsbackyardbees.opal.util.Screamer;
 
 public class Opal {
 	
-	private static DBConnection connection;
+	private static DatabaseDriver connection;
 	private static ResultSet rs;
-	private static Messenger typewriter;
+	private static Screamer typewriter;
 	private static Scanner cmdPrompt;
 	private static String userInput;
 
 	public static void main(String[] args) {
 		// Initialize variables
-		connection = new DBConnection();
-		typewriter = new Messenger();
+		connection = new DatabaseDriver();
+		typewriter = new Screamer();
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
 		

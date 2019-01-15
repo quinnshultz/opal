@@ -24,18 +24,21 @@ import java.sql.SQLException;
  * 
  * @author Quinn Shultz
  */
-public class DBConnection {
+public class DatabaseDriver {
 	
-	private Connection con;
-	
+	private Connection conn;
+	private StringBuilder queryBuilder[];
+	private final int QUERY_BUILDER_ARRAY_BOUNDS = 3;
+
 	/**
 	 * Create a new database connection
 	 */
-	public DBConnection() {
+	public DatabaseDriver() {
+		queryBuilder = new StringBuilder[QUERY_BUILDER_ARRAY_BOUNDS];
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			// It is recommended that you at least change the MySQL password to maximize security
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 		
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -54,7 +57,7 @@ public class DBConnection {
 	public java.sql.ResultSet executeStatement(String sqlStatement) {
 		java.sql.ResultSet rs;
 		try {
-			java.sql.Statement stmt = con.createStatement();
+			java.sql.Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sqlStatement);
 			return rs;
 		} catch (SQLException e) {
@@ -68,7 +71,7 @@ public class DBConnection {
 	 */
 	public void closeConnection() {
 		try {
-			con.close();
+			conn.close();
 			
 		} catch (SQLException e) {
 			System.out.println(e);
