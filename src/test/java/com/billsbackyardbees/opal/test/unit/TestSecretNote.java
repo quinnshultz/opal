@@ -29,7 +29,7 @@ public class TestSecretNote extends TestCase {
 	private final String EXAMPLE_CIPHER_TRANSFORMATION = "AES/CBC/PKCS5PADDING";
 	private final String EXAMPLE_AES_ENCRYPTION_ALGORITHM = "AES";
 	
-	public SecretNote codedMessage;
+	private SecretNote codedMessage;
 
 	/**
 	 * Constructs a new SecretNote Object
