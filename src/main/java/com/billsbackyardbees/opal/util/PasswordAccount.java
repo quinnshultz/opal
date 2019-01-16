@@ -51,7 +51,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @return the id
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	@Override
 	public int getId() {
@@ -74,15 +74,17 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @return the name
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 		modifiedFromDB = true;
@@ -134,79 +136,87 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @return the opal account name this belongs to
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	public int getOpalName() {
+	@Override
+	public int getOpalUser() {
 		return opalUser;
 	}
 
 	/**
-	 * @param opalname the opal account these stored credentials belong to
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	public void setOpalName(int opalname) {
+	@Override
+	public void setOpalUser(int opalname) {
 		this.opalUser = opalname;
 		modifiedFromDB = true;
 	}
 
 	/**
-	 * @return the characterEncoding
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getCharacterEncoding() {
 		return characterEncoding;
 	}
 
 	/**
-	 * @param characterEncoding the characterEncoding to set
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setCharacterEncoding(String characterEncoding) {
 		this.characterEncoding = characterEncoding;
 		modifiedFromDB = true;
 	}
 
 	/**
-	 * @return the cipherTransformation
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getCipherTransformation() {
 		return cipherTransformation;
 	}
 
 	/**
-	 * @param cipherTransformation the cipherTransformation to set
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setCipherTransformation(String cipherTransformation) {
 		this.cipherTransformation = cipherTransformation;
 		modifiedFromDB = true;
 	}
 
 	/**
-	 * @return the aesEncryptionAlgorithm
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getAesEncryptionAlgorithm() {
 		return aesEncryptionAlgorithm;
 	}
 
 	/**
-	 * @param aesEncryptionAlgorithm the aesEncryptionAlgorithm to set
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
 		this.aesEncryptionAlgorithm = aesEncryptionAlgorithm;
 		modifiedFromDB = true;
 	}
 
 	/**
-	 * @return the modifiedFromDB
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public boolean isModifiedFromDB() {
 		return modifiedFromDB;
 	}
-
+	
 	/**
-	 * @param modifiedFromDB the modifiedFromDB to set
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	public void setModifiedFromDB(boolean modifiedFromDB) {
-		this.modifiedFromDB = modifiedFromDB;
+	@Override
+	public void setModifiedFromDB(boolean modified) {
+		this.modifiedFromDB = modified;
 	}
-	
-	
 
 }

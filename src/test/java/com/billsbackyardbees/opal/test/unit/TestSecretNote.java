@@ -53,7 +53,7 @@ public class TestSecretNote extends TestCase {
 	@Test
 	public void testGetId() {
 		try {
-			assertEquals(codedMessage.getId(), null);
+			assertEquals(codedMessage.getId(), -1);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing getId()");
@@ -149,7 +149,7 @@ public class TestSecretNote extends TestCase {
 	@Test
 	public void testGetCharacterEncoding() {
 		try {
-			assertEquals(codedMessage.getCharacterEncoding(), null);
+			assertEquals(codedMessage.getCharacterEncoding(), "UTF-8");
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing getCharacterEncoding()");

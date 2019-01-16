@@ -30,4 +30,85 @@ public interface OpalDataType {
 	 */
 	public int getId();
 	
+	/**
+	 * Sets the name of this Object, corresponding to a column entry in the database.
+	 * 
+	 * @param name Name of this Object
+	 */
+	public void setName(String name);
+	
+	/**
+	 * Gets the name of this Object, corresponding to a column entry in the database.
+	 * 
+	 * @return Name of this Object
+	 */
+	public String getName();
+	
+	/**
+	 * Sets the owner of this Object, corresponding to the primary key of a tuple in
+	 * the opalUsers table.
+	 * 
+	 * @param opalUser Integer id and primary key of account tuple in opalUsers
+	 */
+	public void setOpalUser(int opalUser);
+	
+	/**
+	 * Gets the owner of this Object, corresponding to the primary key of a tuple in
+	 * the opalUsers table.
+	 * 
+	 * @return Integer id and primary key of account tuple in opalUsers
+	 */
+	public int getOpalUser();
+	
+	/**
+	 * Sets the character encoding for the encrypted String, by default this is set as
+	 * UTF-8 when a new Object is constructed.
+	 * 
+	 * @param characterEncoding
+	 */
+	public void setCharacterEncoding(String characterEncoding);
+	
+	/**
+	 * Sets the character encoding for the encrypted String, by default this is set as
+	 * UTF-8 when a new Object is constructed.
+	 * 
+	 * @return
+	 */
+	public String getCharacterEncoding();
+	
+	/**
+	 * 
+	 * @param cipherTransformation
+	 */
+	public void setCipherTransformation(String cipherTransformation);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getCipherTransformation();
+	
+	/**
+	 * 
+	 * @param AesEncryptionAlgorithm
+	 */
+	public void setAesEncryptionAlgorithm(String AesEncryptionAlgorithm);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getAesEncryptionAlgorithm();
+	
+	/**
+	 * 
+	 * @return true if Object parameters have changed since being stored as a tuple, false otherwise
+	 */
+	public boolean isModifiedFromDB();
+	
+	/**
+	 * 
+	 * @param modifed true if Object parameters have changed since being stored as a tuple, false otherwise
+	 */
+	public void setModifiedFromDB(boolean modifed);
 }
