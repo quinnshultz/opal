@@ -26,13 +26,13 @@ public abstract class OpalUser {
 	/**
 	 * @return the userName
 	 */
-	public String getUserName() {
+	public String getUsername() {
 		return userName;
 	}
 	/**
 	 * @param userName the userName to set
 	 */
-	public void setUserName(String userName) {
+	public void setUsername(String userName) {
 		this.userName = userName;
 	}
 	/**
