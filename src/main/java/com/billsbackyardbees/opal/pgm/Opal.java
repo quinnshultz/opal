@@ -23,8 +23,7 @@ import com.billsbackyardbees.opal.db.DatabaseDriver;
 import com.billsbackyardbees.opal.util.Screamer;
 
 public class Opal {
-	
-	private static DatabaseDriver connection;
+
 	private static ResultSet rs;
 	private static Screamer typewriter;
 	private static Scanner cmdPrompt;
@@ -32,7 +31,6 @@ public class Opal {
 
 	public static void main(String[] args) {
 		// Initialize variables
-		connection = new DatabaseDriver();
 		typewriter = new Screamer();
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
