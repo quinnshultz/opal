@@ -5,15 +5,18 @@ package com.billsbackyardbees.opal.util;
  * @author Quinn Shultz
  *
  */
-public abstract class OpalUser {
+public class OpalUser {
 	
 	private int id;
 	private String userName;
 	private String fullName;
 	private String publicKey;
 	
+	/**
+	 * Create an user of this program
+	 */
 	public OpalUser() {
-		
+		id = -1;
 	}
 	
 	/**
@@ -47,6 +50,21 @@ public abstract class OpalUser {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+	/**
+	 * @return the publicKey
+	 */
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	/**
+	 * @param publicKey the publicKey to set
+	 */
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
+	
 	
 
 }

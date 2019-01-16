@@ -51,7 +51,7 @@ public class TestOpalUser extends TestCase {
 	@Test
 	public void testGetId() {
 		try {
-			assertEquals(opalUser.getId(), null);
+			assertEquals(opalUser.getId(), -1);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing getId()");
