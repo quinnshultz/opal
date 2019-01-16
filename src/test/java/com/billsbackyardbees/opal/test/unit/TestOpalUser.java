@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.pgm.OpalUser;
+import com.billsbackyardbees.opal.util.OpalUser;
 
 public class TestOpalUser extends TestCase {
 	

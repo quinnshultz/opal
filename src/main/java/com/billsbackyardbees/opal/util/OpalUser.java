@@ -1,4 +1,4 @@
-package com.billsbackyardbees.opal.pgm;
+package com.billsbackyardbees.opal.util;
 
 /**
  * An user of this program.

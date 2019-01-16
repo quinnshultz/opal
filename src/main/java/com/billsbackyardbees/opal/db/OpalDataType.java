@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit;
+package com.billsbackyardbees.opal.db;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
-import com.billsbackyardbees.opal.util.NotePasser;
-
-public class TestNotePasser extends TestCase {
-	
-	// TODO: Add NotePasser variable
+/**
+ * Defines an Object type that is perfectly compatible with the Opal database tables.
+ * @author Quinn Shultz
+ */
+public interface OpalDataType {
 
 	/**
-	 *
+	 * All classes that implement this interface are Objects that correspond to tuples
+	 * in the RDBMS. The id is the primary key of all tables. It has option auto increment
+	 * so there will not be a java method to set the id.
+	 * 
+	 * @return id and primary key of tuple
 	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
-
+	public int getId();
+	
 }

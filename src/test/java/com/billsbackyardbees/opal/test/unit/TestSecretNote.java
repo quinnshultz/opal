@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.pgm.SecretNote;
+import com.billsbackyardbees.opal.util.SecretNote;
 
 public class TestSecretNote extends TestCase {
 	

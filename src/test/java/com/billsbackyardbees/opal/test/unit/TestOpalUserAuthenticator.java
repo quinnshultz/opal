@@ -21,6 +21,10 @@ import org.junit.Test;
 
 import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
 
+/**
+ * Tests the OpalUserAuthenticator class
+ * @author Quinn Shultz
+ */
 public class TestOpalUserAuthenticator extends TestCase {
 	
 	// TODO: Add OpalUserAuthenticator variable

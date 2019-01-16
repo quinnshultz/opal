@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.pgm;
+package com.billsbackyardbees.opal.util;
 
 import java.util.Base64;
 
@@ -21,13 +21,15 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.billsbackyardbees.opal.db.OpalDataType;
+
 /**
  * Best to think of this as a java password or account object that corresponds or will correspond
  * to a tuple in the account database.
  * @author Quinn Shultz
  *
  */
-public class PasswordAccount implements PasswordManagerStorable {
+public class PasswordAccount implements OpalDataType {
 	
 	private int id;
 	private String url;
@@ -58,52 +60,6 @@ public class PasswordAccount implements PasswordManagerStorable {
 	 */
 	public void retrieveFromDB(int accountID) {
 		
-	}
-	
-	/**
-	 * Encrypt and save a password to this account.
-	 * 
-	 * @param password Desired password
-	 * @param privateKey Encryption key
-	 */
-	public void storePassword(String password, String privateKey) {
-		try {
-			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			byte[] key = privateKey.getBytes(characterEncoding);
-			SecretKeySpec secretKey = new SecretKeySpec(key, aesEncryptionAlgorithm);
-			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
-			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivparameterspec);
-			byte[] cipherText = cipher.doFinal(password.getBytes("UTF8"));
-			Base64.Encoder encoder = Base64.getEncoder();
-			encryptedPassword = encoder.encodeToString(cipherText);
-			
-		} catch (Exception e) {
-			System.err.println("Encrypt Exception : " + e.getMessage());
-		}
-	}
-	
-	/**
-	 * Convert this account's password back to plain text and return.
-	 * 
-	 * @param privateKey Encryption key
-	 * @return Plain text password
-	 */
-	public String retrievePassword(String privateKey) {
-		String decryptedText = "";
-		try {
-			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			byte[] key = privateKey.getBytes(characterEncoding);
-			SecretKeySpec secretKey = new SecretKeySpec(key, aesEncryptionAlgorithm);
-			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
-			cipher.init(Cipher.DECRYPT_MODE, secretKey, ivparameterspec);
-			Base64.Decoder decoder = Base64.getDecoder();
-			byte[] cipherText = decoder.decode(encryptedPassword.getBytes("UTF8"));
-			decryptedText = new String(cipher.doFinal(cipherText), "UTF-8");
-			
-		} catch (Exception e) {
-			System.err.println("decrypt Exception : " + e.getMessage());
-		}
-		return decryptedText;
 	}
 
 	/**

@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.pgm;
+package com.billsbackyardbees.opal.test.unit;
 
-/**
- * Defines an Object type that is perfectly compatible with the Opal database tables.
- * @author Quinn Shultz
- */
-public interface PasswordManagerStorable {
+import junit.framework.TestCase;
+
+import org.junit.Test;
+
+import com.billsbackyardbees.opal.util.DataLoader;
+
+public class TestDataLoader extends TestCase {
+	
+	// TODO: Add PasswordAccountLoader variable
 
 	/**
-	 * All classes that implement this interface are Objects that correspond to tuples
-	 * in the RDBMS. The id is the primary key of all tables. It has option auto increment
-	 * so there will not be a java method to set the id.
-	 * 
-	 * @return id and primary key of tuple
+	 *
 	 */
-	public int getId();
-	
+	protected void setUp() throws Exception {
+		super.setUp();
+	}
+
 }

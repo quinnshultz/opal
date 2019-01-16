@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.pgm.PasswordAccount;
+import com.billsbackyardbees.opal.util.PasswordAccount;
 
 /**
  * Tests class PasswordAccount
