@@ -15,12 +15,6 @@
  */
 package com.billsbackyardbees.opal.util;
 
-import java.util.Base64;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
 import com.billsbackyardbees.opal.db.OpalDataType;
 
 /**
@@ -50,16 +44,10 @@ public class PasswordAccount implements OpalDataType {
 	 * or completed with new information and stored to the database.
 	 */
 	public PasswordAccount() {
-		
-	}
-	
-	/**
-	 * Sets instance variables equal to specified account in database
-	 * 
-	 * @param accountID ID number corresponding to stored account in table: username_accounts
-	 */
-	public void retrieveFromDB(int accountID) {
-		
+		id = -1;
+		characterEncoding = "UTF-8";
+		cipherTransformation = "AES/CBC/PKCS5PADDING";
+		aesEncryptionAlgorithm = "AES";
 	}
 
 	/**
@@ -82,6 +70,7 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+		modifiedFromDB = true;
 	}
 
 	/**
@@ -96,6 +85,7 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setName(String name) {
 		this.name = name;
+		modifiedFromDB = true;
 	}
 
 	/**
@@ -110,13 +100,22 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setUsername(String username) {
 		this.username = username;
+		modifiedFromDB = true;
 	}
 	
 	/**
 	 * @return the encrypted password
 	 */
-	public String getEncryptedPassword() {
+	public String getPassword() {
 		return encryptedPassword;
+	}
+	
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.encryptedPassword = password;
+		modifiedFromDB = true;
 	}
 
 	/**
@@ -131,6 +130,7 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setNotes(String notes) {
 		this.notes = notes;
+		modifiedFromDB = true;
 	}
 	
 	/**
@@ -145,6 +145,68 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setOpalName(int opalname) {
 		this.opalUser = opalname;
+		modifiedFromDB = true;
 	}
+
+	/**
+	 * @return the characterEncoding
+	 */
+	public String getCharacterEncoding() {
+		return characterEncoding;
+	}
+
+	/**
+	 * @param characterEncoding the characterEncoding to set
+	 */
+	public void setCharacterEncoding(String characterEncoding) {
+		this.characterEncoding = characterEncoding;
+		modifiedFromDB = true;
+	}
+
+	/**
+	 * @return the cipherTransformation
+	 */
+	public String getCipherTransformation() {
+		return cipherTransformation;
+	}
+
+	/**
+	 * @param cipherTransformation the cipherTransformation to set
+	 */
+	public void setCipherTransformation(String cipherTransformation) {
+		this.cipherTransformation = cipherTransformation;
+		modifiedFromDB = true;
+	}
+
+	/**
+	 * @return the aesEncryptionAlgorithm
+	 */
+	public String getAesEncryptionAlgorithm() {
+		return aesEncryptionAlgorithm;
+	}
+
+	/**
+	 * @param aesEncryptionAlgorithm the aesEncryptionAlgorithm to set
+	 */
+	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
+		this.aesEncryptionAlgorithm = aesEncryptionAlgorithm;
+		modifiedFromDB = true;
+	}
+
+	/**
+	 * @return the modifiedFromDB
+	 */
+	public boolean isModifiedFromDB() {
+		return modifiedFromDB;
+	}
+
+	/**
+	 * @param modifiedFromDB the modifiedFromDB to set
+	 */
+	public void setModifiedFromDB(boolean modifiedFromDB) {
+		this.modifiedFromDB = modifiedFromDB;
+	}
+	
+	
 
 }
