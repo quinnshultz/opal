@@ -95,7 +95,40 @@ public class TestSecretNote extends TestCase {
 		assertEquals(codedMessage.getName(), EXAMPLE_NOTE_NAME);
 	}
 	
-	// TODO: Add note method tests
+	/**
+	 * Tests the setNotes() method
+	 */
+	@Test
+	public void testSetPassword() {
+		try {
+			codedMessage.setNotes(EXAMPLE_NOTES);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setNotes()");
+		}
+	}
+	
+	/**
+	 * Tests the getNotes() method
+	 */
+	@Test
+	public void testGetNotes() {
+		try {
+			assertEquals(codedMessage.getNotes(), null);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getNotes()");
+		}
+	}
+	
+	/**
+	 * Tests that notes may be retrieved after it is set
+	 */
+	@Test
+	public void testGetNotesAfterSetNotes() {
+		codedMessage.setNotes(EXAMPLE_NOTES);
+		assertEquals(codedMessage.getNotes(), EXAMPLE_NOTES);
+	}
 	
 	/**
 	 * Tests the setCharacterEncoding method
@@ -120,6 +153,58 @@ public class TestSecretNote extends TestCase {
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing getCharacterEncoding()");
+		}
+	}
+	
+	/**
+	 * Tests the setCipherTransformation() method
+	 */
+	@Test
+	public void testSetCipherTransformation() {
+		try {
+			codedMessage.setCipherTransformation(EXAMPLE_CIPHER_TRANSFORMATION);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setCipherTransformation()");
+		}
+	}
+	
+	/**
+	 * Tests the getCipherTransformation() method
+	 */
+	@Test
+	public void testGetCipherTransformation() {
+		try {
+			assertEquals(codedMessage.getCipherTransformation(), "AES/CBC/PKCS5PADDING");
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getCipherTransformation()");
+		}
+	}
+	
+	/**
+	 * Tests the setAesEncryptionAlgorithm() method
+	 */
+	@Test
+	public void testSetAesEncryptionAlgorithm() {
+		try {
+			codedMessage.setAesEncryptionAlgorithm(EXAMPLE_AES_ENCRYPTION_ALGORITHM);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setAesEncryptionAlgorithm()");
+		}
+	}
+	
+	/**
+	 * Tests the getAesEncryptionAlgorithm() method
+	 */
+	@Test
+	public void testGetAesEncryptionAlgorithm() {
+		try {
+			assertEquals(codedMessage.getAesEncryptionAlgorithm(), "AES");
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getAesEncryptionAlgorithm()");
 		}
 	}
 
