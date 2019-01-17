@@ -27,13 +27,22 @@ import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
  */
 public class TestOpalUserAuthenticator extends TestCase {
 	
-	// TODO: Add OpalUserAuthenticator variable
+	private OpalUserAuthenticator opalUserAuthy;
 
 	/**
-	 *
+	 * Constructs a new OpalUserAuthenticator Object
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
+		opalUserAuthy = new OpalUserAuthenticator(0);
+	}
+	
+	/**
+	 * Tests that a new OpalUserAuthenticator Object is constructed
+	 */
+	@Test
+	public void testConstructor() {
+		assertNotNull(opalUserAuthy);
 	}
 
 }

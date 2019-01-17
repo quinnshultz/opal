@@ -20,16 +20,30 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.billsbackyardbees.opal.util.DataLoader;
+import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
 
+/**
+ * Tests the DataLoader class
+ * @author Quinn Shultz
+ */
 public class TestDataLoader extends TestCase {
 	
-	// TODO: Add PasswordAccountLoader variable
+	private DataLoader opalDataLoader;
 
 	/**
-	 *
+	 * Constructs a new DataLoader Object
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
+		opalDataLoader = new DataLoader(0);
+	}
+	
+	/**
+	 * Tests that a new OpalUserAuthenticator Object is constructed
+	 */
+	@Test
+	public void testConstructor() {
+		assertNotNull(opalDataLoader);
 	}
 
 }
