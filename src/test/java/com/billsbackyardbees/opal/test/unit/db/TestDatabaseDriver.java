@@ -13,37 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit;
+package com.billsbackyardbees.opal.test.unit.db;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.util.DataLoader;
-import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
+import com.billsbackyardbees.opal.db.DatabaseDriver;
 
-/**
- * Tests the DataLoader class
- * @author Quinn Shultz
- */
-public class TestDataLoader extends TestCase {
+public class TestDatabaseDriver extends TestCase {
 	
-	private DataLoader opalDataLoader;
+	private DatabaseDriver connection;
 
 	/**
-	 * Constructs a new DataLoader Object
+	 * Constructs a new DBConnection Object
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		opalDataLoader = new DataLoader(0);
+		connection = new DatabaseDriver();
 	}
 	
 	/**
-	 * Tests that a new OpalUserAuthenticator Object is constructed
+	 * Tests that a new DBConnection Object is constructed
 	 */
 	@Test
-	public void testConstructor() {
-		assertNotNull(opalDataLoader);
+	public void testDBCConstructor() {
+		assertNotNull(connection);
 	}
-
 }

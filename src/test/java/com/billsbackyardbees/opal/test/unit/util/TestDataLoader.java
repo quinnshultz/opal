@@ -13,31 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit;
+package com.billsbackyardbees.opal.test.unit.util;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.util.Screamer;
+import com.billsbackyardbees.opal.util.DataLoader;
 
 /**
- * Tests the Screamer class
+ * Tests the DataLoader class
  * @author Quinn Shultz
  */
-public class TestScreamer extends TestCase {
+public class TestDataLoader extends TestCase {
 	
-	Screamer printer;
+	private DataLoader opalDataLoader;
 
+	/**
+	 * Constructs a new DataLoader Object
+	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		
-		printer = new Screamer();
+		opalDataLoader = new DataLoader(0);
 	}
 	
+	/**
+	 * Tests that a new OpalUserAuthenticator Object is constructed
+	 */
 	@Test
-	public void testMConstructor() {
-		assertNotNull(printer);
+	public void testConstructor() {
+		assertNotNull(opalDataLoader);
 	}
 
 }

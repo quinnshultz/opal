@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit;
+package com.billsbackyardbees.opal.test.unit.util;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.db.DatabaseDriver;
+import com.billsbackyardbees.opal.util.Screamer;
 
-public class TestDatabaseDriver extends TestCase {
+/**
+ * Tests the Screamer class
+ * @author Quinn Shultz
+ */
+public class TestScreamer extends TestCase {
 	
-	private DatabaseDriver connection;
+	Screamer printer;
 
-	/**
-	 * Constructs a new DBConnection Object
-	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		connection = new DatabaseDriver();
+		
+		printer = new Screamer();
 	}
 	
-	/**
-	 * Tests that a new DBConnection Object is constructed
-	 */
 	@Test
-	public void testDBCConstructor() {
-		assertNotNull(connection);
+	public void testMConstructor() {
+		assertNotNull(printer);
 	}
+
 }
