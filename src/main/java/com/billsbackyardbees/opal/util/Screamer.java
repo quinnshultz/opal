@@ -39,6 +39,11 @@ public class Screamer {
 		System.out.println("\t PATTERN\tPattern specifying an account name");
 	}
 	
+	public void printExitHelp() {
+		System.out.println("exit: exit");
+		System.out.println("\tExit Opal.");
+	}
+	
 	/**
 	 * Messages output when command: "help help" is run
 	 */

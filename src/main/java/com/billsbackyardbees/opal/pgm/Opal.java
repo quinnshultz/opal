@@ -64,6 +64,8 @@ public class Opal {
 							typewriter.printHelpHelp();
 						} else if (command_arg0.contentEquals("account")) {
 							typewriter.printAccountHelp();
+						} else if (command_arg0.contentEquals("exit")) {
+							typewriter.printExitHelp();
 						} else {
 							System.out.println("Unrecognized command: " + command_arg0);
 						}
