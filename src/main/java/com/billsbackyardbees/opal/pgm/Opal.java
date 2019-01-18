@@ -73,7 +73,7 @@ public class Opal {
 	 * @return
 	 */
 	public static boolean opalLooper() {
-		userInput = cmdPrompt.next();
+		userInput = cmdPrompt.nextLine();
 		if (userInput.contentEquals("exit")) {
 			return false;
 		} else {
