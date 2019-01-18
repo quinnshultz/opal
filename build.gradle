@@ -15,6 +15,10 @@ repositories {
 jar {
 	baseName 'opal'
 	version = '0'
+
+	manifest {
+		attributes 'Main-Class': mainClassName
+	}
 }
 // end::jar[]
 
