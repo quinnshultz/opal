@@ -19,16 +19,27 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import com.billsbackyardbees.opal.db.DatabaseDriver;
+import com.billsbackyardbees.opal.util.DataLoader;
+import com.billsbackyardbees.opal.util.PasswordAccount;
 import com.billsbackyardbees.opal.util.Screamer;
 
+/**
+ * A secure password manager.
+ * 
+ * @author Quinn Shultz
+ */
 public class Opal {
 
 	private static ResultSet rs;
 	private static Screamer typewriter;
+	private static DataLoader dbInteractor;
 	private static Scanner cmdPrompt;
 	private static String userInput;
 
+	/**
+	 * The program begins executing here.
+	 * @param args Command-line arguments
+	 */
 	public static void main(String[] args) {
 		// Initialize variables
 		typewriter = new Screamer();
@@ -46,16 +57,36 @@ public class Opal {
 				String command = stt.nextToken();
 				
 				if (command.contentEquals("help")) {
-					System.out.println("Help selected");
+					if (stt.hasMoreTokens()) {
+						String command_arg0 = stt.nextToken();
+						
+						if (command_arg0.contentEquals("help")) {
+							typewriter.printHelpHelp();
+						} else if (command_arg0.contentEquals("account")) {
+							typewriter.printAccountHelp();
+						} else {
+							System.out.println("Unrecognized command: " + command_arg0);
+						}
+					} else {
+						typewriter.printHelpScreen();
+					}
 				} else if (command.contentEquals("account")) {
 				
 					if (stt.hasMoreTokens()) {
 						
 						String command_arg0 = stt.nextToken();
 						
-						if (command_arg0.contentEquals("new")) {
-							System.out.println("Adding account: ");
-					
+						if (command_arg0.contentEquals("-n")) {
+							
+							if (stt.hasMoreTokens()) {
+								String command_arg1 = stt.nextToken();
+								System.out.println("Adding account: " + command_arg1);
+								
+								PasswordAccount accountStore = new PasswordAccount();
+								accountStore.setName(command_arg1);
+							} else {
+								System.out.println("Please try again with a valid account name.");
+							}
 						}
 					} else {
 						System.out.println("Missing argument(s)");
@@ -66,6 +97,11 @@ public class Opal {
 			
 
 		}
+	}
+	
+	public void opalLogin(String opalUsername) {
+		int opalUserId = -1;					// TODO: Use this method to find the id of an user from their username
+		dbInteractor = new DataLoader(opalUserId);
 	}
 	
 	/**
