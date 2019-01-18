@@ -31,7 +31,6 @@ Gradle handles dependencies (MySQL Connector J, and JUnit) for this project.
 
 
 ## Testing
-Running the included JUnit test classes requires that JUnit is present in your classpath.
 ```
 # Run JUnit tests
 ./gradlew test
