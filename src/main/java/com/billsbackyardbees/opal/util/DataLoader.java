@@ -24,38 +24,34 @@ import com.billsbackyardbees.opal.db.DatabaseDriver;
  * @author Quinn Shultz
  */
 public class DataLoader {
-	
-	private OpalUserAuthenticator opalUserAuthy;
+
 	private DatabaseDriver opalConnection;
 	
 	/**
 	 * Creates a new DataLoader
-	 * 
-	 * @param opalUser Integer id and primary key of user in opalUsers table
 	 */
-	public DataLoader(int opalUser) {
+	public DataLoader() {
 		opalConnection = new DatabaseDriver();
-		opalUserAuthy = new OpalUserAuthenticator(opalUser);
-	}
-	
-	/**
-	 * Unlock OpalUserAuthenticator or no methods will work
-	 * @param privateKey
-	 */
-	public void authenticateOpalUser(String privateKey) {
-		opalUserAuthy.unlockAccount(privateKey);
 	}
 	
 	/**
 	 * Uploads a PasswordAccount to a MySQL database table
+	 * @param passwordAccount The PasswordAccount Object to upload
 	 */
 	public void UploadPasswordAccount(PasswordAccount passwordAccount) {
-		if(!opalUserAuthy.isAccountLocked()) {
-			opalConnection.executeStatement("CALL add_account(" + passwordAccount.getName() + ", " + passwordAccount.getOpalUser() + ", "
-					+ passwordAccount.getUrl() + ", " + passwordAccount.getUsername() + ", " + passwordAccount.getPassword() + ", "
-					+ passwordAccount.getNotes() + ", " + passwordAccount.getCharacterEncoding() + ", " + passwordAccount.getCipherTransformation() + ", "
-					+ passwordAccount.getAesEncryptionAlgorithm() + ");");
-		}
+		opalConnection.executeStatement("CALL add_account(" + passwordAccount.getName() + ", " + passwordAccount.getOpalUser() + ", "
+				+ passwordAccount.getUrl() + ", " + passwordAccount.getUsername() + ", " + passwordAccount.getPassword() + ", "
+				+ passwordAccount.getNotes() + ", " + passwordAccount.getCharacterEncoding() + ", " + passwordAccount.getCipherTransformation() + ", "
+				+ passwordAccount.getAesEncryptionAlgorithm() + ");");
+	}
+	
+	/**
+	 * Gets the id and primary key of a entry in the opalUsers table
+	 * @param username The username of the opal account holder
+	 */
+	public int getOpalUserId(String username) {
+		// TODO: Get id from username
+		return 0;
 	}
 	
 	

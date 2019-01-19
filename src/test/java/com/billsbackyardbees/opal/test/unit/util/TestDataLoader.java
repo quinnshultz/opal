@@ -34,7 +34,7 @@ public class TestDataLoader extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		opalDataLoader = new DataLoader(0);
+		opalDataLoader = new DataLoader();
 	}
 	
 	/**

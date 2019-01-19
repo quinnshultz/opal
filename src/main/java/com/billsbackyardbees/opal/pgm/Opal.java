@@ -15,11 +15,11 @@
  */
 package com.billsbackyardbees.opal.pgm;
 
-import java.sql.ResultSet;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import com.billsbackyardbees.opal.util.DataLoader;
+import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
 import com.billsbackyardbees.opal.util.PasswordAccount;
 import com.billsbackyardbees.opal.util.Screamer;
 
@@ -30,9 +30,9 @@ import com.billsbackyardbees.opal.util.Screamer;
  */
 public class Opal {
 
-	private static ResultSet rs;
 	private static Screamer typewriter;
 	private static DataLoader dbInteractor;
+	private static OpalUserAuthenticator currentUser;
 	private static Scanner cmdPrompt;
 	private static String userInput;
 
@@ -43,6 +43,7 @@ public class Opal {
 	public static void main(String[] args) {
 		// Initialize variables
 		typewriter = new Screamer();
+		dbInteractor = new DataLoader();
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
 		
@@ -106,10 +107,16 @@ public class Opal {
 				} else if (command_arg[0].contentEquals("login")) {
 					if (numtokens == 2) {
 						
-						opalLogin(command_arg[0]);
+						System.out.print("Enter password for " + command_arg[1] + ":");
+						String masterPassword = cmdPrompt.nextLine();
+						opalLogin(command_arg[1], masterPassword);
 					} else {
 						System.out.println("Incorrect number of arguments for command: login");
 					}
+					
+					// Opal does not recognize the command entered
+				} else {
+					System.out.println(command_arg[0] + ": command not found");
 				}
 			}
 			
@@ -118,9 +125,14 @@ public class Opal {
 		}
 	}
 	
-	public static void opalLogin(String opalUsername) {
-		int opalUserId = -1;					// TODO: Use this method to find the id of an user from their username
-		dbInteractor = new DataLoader(opalUserId);
+	public static void opalLogin(String opalUsername, String privateKey) {
+		int opalUser = dbInteractor.getOpalUserId(opalUsername);
+		currentUser = new OpalUserAuthenticator(opalUser);
+		currentUser.unlockAccount(privateKey);
+	}
+	
+	public static void opalLogout() {
+		
 	}
 	
 	/**
