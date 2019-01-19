@@ -58,6 +58,24 @@ public class Screamer {
 	}
 	
 	/**
+	 * Messages output when command: "help login" is run
+	 */
+	public void printLoginHelp() {
+		System.out.println("login: login [pattern ...]");
+		System.out.println("\tBegin session on the system.\n");
+		System.out.println("\tArguments:");
+		System.out.println("\t PATTERN\tPattern matching an username in the opalUsers table");
+	}
+	
+	/**
+	 * Messages output when command: "help logout" is run
+	 */
+	public void printLogoutHelp() {
+		System.out.println("logout: logout");
+		System.out.println("\tEnd the current session.\n");
+	}
+	
+	/**
 	 * Messages output when command: "help" is run
 	 */
 	public void printHelpScreen() {
@@ -77,6 +95,9 @@ public class Screamer {
 		System.out.println("A secure password manager.\n\n");
 	}
 	
+	/**
+	 * Print a command-line prompt
+	 */
 	public void printUserPrompt() {
 		System.out.print("opal> ");
 	}

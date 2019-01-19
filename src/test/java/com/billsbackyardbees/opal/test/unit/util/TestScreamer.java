@@ -83,6 +83,30 @@ public class TestScreamer extends TestCase {
 	}
 	
 	/**
+	 * Tests that the printLoginHelp() method does not throw an exception
+	 */
+	@Test
+	public void testPrintLoginHelp() {
+		try {
+			printer.printLoginHelp();
+		} catch (Exception e) {
+			fail("Caught exception when executing printLoginHelp()");
+		}
+	}
+	
+	/**
+	 * Tests that the printLogoutHelp() method does not throw an exception
+	 */
+	@Test
+	public void testPrintLogoutHelp() {
+		try {
+			printer.printLogoutHelp();
+		} catch (Exception e) {
+			fail("Caught exception when executing printLogoutHelp()");
+		}
+	}
+	
+	/**
 	 * Tests that the printHelpScreen() method does not throw an exception
 	 */
 	@Test

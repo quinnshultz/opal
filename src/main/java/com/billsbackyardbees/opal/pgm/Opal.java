@@ -56,40 +56,60 @@ public class Opal {
 				
 				String command = stt.nextToken();
 				
+				// User enters "help" command
 				if (command.contentEquals("help")) {
 					if (stt.hasMoreTokens()) {
 						String command_arg0 = stt.nextToken();
-						
+
 						if (command_arg0.contentEquals("help")) {
 							typewriter.printHelpHelp();
 						} else if (command_arg0.contentEquals("account")) {
 							typewriter.printAccountHelp();
 						} else if (command_arg0.contentEquals("exit")) {
 							typewriter.printExitHelp();
+						} else if (command_arg0.contentEquals("login")) {
+							typewriter.printLoginHelp();
+						} else if (command_arg0.contentEquals("logout")) {
+							typewriter.printLogoutHelp();
 						} else {
 							System.out.println("Unrecognized command: " + command_arg0);
 						}
 					} else {
 						typewriter.printHelpScreen();
 					}
+
+					// User enters "account" command
 				} else if (command.contentEquals("account")) {
-				
+
 					if (stt.hasMoreTokens()) {
-						
+
 						String command_arg0 = stt.nextToken();
-						
+
 						if (command_arg0.contentEquals("-n")) {
-							
+
 							if (stt.hasMoreTokens()) {
 								String command_arg1 = stt.nextToken();
 								System.out.println("Adding account: " + command_arg1);
-								
+
 								PasswordAccount accountStore = new PasswordAccount();
 								accountStore.setName(command_arg1);
 							} else {
 								System.out.println("Please try again with a valid account name.");
 							}
 						}
+
+					} else {
+						System.out.println("Missing argument(s)");
+					}
+					
+					// User enters "login" command
+				} else if (command.contentEquals("login")) {
+					
+					if (stt.hasMoreTokens()) {
+						
+						String command_arg0 = stt.nextToken();
+						
+						opalLogin(command_arg0);
 					} else {
 						System.out.println("Missing argument(s)");
 					}
@@ -101,7 +121,7 @@ public class Opal {
 		}
 	}
 	
-	public void opalLogin(String opalUsername) {
+	public static void opalLogin(String opalUsername) {
 		int opalUserId = -1;					// TODO: Use this method to find the id of an user from their username
 		dbInteractor = new DataLoader(opalUserId);
 	}
