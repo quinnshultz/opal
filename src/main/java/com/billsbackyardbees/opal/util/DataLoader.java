@@ -40,7 +40,7 @@ public class DataLoader {
 	 */
 	public void UploadPasswordAccount(PasswordAccount passwordAccount) {
 		opalConnection.executeStatement("CALL add_account(" + passwordAccount.getName() + ", " + passwordAccount.getOpalUser() + ", "
-				+ passwordAccount.getUrl() + ", " + passwordAccount.getUsername() + ", " + passwordAccount.getPassword() + ", "
+				+ passwordAccount.getUrl() + ", " + passwordAccount.getUsername() + ", " + passwordAccount.getEncryptedData() + ", "
 				+ passwordAccount.getNotes() + ", " + passwordAccount.getCharacterEncoding() + ", " + passwordAccount.getCipherTransformation() + ", "
 				+ passwordAccount.getAesEncryptionAlgorithm() + ");");
 	}

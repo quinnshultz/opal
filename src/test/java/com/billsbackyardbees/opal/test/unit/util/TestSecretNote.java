@@ -96,38 +96,41 @@ public class TestSecretNote extends TestCase {
 	}
 	
 	/**
-	 * Tests the setNotes() method
+	 * Tests the setEncryptedData() method
 	 */
 	@Test
-	public void testSetPassword() {
+	public void testSetEncryptedData() {
 		try {
-			codedMessage.setNotes(EXAMPLE_NOTES);
+			codedMessage.setEncryptedData(EXAMPLE_NOTES);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing setNotes()");
+			fail("Caught exception when executing setEncryptedData()");
 		}
 	}
 	
 	/**
-	 * Tests the getNotes() method
+	 * Tests the getEncrytedData() method
 	 */
 	@Test
-	public void testGetNotes() {
+	public void testGetEncryptedData() {
 		try {
-			assertEquals(codedMessage.getNotes(), null);
+			assertEquals(codedMessage.getEncryptedData(), null);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing getNotes()");
+			fail("Caught exception when executing getUsername()");
 		}
 	}
 	
 	/**
-	 * Tests that notes may be retrieved after it is set
+	 * Tests that password may be retrieved after it is set,
+	 * and that it isn't the same as the original
 	 */
 	@Test
-	public void testGetNotesAfterSetNotes() {
-		codedMessage.setNotes(EXAMPLE_NOTES);
-		assertEquals(codedMessage.getNotes(), EXAMPLE_NOTES);
+	public void testGetPasswordAfterSetPassword() {
+		codedMessage.setEncryptedData(EXAMPLE_NOTES);
+		if(codedMessage.getEncryptedData() == EXAMPLE_NOTES) {
+			fail("Password was stored as plain-text.");
+		}
 	}
 	
 	/**

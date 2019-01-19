@@ -45,6 +45,19 @@ public interface OpalDataType {
 	public String getName();
 	
 	/**
+	 * Sets obfuscated data to be stored in this Object and synced to the database.
+	 * 
+	 * @param data Plain-text data to be encrypted with the user's public key and stored
+	 */
+	public void setEncryptedData(String data);
+	
+	/**
+	 * Gets obfuscated data that may be deciphered with the user's private key.
+	 * @return Encrypted data
+	 */
+	public String getEncryptedData();
+	
+	/**
 	 * Sets the owner of this Object, corresponding to the primary key of a tuple in
 	 * the opalUsers table.
 	 * 
@@ -69,7 +82,7 @@ public interface OpalDataType {
 	public void setCharacterEncoding(String characterEncoding);
 	
 	/**
-	 * Sets the character encoding for the encrypted String, by default this is set as
+	 * Gets the character encoding for the encrypted String, by default this is set as
 	 * UTF-8 when a new Object is constructed.
 	 * 
 	 * @return

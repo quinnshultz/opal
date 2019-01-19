@@ -173,38 +173,41 @@ public class TestPasswordAccount extends TestCase {
 	}
 	
 	/**
-	 * Tests the setPassword() method
+	 * Tests the setEncryptedData() method
 	 */
 	@Test
-	public void testSetPassword() {
+	public void testSetEncryptedData() {
 		try {
-			encrypter.setPassword(EXAMPLE_PASSWORD);
+			encrypter.setEncryptedData(EXAMPLE_PASSWORD);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing setPassword()");
+			fail("Caught exception when executing setEncryptedData()");
 		}
 	}
 	
 	/**
-	 * Tests the getPassword() method
+	 * Tests the getEncrytedData() method
 	 */
 	@Test
-	public void testGetPassword() {
+	public void testGetEncryptedData() {
 		try {
-			assertEquals(encrypter.getPassword(), null);
+			assertEquals(encrypter.getEncryptedData(), null);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing getUsername()");
+			fail("Caught exception when executing getEncryptedData()");
 		}
 	}
 	
 	/**
-	 * Tests that password may be retrieved after it is set
+	 * Tests that password may be retrieved after it is set,
+	 * and that it isn't the same as the original
 	 */
 	@Test
-	public void testGetPasswordAfterSetPassword() {
-		encrypter.setPassword(EXAMPLE_PASSWORD);
-		assertEquals(encrypter.getPassword(), EXAMPLE_PASSWORD);
+	public void testGetEncryptedDataAfterSetEncryptedData() {
+		encrypter.setEncryptedData(EXAMPLE_PASSWORD);
+		if(encrypter.getEncryptedData() == EXAMPLE_PASSWORD) {
+			fail("Password was stored as plain-text.");
+		}
 	}
 	
 	/**

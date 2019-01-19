@@ -39,6 +39,8 @@ public class PasswordAccount implements OpalDataType {
 
 	private boolean modifiedFromDB;
 	
+	private DataEncrypter encrypter;
+	
 	/**
 	 * Create a new credential account, may then be populated with a stored account from the database,
 	 * or completed with new information and stored to the database.
@@ -48,6 +50,7 @@ public class PasswordAccount implements OpalDataType {
 		characterEncoding = "UTF-8";
 		cipherTransformation = "AES/CBC/PKCS5PADDING";
 		aesEncryptionAlgorithm = "AES";
+		encrypter = new DataEncrypter();
 	}
 
 	/**
@@ -70,6 +73,24 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+		modifiedFromDB = true;
+	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 */
+	@Override
+	public String getEncryptedData() {
+		return encryptedPassword;
+	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 */
+	@Override
+	public void setEncryptedData(String data) {
+		// TODO: Fix hardcoded publicKey so it finds it in the table
+		this.encryptedPassword = encrypter.encrpytString(data, "ABCDEFGHIJKLMNOP", cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
 		modifiedFromDB = true;
 	}
 
@@ -102,21 +123,6 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public void setUsername(String username) {
 		this.username = username;
-		modifiedFromDB = true;
-	}
-	
-	/**
-	 * @return the encrypted password
-	 */
-	public String getPassword() {
-		return encryptedPassword;
-	}
-	
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.encryptedPassword = password;
 		modifiedFromDB = true;
 	}
 

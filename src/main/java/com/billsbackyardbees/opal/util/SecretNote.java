@@ -21,7 +21,7 @@ public class SecretNote implements OpalDataType {
 
 	private int id;
 	private String name;				// Name for the note
-	private String notes;
+	private String encryptedNote;
 	
 	private int opalUser;				// Opal user account
 	private String characterEncoding;
@@ -29,6 +29,8 @@ public class SecretNote implements OpalDataType {
 	private String aesEncryptionAlgorithm;
 
 	private boolean modifiedFromDB;
+	
+	private DataEncrypter encrypter;
 	
 	/**
 	 * Create a new SecretNote
@@ -38,6 +40,7 @@ public class SecretNote implements OpalDataType {
 		characterEncoding = "UTF-8";
 		cipherTransformation = "AES/CBC/PKCS5PADDING";
 		aesEncryptionAlgorithm = "AES";
+		encrypter = new DataEncrypter();
 	}
 	
 	/**
@@ -46,6 +49,24 @@ public class SecretNote implements OpalDataType {
 	@Override
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 */
+	@Override
+	public String getEncryptedData() {
+		return encryptedNote;
+	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 */
+	@Override
+	public void setEncryptedData(String data) {
+		// TODO: Fix hardcoded publicKey so it finds it in the table
+		this.encryptedNote = encrypter.encrpytString(data, "ABCDEFGHIJKLMNOP", cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		modifiedFromDB = true;
 	}
 
 	/**
@@ -62,21 +83,6 @@ public class SecretNote implements OpalDataType {
 	@Override
 	public void setName(String name) {
 		this.name = name;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @return the notes
-	 */
-	public String getNotes() {
-		return notes;
-	}
-
-	/**
-	 * @param notes the notes to set
-	 */
-	public void setNotes(String notes) {
-		this.notes = notes;
 		modifiedFromDB = true;
 	}
 
