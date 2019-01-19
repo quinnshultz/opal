@@ -94,10 +94,14 @@ public class Opal {
 					if (numtokens == 3) {
 
 						if (command_arg[1].contentEquals("-n")) {
-							System.out.println("Adding account: " + command_arg[2]);
+							if (currentUser.getOpalUser() != -1) {
+								System.out.println("Adding account: " + command_arg[2]);
 
-							PasswordAccount accountStore = new PasswordAccount();
-							accountStore.setName(command_arg[2]);
+								PasswordAccount accountStore = new PasswordAccount();
+								accountStore.setName(command_arg[2]);
+							} else {
+								System.out.println("You must first login!");
+							}
 						}
 
 					} else {
