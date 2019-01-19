@@ -36,17 +36,17 @@ public class DataEncrypter {
 	 * Encrypt a String.
 	 * 
 	 * @param data String desired to be encrypted
-	 * @param privateKey Encryption key
+	 * @param publicKey Encryption key
 	 * @param cipherTransformation
 	 * @param characterEncoding
 	 * @param aesEncryptionAlgorithm
 	 * @return Encrypted data
 	 */
-	public String encrpytString(String data, String privateKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
+	public String encrpytString(String data, String publicKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
 		String encryptedString = "";
 		try {
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
-			byte[] key = privateKey.getBytes(characterEncoding);
+			byte[] key = publicKey.getBytes(characterEncoding);
 			SecretKeySpec secretKey = new SecretKeySpec(key, aesEncryptionAlgorithm);
 			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivparameterspec);
@@ -70,7 +70,7 @@ public class DataEncrypter {
 	 * @param aesEncryptionAlgorithm
 	 * @return Decrypted data
 	 */
-	public String retrievePassword(String data, String privateKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
+	public String decryptString(String data, String privateKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
 		String decryptedString = "";
 		try {
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
