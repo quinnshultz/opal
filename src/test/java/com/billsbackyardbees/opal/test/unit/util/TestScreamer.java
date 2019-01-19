@@ -29,15 +29,92 @@ public class TestScreamer extends TestCase {
 	
 	Screamer printer;
 
+	/**
+	 * Constructs a new Screamer Object
+	 */
 	protected void setUp() throws Exception {
 		super.setUp();
 		
 		printer = new Screamer();
 	}
 	
+	/**
+	 * Tests that a new Screamer Object is constructed
+	 */
 	@Test
-	public void testMConstructor() {
+	public void testConstructor() {
 		assertNotNull(printer);
 	}
+	
+	/**
+	 * Tests that the printAccountHelp() method does not throw an exception
+	 */
+	@Test
+	public void testPrintAccountHelp() {
+		try {
+			printer.printAccountHelp();
+		} catch (Exception e) {
+			fail("Caught exception when executing printAccountHelp()");
+		}
+	}
 
+	/**
+	 * Tests that the printExitHelp() method does not throw an exception
+	 */
+	@Test
+	public void testPrintExitHelp() {
+		try {
+			printer.printExitHelp();
+		} catch (Exception e) {
+			fail("Caught exception when executing printExitHelp()");
+		}
+	}
+	
+	/**
+	 * Tests that the printHelpHelp() method does not throw an exception
+	 */
+	@Test
+	public void testPrintHelpHelp() {
+		try {
+			printer.printHelpHelp();
+		} catch (Exception e) {
+			fail("Caught exception when executing printHelpHelp()");
+		}
+	}
+	
+	/**
+	 * Tests that the printHelpScreen() method does not throw an exception
+	 */
+	@Test
+	public void testPrintHelpScreen() {
+		try {
+			printer.printHelpScreen();
+		} catch (Exception e) {
+			fail("Caught exception when executing printHelpScreen()");
+		}
+	}
+	
+	/**
+	 * Tests that the printWelcomeScreen() method does not throw an exception
+	 */
+	@Test
+	public void testPrintWelcomeScreen() {
+		try {
+			printer.printWelcomeScreen();
+		} catch (Exception e) {
+			fail("Caught exception when executing printWelcomeScreen()");
+		}
+	}
+
+	/**
+	 * Tests that the printUserPrompt() method does not throw an exception
+	 */
+	@Test
+	public void testPrintUserPrompt() {
+		try {
+			printer.printAccountHelp();
+		} catch (Exception e) {
+			fail("Caught exception when executing printUserPrompt()");
+		}
+	}
 }
