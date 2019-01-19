@@ -51,72 +51,69 @@ public class Opal {
 		
 		while(opalLooper()) {
 			StringTokenizer stt = new StringTokenizer(userInput);
+			int numtokens = stt.countTokens();
+			String command_arg[] = new String[numtokens];
 			
-			if (stt.hasMoreTokens()) {
-				
-				String command = stt.nextToken();
+			int i = 0;
+			while (stt.hasMoreTokens()) {
+				command_arg[i] = stt.nextToken();
+				i++;
+			}
+			
+			if (numtokens >= 1) {
 				
 				// User enters "help" command
-				if (command.contentEquals("help")) {
-					if (stt.hasMoreTokens()) {
-						String command_arg0 = stt.nextToken();
-
-						if (command_arg0.contentEquals("help")) {
-							typewriter.printHelpHelp();
-						} else if (command_arg0.contentEquals("account")) {
-							typewriter.printAccountHelp();
-						} else if (command_arg0.contentEquals("exit")) {
-							typewriter.printExitHelp();
-						} else if (command_arg0.contentEquals("login")) {
-							typewriter.printLoginHelp();
-						} else if (command_arg0.contentEquals("logout")) {
-							typewriter.printLogoutHelp();
-						} else {
-							System.out.println("Unrecognized command: " + command_arg0);
+				if (command_arg[0].contentEquals("help")) {
+					if (numtokens >= 2) {
+						
+						for (int j = 1; j < numtokens; j++) {
+							
+							if (command_arg[1].contentEquals("help")) {
+								typewriter.printHelpHelp();
+							} else if (command_arg[1].contentEquals("account")) {
+								typewriter.printAccountHelp();
+							} else if (command_arg[1].contentEquals("exit")) {
+								typewriter.printExitHelp();
+							} else if (command_arg[1].contentEquals("login")) {
+								typewriter.printLoginHelp();
+							} else if (command_arg[1].contentEquals("logout")) {
+								typewriter.printLogoutHelp();
+							} else {
+								System.out.println("Unrecognized command: " + command_arg[1]);
+							} 
 						}
-					} else {
+						
+					} else if (numtokens == 1) {
 						typewriter.printHelpScreen();
 					}
 
 					// User enters "account" command
-				} else if (command.contentEquals("account")) {
+				} else if (command_arg[0].contentEquals("account")) {
+					if (numtokens == 3) {
 
-					if (stt.hasMoreTokens()) {
+						if (command_arg[1].contentEquals("-n")) {
+							System.out.println("Adding account: " + command_arg[2]);
 
-						String command_arg0 = stt.nextToken();
-
-						if (command_arg0.contentEquals("-n")) {
-
-							if (stt.hasMoreTokens()) {
-								String command_arg1 = stt.nextToken();
-								System.out.println("Adding account: " + command_arg1);
-
-								PasswordAccount accountStore = new PasswordAccount();
-								accountStore.setName(command_arg1);
-							} else {
-								System.out.println("Please try again with a valid account name.");
-							}
+							PasswordAccount accountStore = new PasswordAccount();
+							accountStore.setName(command_arg[2]);
 						}
 
 					} else {
-						System.out.println("Missing argument(s)");
+						System.out.println("Incorrect number of arguments for command: account");
 					}
 					
 					// User enters "login" command
-				} else if (command.contentEquals("login")) {
-					
-					if (stt.hasMoreTokens()) {
+				} else if (command_arg[0].contentEquals("login")) {
+					if (numtokens == 2) {
 						
-						String command_arg0 = stt.nextToken();
-						
-						opalLogin(command_arg0);
+						opalLogin(command_arg[0]);
 					} else {
-						System.out.println("Missing argument(s)");
+						System.out.println("Incorrect number of arguments for command: login");
 					}
 				}
 			}
-			typewriter.printUserPrompt();
 			
+			typewriter.printUserPrompt();
 
 		}
 	}
