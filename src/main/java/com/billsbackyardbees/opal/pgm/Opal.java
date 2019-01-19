@@ -114,6 +114,14 @@ public class Opal {
 						System.out.println("Incorrect number of arguments for command: login");
 					}
 					
+					// User enters "logout" command
+				} else if (command_arg[0].contentEquals("logout")) {
+					if (numtokens == 1) {
+						opalLogout();
+					} else {
+						System.out.println("Incorrect number of arguments for command: logout");
+					}
+					
 					// Opal does not recognize the command entered
 				} else {
 					System.out.println(command_arg[0] + ": command not found");
@@ -125,12 +133,20 @@ public class Opal {
 		}
 	}
 	
+	/**
+	 * Login to password manager
+	 * @param opalUsername
+	 * @param privateKey
+	 */
 	public static void opalLogin(String opalUsername, String privateKey) {
 		int opalUser = dbInteractor.getOpalUserId(opalUsername);
 		currentUser = new OpalUserAuthenticator(opalUser);
 		currentUser.unlockAccount(privateKey);
 	}
 	
+	/**
+	 * Logout of password manager
+	 */
 	public static void opalLogout() {
 		
 	}
