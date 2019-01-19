@@ -38,7 +38,7 @@ public class TestDataLoader extends TestCase {
 	}
 	
 	/**
-	 * Tests that a new OpalUserAuthenticator Object is constructed
+	 * Tests that a new DataLoader Object is constructed
 	 */
 	@Test
 	public void testConstructor() {
