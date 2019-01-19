@@ -44,6 +44,7 @@ public class Opal {
 		// Initialize variables
 		typewriter = new Screamer();
 		dbInteractor = new DataLoader();
+		currentUser = new OpalUserAuthenticator(-1);
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
 		
@@ -139,16 +140,20 @@ public class Opal {
 	 * @param privateKey
 	 */
 	public static void opalLogin(String opalUsername, String privateKey) {
-		int opalUser = dbInteractor.getOpalUserId(opalUsername);
-		currentUser = new OpalUserAuthenticator(opalUser);
-		currentUser.unlockAccount(privateKey);
+		if (currentUser.getOpalUser() == -1) {
+			int opalUser = dbInteractor.getOpalUserId(opalUsername);
+			currentUser = new OpalUserAuthenticator(opalUser);
+			currentUser.unlockAccount(privateKey);
+		} else {
+			System.out.println("User is already logged in.");
+		}
 	}
 	
 	/**
 	 * Logout of password manager
 	 */
 	public static void opalLogout() {
-		
+		currentUser = new OpalUserAuthenticator(-1);
 	}
 	
 	/**

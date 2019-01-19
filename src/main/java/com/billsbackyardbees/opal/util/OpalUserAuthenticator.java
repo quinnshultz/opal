@@ -36,6 +36,14 @@ public class OpalUserAuthenticator {
 	}
 	
 	/**
+	 * Get the id of the owner
+	 * @return
+	 */
+	public int getOpalUser() {
+		return opalUser;
+	}
+	
+	/**
 	 * Unlock account if it is locked
 	 * @param privateKey Master password for Opal user
 	 */
