@@ -169,9 +169,9 @@ public class Opal {
 				} else {
 					System.out.println(command_arg[0] + ": command not found");
 				}
-			}
 			
 			typewriter.printUserPrompt();
+			}
 
 		}
 	
