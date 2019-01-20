@@ -28,8 +28,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-	compile "mysql:mysql-connector-java:8.0.13"
-	testCompile "junit:junit:4.12"
+	runtime 'mysql:mysql-connector-java:8.0.13'
+	testCompile 'junit:junit:4.12'
 }
 // end::dependencies[]
 
