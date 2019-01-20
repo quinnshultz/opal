@@ -34,7 +34,7 @@ public class TestOpalUserAuthenticator extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		opalUserAuthy = new OpalUserAuthenticator(0);
+		opalUserAuthy = new OpalUserAuthenticator("");
 	}
 	
 	/**

@@ -21,25 +21,25 @@ package com.billsbackyardbees.opal.util;
  */
 public class OpalUserAuthenticator {
 	
-	private int opalUser;
+	private String opalUser;
 	private boolean isLocked;
 	
 	/**
 	 * Creates a new locked OpalUserAuthenticator
 	 * 
-	 * @param opalUser Integer id and primary key of user in opalUsers table
+	 * @param opalUser
 	 * @param privateKey Master password entered by user
 	 */
-	public OpalUserAuthenticator(int opalUser) {
+	public OpalUserAuthenticator(String opalUser) {
 		this.opalUser = opalUser;
 		isLocked = true;
 	}
 	
 	/**
-	 * Get the id of the owner
+	 * Get the username of the owner
 	 * @return
 	 */
-	public int getOpalUser() {
+	public String getOpalUser() {
 		return opalUser;
 	}
 	

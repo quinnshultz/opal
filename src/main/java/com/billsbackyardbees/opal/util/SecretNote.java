@@ -23,7 +23,7 @@ public class SecretNote implements OpalDataType {
 	private String name;				// Name for the note
 	private String encryptedNote;
 	
-	private int opalUser;				// Opal user account
+	private String opalUser;				// Opal user account
 	private String characterEncoding;
 	private String cipherTransformation;
 	private String aesEncryptionAlgorithm;
@@ -90,7 +90,7 @@ public class SecretNote implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	@Override
-	public int getOpalUser() {
+	public String getOpalUser() {
 		return opalUser;
 	}
 
@@ -98,7 +98,7 @@ public class SecretNote implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	@Override
-	public void setOpalUser(int opalUser) {
+	public void setOpalUser(String opalUser) {
 		this.opalUser = opalUser;
 		modifiedFromDB = true;
 	}

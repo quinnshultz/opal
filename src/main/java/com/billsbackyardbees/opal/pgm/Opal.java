@@ -44,7 +44,7 @@ public class Opal {
 		// Initialize variables
 		typewriter = new Screamer();
 		dbInteractor = new DataLoader();
-		currentUser = new OpalUserAuthenticator(-1);
+		currentUser = new OpalUserAuthenticator("");
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
 		
@@ -94,11 +94,23 @@ public class Opal {
 					if (numtokens == 3) {
 
 						if (command_arg[1].contentEquals("-n")) {
-							if (currentUser.getOpalUser() != -1) {
-								System.out.println("Adding account: " + command_arg[2]);
+							if (currentUser.getOpalUser() != "") {
 
 								PasswordAccount accountStore = new PasswordAccount();
 								accountStore.setName(command_arg[2]);
+								accountStore.setOpalUser(currentUser.getOpalUser());
+								System.out.print("Enter URL for " + command_arg[2] + ":");
+								accountStore.setUrl(cmdPrompt.nextLine());
+								System.out.print("Enter username for " + command_arg[2] + ":");
+								accountStore.setUsername(cmdPrompt.nextLine());
+								System.out.print("Enter password for " + command_arg[2] + ":");
+								accountStore.setEncryptedData(cmdPrompt.nextLine());
+								System.out.print("Enter notes for " + command_arg[2] + ":");
+								accountStore.setNotes(cmdPrompt.nextLine());
+
+								dbInteractor.UploadPasswordAccount(accountStore);
+								
+								System.out.println("Adding account: " + command_arg[2]);
 							} else {
 								System.out.println("You must first login!");
 							}
@@ -144,9 +156,8 @@ public class Opal {
 	 * @param privateKey
 	 */
 	public static void opalLogin(String opalUsername, String privateKey) {
-		if (currentUser.getOpalUser() == -1) {
-			int opalUser = dbInteractor.getOpalUserId(opalUsername);
-			currentUser = new OpalUserAuthenticator(opalUser);
+		if (currentUser.getOpalUser() == "") {
+			currentUser = new OpalUserAuthenticator(opalUsername);
 			currentUser.unlockAccount(privateKey);
 		} else {
 			System.out.println("User is already logged in.");
@@ -157,7 +168,7 @@ public class Opal {
 	 * Logout of password manager
 	 */
 	public static void opalLogout() {
-		currentUser = new OpalUserAuthenticator(-1);
+		currentUser = new OpalUserAuthenticator("");
 	}
 	
 	/**

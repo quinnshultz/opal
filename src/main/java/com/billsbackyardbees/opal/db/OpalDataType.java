@@ -63,7 +63,7 @@ public interface OpalDataType {
 	 * 
 	 * @param opalUser Integer id and primary key of account tuple in opalUsers
 	 */
-	public void setOpalUser(int opalUser);
+	public void setOpalUser(String opalUser);
 	
 	/**
 	 * Gets the owner of this Object, corresponding to the primary key of a tuple in
@@ -71,7 +71,7 @@ public interface OpalDataType {
 	 * 
 	 * @return Integer id and primary key of account tuple in opalUsers
 	 */
-	public int getOpalUser();
+	public String getOpalUser();
 	
 	/**
 	 * Sets the character encoding for the encrypted String, by default this is set as

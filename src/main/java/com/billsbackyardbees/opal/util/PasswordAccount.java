@@ -32,7 +32,7 @@ public class PasswordAccount implements OpalDataType {
 	private String encryptedPassword;
 	private String notes;
 	
-	private int opalUser;				// Opal user account
+	private String opalUser;				// Opal user account
 	private String characterEncoding;
 	private String cipherTransformation;
 	private String aesEncryptionAlgorithm;
@@ -145,7 +145,7 @@ public class PasswordAccount implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	@Override
-	public int getOpalUser() {
+	public String getOpalUser() {
 		return opalUser;
 	}
 
@@ -153,7 +153,7 @@ public class PasswordAccount implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	@Override
-	public void setOpalUser(int opalname) {
+	public void setOpalUser(String opalname) {
 		this.opalUser = opalname;
 		modifiedFromDB = true;
 	}
