@@ -80,6 +80,8 @@ public class Opal {
 								typewriter.printLoginHelp();
 							} else if (command_arg[1].contentEquals("logout")) {
 								typewriter.printLogoutHelp();
+							} else if (command_arg[1].contentEquals("register")) {
+								typewriter.printRegisterHelp();
 							} else {
 								System.out.println("Unrecognized command: " + command_arg[1]);
 							} 

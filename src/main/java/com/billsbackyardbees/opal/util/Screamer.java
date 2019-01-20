@@ -76,6 +76,16 @@ public class Screamer {
 	}
 	
 	/**
+	 * Messages output when command: "help register" is run
+	 */
+	public void printRegisterHelp() {
+		System.out.println("register: register [pattern ...]");
+		System.out.println("\tAdd a system user.\n");
+		System.out.println("\tArguments:");
+		System.out.println("\t PATTERN\tDesired username for new user");
+	}
+	
+	/**
 	 * Messages output when command: "help" is run
 	 */
 	public void printHelpScreen() {
@@ -86,8 +96,9 @@ public class Screamer {
 		System.out.println(" account [-n] [pattern ...]");
 		System.out.println(" exit");
 		System.out.println(" help [pattern ...]");
-		System.out.println("*login");
-		System.out.println("*logout");
+		System.out.println(" login");
+		System.out.println(" logout");
+		System.out.println("*register [pattern ...]");
 	}
 	
 	public void printWelcomeScreen() {

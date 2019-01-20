@@ -107,6 +107,18 @@ public class TestScreamer extends TestCase {
 	}
 	
 	/**
+	 * Tests that the printRegisterHelp() method does not throw an exception
+	 */
+	@Test
+	public void testRegisterHelp() {
+		try {
+			printer.printRegisterHelp();
+		} catch (Exception e) {
+			fail("Caught an exception when executing printRegisterHelp()");
+		}
+	}
+	
+	/**
 	 * Tests that the printHelpScreen() method does not throw an exception
 	 */
 	@Test
