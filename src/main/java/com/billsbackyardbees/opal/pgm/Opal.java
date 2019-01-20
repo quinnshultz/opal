@@ -94,10 +94,10 @@ public class Opal {
 					// User enters "account" command
 				} else if (command_arg[0].contentEquals("account")) {
 					if (numtokens == 3) {
+						if (currentUser.getOpalUser() != "") {
+							if (command_arg[1].contentEquals("-n")) {
 
-						if (command_arg[1].contentEquals("-n")) {
-							if (currentUser.getOpalUser() != "") {
-
+								// Construct new PasswordAccount to upload to the database
 								PasswordAccount accountStore = new PasswordAccount();
 								accountStore.setName(command_arg[2]);
 								accountStore.setOpalUser(currentUser.getOpalUser());
@@ -113,9 +113,20 @@ public class Opal {
 								dbInteractor.UploadPasswordAccount(accountStore);
 								
 								System.out.println("Adding account: " + command_arg[2]);
-							} else {
-								System.out.println("You must first login!");
+								
+							} else if (command_arg[1].contentEquals("-d")) {
+							
+								// "Build" PasswordAccount to be deleted
+								PasswordAccount accountStore = new PasswordAccount();
+								accountStore.setName(command_arg[2]);
+								accountStore.setOpalUser(currentUser.getOpalUser());
+								
+								dbInteractor.DeletePasswordAccount(accountStore);
+								
+								System.out.println("Deleted account: " + command_arg[2] + " from database user: " + currentUser.getOpalUser());
 							}
+						} else {
+							System.out.println("You must first login!");
 						}
 
 					} else {

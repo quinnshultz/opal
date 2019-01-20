@@ -46,6 +46,14 @@ public class DataLoader {
 	}
 	
 	/**
+	 * Deletes a PasswordAccount from a MySQL database table
+	 * @param passwordAccount The PasswordAccount Object to delete
+	 */
+	public void DeletePasswordAccount(PasswordAccount passwordAccount) {
+		opalConnection.executeStatement("CALL remove_account('" + passwordAccount.getName() + "', '" + passwordAccount.getOpalUser() + "');");
+	}
+	
+	/**
 	 * Gets the id and primary key of a entry in the opalUsers table
 	 * @param username The username of the opal account holder
 	 */
