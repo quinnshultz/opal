@@ -19,6 +19,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import com.billsbackyardbees.opal.util.DataLoader;
+import com.billsbackyardbees.opal.util.OpalUser;
 import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
 import com.billsbackyardbees.opal.util.PasswordAccount;
 import com.billsbackyardbees.opal.util.Screamer;
@@ -152,6 +153,18 @@ public class Opal {
 						System.out.println("Incorrect number of arguments for command: logout");
 					}
 					
+					// User enters "register" command
+				} else if (command_arg[0].contentEquals("register")) {
+					if (numtokens == 2) {
+						
+						OpalUser newUser = new OpalUser();
+						newUser.setUsername(command_arg[1]);
+						dbInteractor.UploadOpalUser(newUser);
+						
+						System.out.println("Adding user: " + command_arg[1]);
+					}
+				}
+					
 					// Opal does not recognize the command entered
 				} else {
 					System.out.println(command_arg[0] + ": command not found");
@@ -161,7 +174,6 @@ public class Opal {
 			typewriter.printUserPrompt();
 
 		}
-	}
 	
 	/**
 	 * Login to password manager

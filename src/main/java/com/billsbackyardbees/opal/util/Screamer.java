@@ -99,7 +99,7 @@ public class Screamer {
 		System.out.println(" help [pattern ...]");
 		System.out.println(" login");
 		System.out.println(" logout");
-		System.out.println("*register [pattern ...]");
+		System.out.println(" register [pattern ...]");
 	}
 	
 	public void printWelcomeScreen() {

@@ -34,6 +34,15 @@ public class DataLoader {
 		opalConnection = new DatabaseDriver();
 	}
 	
+	public void UploadOpalUser(OpalUser newUser) {
+		opalConnection.executeStatement("CALL add_new_opaluser('" + newUser.getUsername() + "', '" + newUser.getFullName() + "', '" 
+				+ newUser.getPublicKey() + "');");
+	}
+	
+	public void DeleteOpalUser(OpalUser newUser) {
+		opalConnection.executeStatement("CALL remove_opaluser('" + newUser.getUsername() + "');");
+	}
+	
 	/**
 	 * Uploads a PasswordAccount to a MySQL database table
 	 * @param passwordAccount The PasswordAccount Object to upload
