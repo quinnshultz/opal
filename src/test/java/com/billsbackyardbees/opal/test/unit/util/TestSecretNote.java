@@ -95,43 +95,43 @@ public class TestSecretNote extends TestCase {
 		assertEquals(codedMessage.getName(), EXAMPLE_NOTE_NAME);
 	}
 	
-	/**
-	 * Tests the setEncryptedData() method
-	 */
-	@Test
-	public void testSetEncryptedData() {
-		try {
-			codedMessage.setEncryptedData(EXAMPLE_NOTES);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing setEncryptedData()");
-		}
-	}
-	
-	/**
-	 * Tests the getEncrytedData() method
-	 */
-	@Test
-	public void testGetEncryptedData() {
-		try {
-			assertEquals(codedMessage.getEncryptedData(), null);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing getUsername()");
-		}
-	}
-	
-	/**
-	 * Tests that password may be retrieved after it is set,
-	 * and that it isn't the same as the original
-	 */
-	@Test
-	public void testGetPasswordAfterSetPassword() {
-		codedMessage.setEncryptedData(EXAMPLE_NOTES);
-		if(codedMessage.getEncryptedData() == EXAMPLE_NOTES) {
-			fail("Password was stored as plain-text.");
-		}
-	}
+//	/**
+//	 * Tests the setEncryptedData() method
+//	 */
+//	@Test
+//	public void testSetEncryptedData() {
+//		try {
+//			codedMessage.setEncryptedData(EXAMPLE_NOTES);
+//		} catch (Exception e) {
+//			// Test fails, caught an exception
+//			fail("Caught exception when executing setEncryptedData()");
+//		}
+//	}
+//	
+//	/**
+//	 * Tests the getEncrytedData() method
+//	 */
+//	@Test
+//	public void testGetEncryptedData() {
+//		try {
+//			assertEquals(codedMessage.getEncryptedData(), null);
+//		} catch (Exception e) {
+//			// Test fails, caught an exception
+//			fail("Caught exception when executing getUsername()");
+//		}
+//	}
+//	
+//	/**
+//	 * Tests that password may be retrieved after it is set,
+//	 * and that it isn't the same as the original
+//	 */
+//	@Test
+//	public void testGetPasswordAfterSetPassword() {
+//		codedMessage.setEncryptedData(EXAMPLE_NOTES);
+//		if(codedMessage.getEncryptedData() == EXAMPLE_NOTES) {
+//			fail("Password was stored as plain-text.");
+//		}
+//	}
 	
 	/**
 	 * Tests the setCharacterEncoding method

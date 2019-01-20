@@ -26,7 +26,8 @@
 CREATE table opalUsers(ID int auto_increment
 , username varchar(256) UNIQUE NOT NULL
 , fullName varchar(256)
-, publicKey varchar(128) NOT NULL
+-- In the future, we may need to force asymmetric key cryptography
+, publicKey varchar(128)
 , primary key (id));
 
 /*
@@ -35,10 +36,22 @@ CREATE table opalUsers(ID int auto_increment
  */
 CREATE table passwordaccounts_template(ID int auto_increment
 , url varchar(2048)
-, name varchar(256) NOT NULL
+, name varchar(256) UNIQUE NOT NULL
 , username varchar(256) NOT NULL
 , encryptedPassword varchar(256)
 , notes varchar(10240)
+, characterEncoding varchar(128) NOT NULL
+, cipherTransformation varchar(128) NOT NULL
+, aesEncryptionAlgorithm varchar(128) NOT NULL
+, primary key (id));
+
+/*
+ * Create a template table for Objects
+ * with a lot of encrypted data
+ */
+CREATE table secretnotes_template(ID int auto_increment
+, name varchar(256) UNIQUE NOT NULL
+, encryptedNotes varchar(10240)
 , characterEncoding varchar(128) NOT NULL
 , cipherTransformation varchar(128) NOT NULL
 , aesEncryptionAlgorithm varchar(128) NOT NULL
@@ -56,7 +69,7 @@ CREATE table passwordaccounts_template(ID int auto_increment
  *
  * Parameter paramUserName			Username for the new account
  * Parameter paramFullName			Full name of the new account user (optional)
- * Parameter paramPublicKey			Key used for encryption
+ * Parameter paramPublicKey			Key used for encryption (optional)
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`

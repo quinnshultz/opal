@@ -22,17 +22,18 @@ package com.billsbackyardbees.opal.util;
 public class OpalUserAuthenticator {
 	
 	private String opalUser;
-	private boolean isLocked;
+	// TODO: Switch to asymmetric key cryptography
+	private String privateKey;
 	
 	/**
-	 * Creates a new locked OpalUserAuthenticator
+	 * Creates a new OpalUserAuthenticator
 	 * 
-	 * @param opalUser
+	 * @param opalUser Opal username
 	 * @param privateKey Master password entered by user
 	 */
-	public OpalUserAuthenticator(String opalUser) {
+	public OpalUserAuthenticator(String opalUser, String privateKey) {
 		this.opalUser = opalUser;
-		isLocked = true;
+		this.privateKey = privateKey;
 	}
 	
 	/**
@@ -44,19 +45,11 @@ public class OpalUserAuthenticator {
 	}
 	
 	/**
-	 * Unlock account if it is locked
-	 * @param privateKey Master password for Opal user
+	 * May be insecure, returns user's passwod
+	 * @return
 	 */
-	public void unlockAccount(String privateKey) {
-		// TODO: Make sure user entered their real private key
-		isLocked = false;
-	}
-	
-	/**
-	 * @return true if account is locked, false otherwise
-	 */
-	public boolean isAccountLocked() {
-		return isLocked;
+	public String getPrivateKey() {
+		return privateKey;
 	}
 
 }

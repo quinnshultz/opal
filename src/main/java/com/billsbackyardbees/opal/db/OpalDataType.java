@@ -49,7 +49,7 @@ public interface OpalDataType {
 	 * 
 	 * @param data Plain-text data to be encrypted with the user's public key and stored
 	 */
-	public void setEncryptedData(String data);
+	public void setEncryptedData(String data, String masterPassword);
 	
 	/**
 	 * Gets obfuscated data that may be deciphered with the user's private key.

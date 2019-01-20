@@ -44,7 +44,7 @@ public class Opal {
 		// Initialize variables
 		typewriter = new Screamer();
 		dbInteractor = new DataLoader();
-		currentUser = new OpalUserAuthenticator("");
+		currentUser = new OpalUserAuthenticator("", "NULL");
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
 		
@@ -106,7 +106,7 @@ public class Opal {
 								System.out.print("Enter username for " + command_arg[2] + ":");
 								accountStore.setUsername(cmdPrompt.nextLine());
 								System.out.print("Enter password for " + command_arg[2] + ":");
-								accountStore.setEncryptedData(cmdPrompt.nextLine());
+								accountStore.setEncryptedData(cmdPrompt.nextLine(), currentUser.getPrivateKey());
 								System.out.print("Enter notes for " + command_arg[2] + ":");
 								accountStore.setNotes(cmdPrompt.nextLine());
 
@@ -170,8 +170,7 @@ public class Opal {
 	 */
 	public static void opalLogin(String opalUsername, String privateKey) {
 		if (currentUser.getOpalUser() == "") {
-			currentUser = new OpalUserAuthenticator(opalUsername);
-			currentUser.unlockAccount(privateKey);
+			currentUser = new OpalUserAuthenticator(opalUsername, privateKey);
 		} else {
 			System.out.println("User is already logged in.");
 		}
@@ -181,7 +180,7 @@ public class Opal {
 	 * Logout of password manager
 	 */
 	public static void opalLogout() {
-		currentUser = new OpalUserAuthenticator("");
+		currentUser = new OpalUserAuthenticator("", "NULL");
 	}
 	
 	/**

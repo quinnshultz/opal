@@ -59,13 +59,18 @@ public class SecretNote implements OpalDataType {
 		return encryptedNote;
 	}
 	
+	public String getData(String masterPassword) {
+		String data = encrypter.decryptString(encryptedNote, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		return data;
+	}
+	
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	@Override
-	public void setEncryptedData(String data) {
+	public void setEncryptedData(String data, String masterPassword) {
 		// TODO: Fix hardcoded publicKey so it finds it in the table
-		this.encryptedNote = encrypter.encrpytString(data, "ABCDEFGHIJKLMNOP", cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		this.encryptedNote = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
 		modifiedFromDB = true;
 	}
 
