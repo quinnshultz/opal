@@ -39,6 +39,7 @@ public class Opal {
 
 	/**
 	 * The program begins executing here.
+	 * 
 	 * @param args Command-line arguments
 	 */
 	public static void main(String[] args) {
@@ -48,29 +49,29 @@ public class Opal {
 		currentUser = new OpalUserAuthenticator("", "NULL");
 		cmdPrompt = new Scanner(System.in);
 		userInput = "";
-		
+
 		// Print first user prompt
 		typewriter.printUserPrompt();
-		
-		while(opalLooper()) {
+
+		while (opalLooper()) {
 			StringTokenizer stt = new StringTokenizer(userInput);
 			int numtokens = stt.countTokens();
 			String command_arg[] = new String[numtokens];
-			
+
 			int i = 0;
 			while (stt.hasMoreTokens()) {
 				command_arg[i] = stt.nextToken();
 				i++;
 			}
-			
+
 			if (numtokens >= 1) {
-				
+
 				// User enters "help" command
 				if (command_arg[0].contentEquals("help")) {
 					if (numtokens >= 2) {
-						
+
 						for (int j = 1; j < numtokens; j++) {
-							
+
 							if (command_arg[1].contentEquals("help")) {
 								typewriter.printHelpHelp();
 							} else if (command_arg[1].contentEquals("account")) {
@@ -85,9 +86,9 @@ public class Opal {
 								typewriter.printRegisterHelp();
 							} else {
 								System.out.println("Unrecognized command: " + command_arg[1]);
-							} 
+							}
 						}
-						
+
 					} else if (numtokens == 1) {
 						typewriter.printHelpScreen();
 					}
@@ -133,18 +134,18 @@ public class Opal {
 					} else {
 						System.out.println("You must login first!");
 					}
-					
+
 					// User enters "login" command
 				} else if (command_arg[0].contentEquals("login")) {
 					if (numtokens == 2) {
-						
+
 						System.out.print("Enter password for " + command_arg[1] + ":");
 						String masterPassword = cmdPrompt.nextLine();
 						opalLogin(command_arg[1], masterPassword);
 					} else {
 						System.out.println("Incorrect number of arguments for command: login");
 					}
-					
+
 					// User enters "logout" command
 				} else if (command_arg[0].contentEquals("logout")) {
 					if (numtokens == 1) {
@@ -152,28 +153,25 @@ public class Opal {
 					} else {
 						System.out.println("Incorrect number of arguments for command: logout");
 					}
-					
+
 					// User enters "register" command
 				} else if (command_arg[0].contentEquals("register")) {
 					if (numtokens == 2) {
-						
+
 						OpalUser newUser = new OpalUser();
 						newUser.setUsername(command_arg[1]);
 						dbInteractor.UploadOpalUser(newUser);
-						
+
 						System.out.println("Adding user: " + command_arg[1]);
 					}
-				}
-					
-					// Opal does not recognize the command entered
 				} else {
 					System.out.println(command_arg[0] + ": command not found");
 				}
-			
-			typewriter.printUserPrompt();
 			}
-
+			typewriter.printUserPrompt();
 		}
+
+	}
 	
 	/**
 	 * Login to password manager
