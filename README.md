@@ -1,5 +1,16 @@
 # Opal
-A secure password manager.
+A password manager for a JavaSE server. 
+
+
+## Development Note
+This branch is currently not working or stable.
+
+Opal is designed to be a secure password manager, however, not every commit will have this in mind. Release tags should be
+the most secure variants of this project.
+
+All changes will be pushed into the "master" branch until a tested, stable, version implementing the minimum feature set can
+be produced. Then, large additions, untested code, or new features will be commited to a features branch until testing proves
+they are worthy of being merged back into the master branch.
 
 
 ## Synopsis
