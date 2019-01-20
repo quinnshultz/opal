@@ -33,7 +33,8 @@ public class Screamer {
 		System.out.println("account: account [-n] [pattern ...]");
 		System.out.println();
 		System.out.println("\tOptions:");
-		System.out.println("\t -n\tcreate a new account");
+		System.out.println("\t -a\tcreate a new account");
+		System.out.println("\t -d\tdelete an existing account");
 		System.out.println();
 		System.out.println("\tArguments:");
 		System.out.println("\t PATTERN\tPattern specifying an account name");
@@ -93,7 +94,7 @@ public class Screamer {
 		System.out.println("Type 'help' to see this list.");
 		System.out.println("Type 'help name' to find out more about the function 'name'.\n");
 		System.out.println("A star (*) next to a name means that the command is disabled.\n");
-		System.out.println(" account [-n] [pattern ...]");
+		System.out.println(" account [-ad] [pattern ...]");
 		System.out.println(" exit");
 		System.out.println(" help [pattern ...]");
 		System.out.println(" login");
