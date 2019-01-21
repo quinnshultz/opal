@@ -1,5 +1,5 @@
 # Opal
-A password manager for a JavaSE server. 
+A password manager for an Apache Tomcat Server.
 
 
 ## Development Note
