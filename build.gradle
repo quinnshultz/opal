@@ -1,8 +1,7 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'application'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
 
-mainClassName = 'com.billsbackyardbees.opal.pgm.Opal'
 
 // tag::repositories[]
 repositories {
@@ -11,34 +10,16 @@ repositories {
 // end::repositories[]
 
 
-// tag::jar[]
-jar {
-	baseName 'opal'
-	version = '0'
-
-	manifest {
-		attributes 'Main-Class': mainClassName
-	}
-}
-// end::jar[]
-
-
 // tag::dependencies[]
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-	runtime 'mysql:mysql-connector-java:8.0.13'
+	compile 'mysql:mysql-connector-java:8.0.13'
+	compile 'org.ow2.asm:asm:7.0'
+	compile 'com.sun.jersey:jersey-bundle:1.19.4'
+	compile 'org.json:json:20180813'
+	compile 'com.sun.jersey:jersey-server:1.19.4'
 	testCompile 'junit:junit:4.12'
 }
 // end::dependencies[]
-
-
-// tag::wrapper[]
-// end::wrapper[]
-
-// tag::run[]
-run {
-	standardInput = System.in
-}
-// end::run[]
