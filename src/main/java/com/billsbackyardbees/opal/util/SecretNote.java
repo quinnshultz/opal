@@ -15,9 +15,7 @@
  */
 package com.billsbackyardbees.opal.util;
 
-import com.billsbackyardbees.opal.db.OpalDataType;
-
-public class SecretNote implements OpalDataType {
+public class SecretNote implements java.io.Serializable {
 
 	private int id;
 	private String name;				// Name for the note
@@ -46,7 +44,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public int getId() {
 		return id;
 	}
@@ -54,7 +51,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public String getEncryptedData() {
 		return encryptedNote;
 	}
@@ -67,7 +63,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setEncryptedData(String data, String masterPassword) {
 		// TODO: Fix hardcoded publicKey so it finds it in the table
 		this.encryptedNote = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
@@ -77,7 +72,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -85,7 +79,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setName(String name) {
 		this.name = name;
 		modifiedFromDB = true;
@@ -94,7 +87,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public String getOpalUser() {
 		return opalUser;
 	}
@@ -102,7 +94,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setOpalUser(String opalUser) {
 		this.opalUser = opalUser;
 		modifiedFromDB = true;
@@ -111,7 +102,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public String getCharacterEncoding() {
 		return characterEncoding;
 	}
@@ -119,7 +109,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setCharacterEncoding(String characterEncoding) {
 		this.characterEncoding = characterEncoding;
 		modifiedFromDB = true;
@@ -128,7 +117,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public String getCipherTransformation() {
 		return cipherTransformation;
 	}
@@ -136,7 +124,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setCipherTransformation(String cipherTransformation) {
 		this.cipherTransformation = cipherTransformation;
 		modifiedFromDB = true;
@@ -145,7 +132,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public String getAesEncryptionAlgorithm() {
 		return aesEncryptionAlgorithm;
 	}
@@ -153,7 +139,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
 		this.aesEncryptionAlgorithm = aesEncryptionAlgorithm;
 		modifiedFromDB = true;
@@ -162,7 +147,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public boolean isModifiedFromDB() {
 		return modifiedFromDB;
 	}
@@ -170,7 +154,6 @@ public class SecretNote implements OpalDataType {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	@Override
 	public void setModifiedFromDB(boolean modified) {
 		this.modifiedFromDB = modified;
 	}

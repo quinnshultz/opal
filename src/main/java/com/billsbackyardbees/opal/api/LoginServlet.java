@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("email");
-		// TODO: 
+		// TODO: Authenticate user
 		if (name != null) {
 			request.setAttribute("user", name);
 			request.getRequestDispatcher("response.jsp").forward(request, response);
