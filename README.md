@@ -15,7 +15,7 @@ they are worthy of being merged back into the master branch.
 
 ## Synopsis
 ```
-./gradlew run
+./gradlew appRun
 ```
 
 
@@ -37,7 +37,7 @@ Gradle handles dependencies (MySQL Connector J, and JUnit) for this project.
 ./gradlew build
 
 # Run with
-java -jar build/libs/opal-0.jar
+./gradlew appRun
 ```
 
 
