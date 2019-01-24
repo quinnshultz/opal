@@ -1,25 +1,14 @@
-apply plugin: 'java'
-apply plugin: 'war'
-apply plugin: 'eclipse-wtp'
-
-
-// tag::repositories[]
-repositories {
-	mavenCentral()
+plugins {
+	id 'war'
+	id 'org.gretty' version '2.2.0'
 }
-// end::repositories[]
 
-
-// tag::dependencies[]
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+repositories {
+	jcenter()
+}
 
 dependencies {
-	compile 'mysql:mysql-connector-java:8.0.13'
-	compile 'org.ow2.asm:asm:7.0'
-	compile 'com.sun.jersey:jersey-bundle:1.19.4'
-	compile 'org.json:json:20180813'
-	compile 'com.sun.jersey:jersey-server:1.19.4'
+	providedCompile 'mysql:mysql-connector-java:8.0.13'
+	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 	testCompile 'junit:junit:4.12'
 }
-// end::dependencies[]
