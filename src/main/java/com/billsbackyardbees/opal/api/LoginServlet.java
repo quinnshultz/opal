@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class HelloServlet
  * @author Gradle.org
  */
-@WebServlet(name = "HelloServlet", urlPatterns = {"hello"}, loadOnStartup = 1)
-public class HelloServlet extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = {"login"}, loadOnStartup = 1)
+public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -24,10 +24,12 @@ public class HelloServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		if (name == null) name = "World";
-		request.setAttribute("user", name);
-		request.getRequestDispatcher("response.jsp").forward(request, response);
+		String name = request.getParameter("email");
+		// TODO: 
+		if (name != null) {
+			request.setAttribute("user", name);
+			request.getRequestDispatcher("response.jsp").forward(request, response);
+		}
 	}
 
 }
