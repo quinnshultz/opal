@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.backyardbees.opal.bean.OpalUser;
+import com.billsbackyardbees.opal.bean.OpalUser;
 
 public class TestOpalUser extends TestCase {
 	
@@ -39,7 +39,7 @@ public class TestOpalUser extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		opalUser = new OpalUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME, "{USER}");
+		opalUser = new OpalUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class TestOpalUser extends TestCase {
 	@Test
 	public void testSetPassword() {
 		try {
-			opalUser.setPublicKey(EXAMPLE_NEW_PASSWORD);
+			opalUser.setPassword(EXAMPLE_NEW_PASSWORD);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing setPassword()");

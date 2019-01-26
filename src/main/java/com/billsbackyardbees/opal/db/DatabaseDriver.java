@@ -15,9 +15,8 @@
  */
 package com.billsbackyardbees.opal.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
 
 /**
  * A MySQL Database connection.
@@ -26,56 +25,29 @@ import java.sql.SQLException;
  */
 public class DatabaseDriver {
 	
-	private Connection conn;
-	private StringBuilder queryBuilder[];
-	private final int QUERY_BUILDER_ARRAY_BOUNDS = 3;
-
+	static Connection conn;
+	static String url;
+	
 	/**
-	 * Create a new database connection
+	 * @return The database connection
 	 */
-	public DatabaseDriver() {
-		queryBuilder = new StringBuilder[QUERY_BUILDER_ARRAY_BOUNDS];
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			// It is recommended that you at least change the MySQL password to maximize security
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+	public static Connection getConnection() {
 		
-		} catch (SQLException e) {
-			System.out.println(e);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Executes a MySQL statement on the currently connected database
-	 * 
-	 * @param sqlStatement Statement to be executed
-	 * @return ResultSet returned by JDBC, if exception occurs returns null
-	 */
-	public java.sql.ResultSet executeStatement(String sqlStatement) {
-		java.sql.ResultSet rs;
 		try {
-			java.sql.Statement stmt = conn.createStatement();
-			rs = stmt.executeQuery(sqlStatement);
-			return rs;
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-		return null;
-	}
-	
-	/**
-	 * Closes the currently running JDBC connection.
-	 */
-	public void closeConnection() {
-		try {
-			conn.close();
+			String url = "jdbc:mysql:" + "//localhost:3306/opalPasswordManager";
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-		} catch (SQLException e) {
+			try {
+				conn = DriverManager.getConnection(url, "jdbcopal", "Nth@Z8giog5uL3tD");
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		
+		} catch (ClassNotFoundException e) {
 			System.out.println(e);
 		}
+		
+		return conn;
 	}
 	
 }

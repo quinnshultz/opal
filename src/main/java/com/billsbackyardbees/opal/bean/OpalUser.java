@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.backyardbees.opal.bean;
+package com.billsbackyardbees.opal.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class OpalUser {
 	private String fullName;
 	private String password;
 	
-	private List<String> roles;
+	public boolean valid;
 	
 	/**
 	 * Create an user of this program with blank attributes
@@ -46,17 +46,10 @@ public class OpalUser {
 	 * @param fullName Full name of user
 	 * @param roles List of 
 	 */
-	public OpalUser(String email, String password, String fullName, String... roles) {
+	public OpalUser(String email, String password, String fullName) {
 		this.email = email;
 		this.password = password;
 		this.fullName = fullName;
-		
-		this.roles = new ArrayList<String>();
-		if (roles != null) {
-			for (String r : roles) {
-				this.roles.add(r);
-			}
-		}
 	}
 
 	/**
@@ -94,22 +87,22 @@ public class OpalUser {
 	/**
 	 * @param password The password to set
 	 */
-	public void setPublicKey(String publicKey) {
+	public void setPassword(String publicKey) {
 		this.password = publicKey;
 	}
 	
 	/**
-	 * @return The roles
+	 * @return True if valid, false otherwise
 	 */
-	public List<String> getRoles() {
-		return roles;
+	public boolean isValid() {
+		return valid;
 	}
 	
 	/**
-	 * @param roles The roles to set
+	 * @param newValid Flag showing if user is in database
 	 */
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
+	public void setValid(boolean newValid) {
+		valid = newValid;
 	}
 
 }
