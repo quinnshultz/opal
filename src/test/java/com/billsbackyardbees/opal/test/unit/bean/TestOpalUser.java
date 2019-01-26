@@ -13,19 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit.util;
+package com.billsbackyardbees.opal.test.unit.bean;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.util.OpalUser;
+import com.backyardbees.opal.bean.OpalUser;
 
 public class TestOpalUser extends TestCase {
 	
-	private final String EXAMPLE_USERNAME = "johndoe";
+	private final String EXAMPLE_EMAIL = "johndoe@example.com";
+	private final String EXAMPLE_NEW_EMAIL = "johndoe@gmail.com";
 	private final String EXAMPLE_FULL_NAME = "John Doe";
-	private final String EXAMPLE_PUBLIC_KEY = "mayneedtobechanged";
+	private final String EXAMPLE_NEW_NAME = "Jane Doe";
+	private final String EXAMPLE_PASSWORD = "47OLdsMd5%!ELIwr";
+	private final String EXAMPLE_NEW_PASSWORD = "h0d2IYa4K8h^&giP";
 	
 	private OpalUser opalUser;
 
@@ -34,7 +39,7 @@ public class TestOpalUser extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		opalUser = new OpalUser();
+		opalUser = new OpalUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME, "{USER}");
 	}
 	
 	/**
@@ -46,25 +51,25 @@ public class TestOpalUser extends TestCase {
 	}
 	
 	/**
-	 * Tests the getId() method
+	 * Tests the getEmail() method
 	 */
 	@Test
-	public void testGetId() {
+	public void testGetEmail() {
 		try {
-			assertEquals(opalUser.getId(), -1);
+			assertEquals(opalUser.getEmail(), EXAMPLE_EMAIL);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing getId()");
+			fail("Caught exception when executing getEmail()");
 		}
 	}
 	
 	/**
-	 * Tests the setUsername() method
+	 * Tests the setEmail() method
 	 */
 	@Test
-	public void testSetUsername() {
+	public void testSetEmail() {
 		try {
-			opalUser.setUsername(EXAMPLE_USERNAME);
+			opalUser.setEmail(EXAMPLE_NEW_EMAIL);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing setUsername()");
@@ -72,38 +77,12 @@ public class TestOpalUser extends TestCase {
 	}
 	
 	/**
-	 * Tests the getUsername() method
-	 */
-	@Test
-	public void testGetUsername() {
-		try {
-			assertEquals(opalUser.getUsername(), null);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing getUsername()");
-		}
-	}
-	
-	/**
-	 * Tests that the username can be retrieved after it is set
+	 * Tests that the Email Address can be retrieved after it is set
 	 */
 	@Test
 	public void testGetUsernameAfterSetUsername() {
-		opalUser.setUsername(EXAMPLE_USERNAME);
-		assertEquals(opalUser.getUsername(), EXAMPLE_USERNAME);
-	}
-	
-	/**
-	 * Tests the setFullName() method
-	 */
-	@Test
-	public void testSetFullName() {
-		try {
-			opalUser.setFullName(EXAMPLE_FULL_NAME);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing setFullName()");
-		}
+		opalUser.setEmail(EXAMPLE_NEW_EMAIL);
+		assertEquals(opalUser.getEmail(), EXAMPLE_NEW_EMAIL);
 	}
 	
 	/**
@@ -112,10 +91,23 @@ public class TestOpalUser extends TestCase {
 	@Test
 	public void testGetFullName() {
 		try {
-			assertEquals(opalUser.getFullName(), null);
+			assertEquals(opalUser.getFullName(), EXAMPLE_FULL_NAME);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing getFullName()");
+		}
+	}
+	
+	/**
+	 * Tests the setFullName() method
+	 */
+	@Test
+	public void testSetFullName() {
+		try {
+			opalUser.setFullName(EXAMPLE_NEW_NAME);
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing setFullName()");
 		}
 	}
 	
@@ -124,33 +116,33 @@ public class TestOpalUser extends TestCase {
 	 */
 	@Test
 	public void testGetFullNameAfterSetFullName() {
-		opalUser.setFullName(EXAMPLE_FULL_NAME);
-		assertEquals(opalUser.getFullName(), EXAMPLE_FULL_NAME);
+		opalUser.setFullName(EXAMPLE_NEW_NAME);
+		assertEquals(opalUser.getFullName(), EXAMPLE_NEW_NAME);
 	}
 	
 	/**
-	 * Tests the setPublicKey() method
+	 * Tests the getPassword() method
 	 */
 	@Test
-	public void testSetPublicKey() {
+	public void testGetPassword() {
 		try {
-			opalUser.setPublicKey(EXAMPLE_PUBLIC_KEY);
+			assertEquals(opalUser.getPassword(), EXAMPLE_PASSWORD);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing setPublicKey()");
+			fail("Caught exception when executing getPassword()");
 		}
 	}
 	
 	/**
-	 * Tests the getPublicKey() method
+	 * Tests the setPassword() method
 	 */
 	@Test
-	public void testGetPublicKey() {
+	public void testSetPassword() {
 		try {
-			assertEquals(opalUser.getPublicKey(), null);
+			opalUser.setPublicKey(EXAMPLE_NEW_PASSWORD);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing getPublicKey()");
+			fail("Caught exception when executing setPassword()");
 		}
 	}
 	
@@ -158,9 +150,9 @@ public class TestOpalUser extends TestCase {
 	 * Tests that the public key can be retrieved after it is set
 	 */
 	@Test
-	public void testGetPublicKeyAfterSetPublicKey() {
-		opalUser.setFullName(EXAMPLE_PUBLIC_KEY);
-		assertEquals(opalUser.getFullName(), EXAMPLE_PUBLIC_KEY);
+	public void testGetPasswordAfterSetPassword() {
+		opalUser.setFullName(EXAMPLE_NEW_PASSWORD);
+		assertEquals(opalUser.getFullName(), EXAMPLE_NEW_PASSWORD);
 	}
 
 }

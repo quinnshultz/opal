@@ -13,13 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.util;
+package com.backyardbees.opal.bean;
 
-public class SecretNote implements java.io.Serializable {
+import com.billsbackyardbees.opal.util.DataEncrypter;
 
+/**
+ * Best to think of this as a java password or account object that corresponds or will correspond
+ * to a tuple in the account database.
+ * @author Quinn Shultz
+ *
+ */
+public class PasswordAccount implements java.io.Serializable {
+	
 	private int id;
-	private String name;				// Name for the note
-	private String encryptedNote;
+	private String url;
+	private String name;				// Name for the account
+	private String username;			// Account username credential
+	private String encryptedPassword;
+	private String notes;
 	
 	private String opalUser;				// Opal user account
 	private String characterEncoding;
@@ -31,32 +42,48 @@ public class SecretNote implements java.io.Serializable {
 	private DataEncrypter encrypter;
 	
 	/**
-	 * Create a new SecretNote
+	 * Create a new credential account, may then be populated with a stored account from the database,
+	 * or completed with new information and stored to the database.
 	 */
-	public SecretNote() {
+	public PasswordAccount() {
 		id = -1;
 		characterEncoding = "UTF-8";
 		cipherTransformation = "AES/CBC/PKCS5PADDING";
 		aesEncryptionAlgorithm = "AES";
 		encrypter = new DataEncrypter();
 	}
-	
+
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	public int getId() {
 		return id;
 	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+		modifiedFromDB = true;
+	}
 	
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	public String getEncryptedData() {
-		return encryptedNote;
+		return encryptedPassword;
 	}
 	
 	public String getData(String masterPassword) {
-		String data = encrypter.decryptString(encryptedNote, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		String data = encrypter.decryptString(encryptedPassword, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
 		return data;
 	}
 	
@@ -65,7 +92,7 @@ public class SecretNote implements java.io.Serializable {
 	 */
 	public void setEncryptedData(String data, String masterPassword) {
 		// TODO: Fix hardcoded publicKey so it finds it in the table
-		this.encryptedNote = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		this.encryptedPassword = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
 		modifiedFromDB = true;
 	}
 
@@ -85,6 +112,36 @@ public class SecretNote implements java.io.Serializable {
 	}
 
 	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+		modifiedFromDB = true;
+	}
+
+	/**
+	 * @return the notes
+	 */
+	public String getNotes() {
+		return notes;
+	}
+
+	/**
+	 * @param notes the notes to set
+	 */
+	public void setNotes(String notes) {
+		this.notes = notes;
+		modifiedFromDB = true;
+	}
+	
+	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
 	public String getOpalUser() {
@@ -94,8 +151,8 @@ public class SecretNote implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
-	public void setOpalUser(String opalUser) {
-		this.opalUser = opalUser;
+	public void setOpalUser(String opalname) {
+		this.opalUser = opalname;
 		modifiedFromDB = true;
 	}
 

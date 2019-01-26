@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit.util;
+package com.billsbackyardbees.opal.test.unit.bean;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.billsbackyardbees.opal.util.PasswordAccount;
+import com.backyardbees.opal.bean.PasswordAccount;
 
 /**
  * Tests class PasswordAccount
