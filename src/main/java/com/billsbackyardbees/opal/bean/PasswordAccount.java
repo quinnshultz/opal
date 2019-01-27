@@ -22,6 +22,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import com.billsbackyardbees.opal.util.DataEncrypter;
+import com.billsbackyardbees.opal.util.OpalSerializer;
 
 /**
  * Best to think of this as a java password or account object that corresponds or will correspond
@@ -30,7 +31,9 @@ import com.billsbackyardbees.opal.util.DataEncrypter;
  *
  */
 @Entity
-public class PasswordAccount implements java.io.Serializable {
+public class PasswordAccount implements OpalDataType {
+	
+	private static final long serialVersionUID = OpalSerializer.getSerialVersionUID();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,6 +96,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -115,6 +119,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getEncryptedData() {
 		return encryptedPassword;
 	}
@@ -127,6 +132,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setEncryptedData(String data, String masterPassword) {
 		// TODO: Fix hardcoded publicKey so it finds it in the table
 		this.encryptedPassword = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
@@ -136,6 +142,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -143,6 +150,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 		modifiedFromDB = true;
@@ -181,6 +189,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getOpalUser() {
 		return opalUser;
 	}
@@ -188,6 +197,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setOpalUser(String opalname) {
 		this.opalUser = opalname;
 		modifiedFromDB = true;
@@ -196,6 +206,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getCharacterEncoding() {
 		return characterEncoding;
 	}
@@ -203,6 +214,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setCharacterEncoding(String characterEncoding) {
 		this.characterEncoding = characterEncoding;
 		modifiedFromDB = true;
@@ -211,6 +223,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getCipherTransformation() {
 		return cipherTransformation;
 	}
@@ -218,6 +231,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setCipherTransformation(String cipherTransformation) {
 		this.cipherTransformation = cipherTransformation;
 		modifiedFromDB = true;
@@ -226,6 +240,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public String getAesEncryptionAlgorithm() {
 		return aesEncryptionAlgorithm;
 	}
@@ -233,6 +248,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
 		this.aesEncryptionAlgorithm = aesEncryptionAlgorithm;
 		modifiedFromDB = true;
@@ -241,6 +257,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public boolean isModifiedFromDB() {
 		return modifiedFromDB;
 	}
@@ -248,6 +265,7 @@ public class PasswordAccount implements java.io.Serializable {
 	/**
 	 * @see com.billsbackyardbees.opal.db.OpalDataType
 	 */
+	@Override
 	public void setModifiedFromDB(boolean modified) {
 		this.modifiedFromDB = modified;
 	}

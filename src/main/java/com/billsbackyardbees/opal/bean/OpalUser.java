@@ -15,12 +15,16 @@
  */
 package com.billsbackyardbees.opal.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.billsbackyardbees.opal.util.OpalSerializer;
 
 /**
  * An user of this program.
@@ -29,7 +33,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="opalUsers")
-public class OpalUser {
+public class OpalUser implements Serializable {
+	
+	static final long serialVersionUID = OpalSerializer.getSerialVersionUID();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
