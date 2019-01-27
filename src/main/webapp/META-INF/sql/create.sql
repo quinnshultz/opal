@@ -16,7 +16,7 @@
 
 /*********************************************************************************************************/
 /*                                                                                                       */
-/*                                          TABLE TEMPLATES                                              */
+/*                                              TABLES                                                   */
 /*                                                                                                       */
 /*********************************************************************************************************/
 
@@ -27,31 +27,19 @@ CREATE table opalUsers(ID int auto_increment
 , username varchar(256) UNIQUE NOT NULL
 , fullName varchar(256)
 -- In the future, we may need to force asymmetric key cryptography
-, publicKey varchar(128)
+, password varchar(128)
 , primary key (id));
 
 /*
  * Create a template table for Objects
  * with an username and password
  */
-CREATE table passwordaccounts_template(ID int auto_increment
+CREATE table passwordAccounts_template(ID int auto_increment
 , url varchar(2048)
 , name varchar(256) UNIQUE NOT NULL
 , username varchar(256) NOT NULL
 , encryptedPassword varchar(256)
 , notes varchar(10240)
-, characterEncoding varchar(128) NOT NULL
-, cipherTransformation varchar(128) NOT NULL
-, aesEncryptionAlgorithm varchar(128) NOT NULL
-, primary key (id));
-
-/*
- * Create a template table for Objects
- * with a lot of encrypted data
- */
-CREATE table secretnotes_template(ID int auto_increment
-, name varchar(256) UNIQUE NOT NULL
-, encryptedNotes varchar(10240)
 , characterEncoding varchar(128) NOT NULL
 , cipherTransformation varchar(128) NOT NULL
 , aesEncryptionAlgorithm varchar(128) NOT NULL

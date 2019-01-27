@@ -15,18 +15,30 @@
  */
 package com.billsbackyardbees.opal.bean;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * An user of this program.
  * @author Quinn Shultz
  *
  */
+@Entity
+@Table(name="opalUsers")
 public class OpalUser {
 
+	@Id
+	@Column(name="email")
 	private String email;
+	
+	@Id
+	@Column(name="fullName")
 	private String fullName;
+	
+	@Id
+	@Column(name="password")
 	private String password;
 	
 	public boolean valid;

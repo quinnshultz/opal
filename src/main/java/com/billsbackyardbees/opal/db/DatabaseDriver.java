@@ -15,8 +15,9 @@
  */
 package com.billsbackyardbees.opal.db;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * A MySQL Database connection.
@@ -34,17 +35,19 @@ public class DatabaseDriver {
 	public static Connection getConnection() {
 		
 		try {
-			String url = "jdbc:mysql:" + "//localhost:3306/opalPasswordManager";
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			try {
-				conn = DriverManager.getConnection(url, "jdbcopal", "Nth@Z8giog5uL3tD");
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
+		
 		
 		} catch (ClassNotFoundException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			//System.out.println(e);
+		}
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return conn;

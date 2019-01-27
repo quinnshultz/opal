@@ -4,11 +4,15 @@ plugins {
 }
 
 repositories {
+	flatDir { dirs "src/main/webapp/WEB-INF/lib" }
 	jcenter()
 }
 
 dependencies {
-	providedCompile 'mysql:mysql-connector-java:8.0.13'
+	providedCompile ':mysql-connector-java:8.0.+'
+	providedCompile 'org.eclipse.persistence:eclipselink:2.7.4'
+	providedCompile 'org.eclipse.persistence:javax.persistence:2.2.1'
 	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	providedCompile 'org.hibernate:hibernate-core:5.4.1.Final'
 	testCompile 'junit:junit:4.12'
 }
