@@ -25,8 +25,8 @@ import com.billsbackyardbees.opal.bean.OpalUser;
 
 public class TestOpalUser extends TestCase {
 	
-	private final String EXAMPLE_EMAIL = "johndoe@example.com";
-	private final String EXAMPLE_NEW_EMAIL = "johndoe@gmail.com";
+	private final String EXAMPLE_USERNAME = "jdoe323";
+	private final String EXAMPLE_NEW_USERNAME = "johndoe";
 	private final String EXAMPLE_FULL_NAME = "John Doe";
 	private final String EXAMPLE_NEW_NAME = "Jane Doe";
 	private final String EXAMPLE_PASSWORD = "47OLdsMd5%!ELIwr";
@@ -39,7 +39,7 @@ public class TestOpalUser extends TestCase {
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		opalUser = new OpalUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);
+		opalUser = new OpalUser(EXAMPLE_USERNAME, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);
 	}
 	
 	/**
@@ -51,25 +51,25 @@ public class TestOpalUser extends TestCase {
 	}
 	
 	/**
-	 * Tests the getEmail() method
+	 * Tests the getUsername() method
 	 */
 	@Test
-	public void testGetEmail() {
+	public void testGetUsername() {
 		try {
-			assertEquals(opalUser.getEmail(), EXAMPLE_EMAIL);
+			assertEquals(opalUser.getUsername(), EXAMPLE_USERNAME);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing getEmail()");
+			fail("Caught exception when executing getUsername()");
 		}
 	}
 	
 	/**
-	 * Tests the setEmail() method
+	 * Tests the setUsername() method
 	 */
 	@Test
-	public void testSetEmail() {
+	public void testSetUsername() {
 		try {
-			opalUser.setEmail(EXAMPLE_NEW_EMAIL);
+			opalUser.setUsername(EXAMPLE_NEW_USERNAME);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing setUsername()");
@@ -77,12 +77,12 @@ public class TestOpalUser extends TestCase {
 	}
 	
 	/**
-	 * Tests that the Email Address can be retrieved after it is set
+	 * Tests that the Username can be retrieved after it is set
 	 */
 	@Test
 	public void testGetUsernameAfterSetUsername() {
-		opalUser.setEmail(EXAMPLE_NEW_EMAIL);
-		assertEquals(opalUser.getEmail(), EXAMPLE_NEW_EMAIL);
+		opalUser.setUsername(EXAMPLE_NEW_USERNAME);
+		assertEquals(opalUser.getUsername(), EXAMPLE_NEW_USERNAME);
 	}
 	
 	/**

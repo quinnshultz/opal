@@ -43,8 +43,8 @@ public class OpalUser implements Serializable {
 	private int id;
 
 	@Id
-	@Column(name="email", updatable = true, nullable = false)
-	private String email;
+	@Column(name="username", updatable = true, nullable = false)
+	private String username;
 	
 	@Id
 	@Column(name="fullName", updatable = true, nullable = true)
@@ -66,28 +66,28 @@ public class OpalUser implements Serializable {
 	/**
 	 * Create an user of this program
 	 * 
-	 * @param email Email address and user-name for new account
+	 * @param username User-name for new account
 	 * @param password Password for user
 	 * @param fullName Full name of user
 	 * @param roles List of 
 	 */
-	public OpalUser(String email, String password, String fullName) {
-		this.email = email;
+	public OpalUser(String username, String password, String fullName) {
+		this.username = username;
 		this.password = password;
 		this.fullName = fullName;
 	}
 
 	/**
-	 * @return The email address
+	 * @return The username
 	 */
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 	/**
-	 * @param email The email address to set
+	 * @param username The username to set
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	/**
 	 * @return The full name

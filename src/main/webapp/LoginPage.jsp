@@ -14,9 +14,9 @@
 <body>
 	<form action="LoginServlet">
 
-		Please enter your email <input type="text" name="email" /><br>
+		Please enter your user-name <input type="text" name="username" /><br>
 
-		Please enter your password <input type="text" name="password" /> <input
+		Please enter your password <input type="password" name="password" /> <input
 			type="submit" value="submit">
 
 	</form>

@@ -15,7 +15,7 @@
 <body>
 
 	<center>
-		<% OpalUser currentUser = (OpalUser (session.getAttribute("currentSessionUser"));%>
+		<% OpalUser currentUser = (OpalUser) (session.getAttribute("currentSessionUser"));%>
 
 		Welcome
 		<%= currentUser.getFullName() %>

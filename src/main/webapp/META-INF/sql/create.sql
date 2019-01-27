@@ -55,25 +55,25 @@ CREATE table passwordAccounts_template(ID int auto_increment
  * Adds a new account by creating MySQL table:
  * userName_accounts and inserting into opalUsers
  *
- * Parameter paramUserName			Username for the new account
+ * Parameter paramUsername			Username address for the new account
  * Parameter paramFullName			Full name of the new account user (optional)
  * Parameter paramPassword			Key used for encryption (optional)
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `add_new_opaluser` (In paramUserName varchar(256), In paramFullName varchar(256), In paramPassword varchar(128))
+PROCEDURE `add_new_opaluser` (In paramUsername varchar(256), In paramFullName varchar(256), In paramPassword varchar(128))
 BEGIN
 	If not exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
-	AND table_name=CONCAT(paramUserName,'_accounts') )
+	AND table_name=CONCAT(paramUsername,'_accounts') )
 	Then
         
-        SET @sql = CONCAT('CREATE TABLE ', CONCAT(paramUserName,'_accounts'),' LIKE passwordaccounts_template');
+        SET @sql = CONCAT('CREATE TABLE ', CONCAT(paramUsername,'_accounts'),' LIKE passwordAccounts_template');
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
 
-		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password) VALUES (',"'",paramUserName,
+		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password) VALUES (',"'",paramUsername,
 							"'",', ',"'",paramFullName,"'",', ',"'",paramPassword,"'",')');
 		PREPARE s FROM @sql;
 		EXECUTE s;
@@ -88,24 +88,24 @@ DELIMITER ;
  * Removes an account by dropping MySQL table:
  * userName_accounts and deleting from opalUsers
  *
- * Parameter paramUserName	Username of the account
+ * Parameter paramUsername	Username of the account
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `remove_opaluser` (In paramUserName varchar(256))
+PROCEDURE `remove_opaluser` (In paramUsername varchar(256))
 BEGIN
 
-	SET @sql = CONCAT('DELETE FROM opalUsers WHERE username= ',"'",paramUserName,"'");
+	SET @sql = CONCAT('DELETE FROM opalUsers WHERE username= ',"'",paramUsername,"'");
 	PREPARE s FROM @sql;
 	EXECUTE s;
 	DEALLOCATE PREPARE s;
 
 	If exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
-	AND table_name=CONCAT(paramUserName,'_accounts') )
+	AND table_name=CONCAT(paramUsername,'_accounts') )
 	Then
         
-        SET @sql = CONCAT('DROP TABLE ', CONCAT(paramUserName,'_accounts'));
+        SET @sql = CONCAT('DROP TABLE ', CONCAT(paramUsername,'_accounts'));
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
