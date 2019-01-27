@@ -57,11 +57,11 @@ CREATE table passwordAccounts_template(ID int auto_increment
  *
  * Parameter paramUserName			Username for the new account
  * Parameter paramFullName			Full name of the new account user (optional)
- * Parameter paramPublicKey			Key used for encryption (optional)
+ * Parameter paramPassword			Key used for encryption (optional)
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `add_new_opaluser` (In paramUserName varchar(256), In paramFullName varchar(256), In paramPublicKey varchar(128))
+PROCEDURE `add_new_opaluser` (In paramUserName varchar(256), In paramFullName varchar(256), In paramPassword varchar(128))
 BEGIN
 	If not exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
@@ -73,8 +73,8 @@ BEGIN
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
 
-		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, publicKey) VALUES (',"'",paramUserName,
-							"'",', ',"'",paramFullName,"'",', ',"'",paramPublicKey,"'",')');
+		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password) VALUES (',"'",paramUserName,
+							"'",', ',"'",paramFullName,"'",', ',"'",paramPassword,"'",')');
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;

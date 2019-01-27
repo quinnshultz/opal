@@ -20,13 +20,14 @@
 /*                                                                                                       */
 /*********************************************************************************************************/
 
-/*
- * Drop table for storing user encryption keys
- */
 DROP table opalUsers;
 
-/*
- * Drop the template table for Objects
- * with an username and password
- */
 DROP table passwordAccounts_template;
+
+DROP procedure add_new_opaluser;
+
+DROP procedure remove_opaluser;
+
+DROP procedure add_account;
+
+DROP procedure remove_account;
