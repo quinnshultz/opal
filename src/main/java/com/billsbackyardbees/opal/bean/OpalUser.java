@@ -16,6 +16,8 @@
 package com.billsbackyardbees.opal.bean;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -28,17 +30,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name="opalUsers")
 public class OpalUser {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id", updatable = false, nullable = false)
+	private int id;
 
 	@Id
-	@Column(name="email")
+	@Column(name="email", updatable = true, nullable = false)
 	private String email;
 	
 	@Id
-	@Column(name="fullName")
+	@Column(name="fullName", updatable = true, nullable = true)
 	private String fullName;
 	
 	@Id
-	@Column(name="password")
+	@Column(name="password", updatable = true, nullable = false)
 	private String password;
 	
 	public boolean valid;

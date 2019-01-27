@@ -15,6 +15,12 @@
  */
 package com.billsbackyardbees.opal.bean;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.billsbackyardbees.opal.util.DataEncrypter;
 
 /**
@@ -23,21 +29,52 @@ import com.billsbackyardbees.opal.util.DataEncrypter;
  * @author Quinn Shultz
  *
  */
+@Entity
 public class PasswordAccount implements java.io.Serializable {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id", updatable = false, nullable = false)
 	private int id;
+
+	@Id
+	@Column(name="url", updatable = true, nullable = true)
 	private String url;
-	private String name;				// Name for the account
-	private String username;			// Account username credential
+	
+	// Name for the account
+	@Id
+	@Column(name="name", updatable = true, nullable = false)
+	private String name;
+	
+	// Account username credential
+	@Id
+	@Column(name="username", updatable = true, nullable = false)
+	private String username;
+	
+	@Id
+	@Column(name="encryptedPassword", updatable = true, nullable = false)
 	private String encryptedPassword;
+	
+	@Id
+	@Column(name="notes", updatable = true, nullable = true)
 	private String notes;
 	
-	private String opalUser;				// Opal user account
+	@Id
+	@Column(name="characterEncoding", updatable = true, nullable = false)
 	private String characterEncoding;
+	
+	@Id
+	@Column(name="cipherTransformation", updatable = true, nullable = false)
 	private String cipherTransformation;
+	
+	@Id
+	@Column(name="aesEncryptionAlgorithm", updatable = true, nullable = false)
 	private String aesEncryptionAlgorithm;
 
 	private boolean modifiedFromDB;
+	
+	// Opal user account
+	private String opalUser;
 	
 	private DataEncrypter encrypter;
 	
