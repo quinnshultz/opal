@@ -26,6 +26,7 @@ import java.security.cert.CertificateException;
 import javax.crypto.SecretKey;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -47,7 +48,7 @@ public class OpalUser implements Serializable {
 	static final long serialVersionUID = OpalSerializer.getSerialVersionUID();
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private int id;
 
@@ -63,6 +64,7 @@ public class OpalUser implements Serializable {
 	@Column(name = "keystore", updatable = true, nullable = false)
 	private byte[] serializedKeystore;
 
+	@Transient
 	public boolean valid;
 
 	/**

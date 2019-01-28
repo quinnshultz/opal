@@ -1,18 +1,24 @@
-plugins {
-	id 'war'
-	id 'org.gretty' version '2.2.0'
+
+apply plugin: 'war'
+
+war {
+archiveName 'opal.war'
+
 }
+
 
 repositories {
-	flatDir { dirs "src/main/webapp/WEB-INF/lib" }
-	jcenter()
+flatDir { dirs "src/main/webapp/WEB-INF/lib" }
+jcenter()
+
 }
 
+
 dependencies {
-	providedCompile ':mysql-connector-java:8.0.+'
-	providedCompile 'org.eclipse.persistence:eclipselink:2.7.4'
-	providedCompile 'org.eclipse.persistence:javax.persistence:2.2.1'
-	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
-	providedCompile 'org.hibernate:hibernate-core:5.4.1.Final'
-	testCompile 'junit:junit:4.12'
+
+providedCompile 'mysql:mysql-connector-java:8.0.14'
+providedCompile 'javax:javaee-api:8.0.1-b5'
+testCompile 'junit:junit:4.12'
+
 }
+

@@ -16,6 +16,8 @@
 package com.billsbackyardbees.opal.api;
 
 import java.io.IOException;
+
+import javax.persistence.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +41,15 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("opal-persistence-unit");
+			EntityManager em = factory.createEntityManager();
+			em.getTransaction().begin();
 			OpalUser user = new OpalUser();
 			user.setUsername(request.getParameter("username"));
 			user.setPassword(null, request.getParameter("password"));
+			
+			em.persist(user);
+			em.getTransaction().commit();
 			
 			user = OpalUserDAO.login(user);
 			

@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import com.billsbackyardbees.opal.util.DataEncrypter;
 import com.billsbackyardbees.opal.util.OpalSerializer;
@@ -36,7 +37,7 @@ public class PasswordAccount implements OpalDataType {
 	private static final long serialVersionUID = OpalSerializer.getSerialVersionUID();
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", updatable = false, nullable = false)
 	private int id;
 
@@ -66,11 +67,14 @@ public class PasswordAccount implements OpalDataType {
 	@Column(name="aesEncryptionAlgorithm", updatable = true, nullable = false)
 	private String aesEncryptionAlgorithm;
 
+	@Transient
 	private boolean modifiedFromDB;
 	
+	@Transient
 	// Opal user account
 	private String opalUser;
 	
+	@Transient
 	private DataEncrypter encrypter;
 	
 	/**

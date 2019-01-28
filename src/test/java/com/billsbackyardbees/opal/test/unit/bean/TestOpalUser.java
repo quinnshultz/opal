@@ -119,18 +119,5 @@ public class TestOpalUser extends TestCase {
 		opalUser.setFullName(EXAMPLE_NEW_NAME);
 		assertEquals(opalUser.getFullName(), EXAMPLE_NEW_NAME);
 	}
-	
-	/**
-	 * Tests the setPassword() method
-	 */
-	@Test
-	public void testSetPassword() {
-		try {
-			opalUser.setPassword(null, EXAMPLE_NEW_PASSWORD);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing setPassword()");
-		}
-	}
 
 }
