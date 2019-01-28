@@ -83,46 +83,6 @@ public interface OpalDataType extends Serializable {
 	public String getOpalUser();
 
 	/**
-	 * Sets the character encoding for the encrypted String, by default this is set
-	 * as UTF-8 when a new Object is constructed.
-	 * 
-	 * @param characterEncoding
-	 */
-	public void setCharacterEncoding(String characterEncoding);
-
-	/**
-	 * Gets the character encoding for the encrypted String, by default this is set
-	 * as UTF-8 when a new Object is constructed.
-	 * 
-	 * @return
-	 */
-	public String getCharacterEncoding();
-
-	/**
-	 * 
-	 * @param cipherTransformation
-	 */
-	public void setCipherTransformation(String cipherTransformation);
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getCipherTransformation();
-
-	/**
-	 * 
-	 * @param AesEncryptionAlgorithm
-	 */
-	public void setAesEncryptionAlgorithm(String AesEncryptionAlgorithm);
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getAesEncryptionAlgorithm();
-
-	/**
 	 * 
 	 * @return true if Object parameters have changed since being stored as a tuple,
 	 *         false otherwise

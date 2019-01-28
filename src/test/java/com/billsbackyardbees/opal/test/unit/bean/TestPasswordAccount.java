@@ -32,9 +32,6 @@ public class TestPasswordAccount extends TestCase {
 	private final String EXAMPLE_USERNAME = "johndoe";
 //	private final String EXAMPLE_PASSWORD = "Uu%W@7Z2iaWa5@q7";
 	private final String EXAMPLE_NOTES = "My favorite streaming service!";
-	private final String EXAMPLE_CHARACTER_ENCODING = "UTF-8";
-	private final String EXAMPLE_CIPHER_TRANSFORMATION = "AES/CBC/PKCS5PADDING";
-	private final String EXAMPLE_AES_ENCRYPTION_ALGORITHM = "AES";
 	
 	private PasswordAccount encrypter;
 
@@ -243,84 +240,6 @@ public class TestPasswordAccount extends TestCase {
 	public void testGetNotesAfterSetNotes() {
 		encrypter.setNotes(EXAMPLE_NOTES);
 		assertEquals(encrypter.getNotes(), EXAMPLE_NOTES);
-	}
-	
-	/**
-	 * Tests the setCharacterEncoding() method
-	 */
-	@Test
-	public void testSetCharacterEncoding() {
-		try {
-			encrypter.setCharacterEncoding(EXAMPLE_CHARACTER_ENCODING);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing setCharacterEncoding()");
-		}
-	}
-	
-	/**
-	 * Tests the getCharacterEncoding() method
-	 */
-	@Test
-	public void testGetCharacterEncoding() {
-		try {
-			assertEquals(encrypter.getCharacterEncoding(), "UTF-8");
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing getCharacterEncoding()");
-		}
-	}
-	
-	/**
-	 * Tests the setCipherTransformation() method
-	 */
-	@Test
-	public void testSetCipherTransformation() {
-		try {
-			encrypter.setCipherTransformation(EXAMPLE_CIPHER_TRANSFORMATION);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing setCipherTransformation()");
-		}
-	}
-	
-	/**
-	 * Tests the getCipherTransformation() method
-	 */
-	@Test
-	public void testGetCipherTransformation() {
-		try {
-			assertEquals(encrypter.getCipherTransformation(), "AES/CBC/PKCS5PADDING");
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing getCipherTransformation()");
-		}
-	}
-	
-	/**
-	 * Tests the setAesEncryptionAlgorithm() method
-	 */
-	@Test
-	public void testSetAesEncryptionAlgorithm() {
-		try {
-			encrypter.setAesEncryptionAlgorithm(EXAMPLE_AES_ENCRYPTION_ALGORITHM);
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing setAesEncryptionAlgorithm()");
-		}
-	}
-	
-	/**
-	 * Tests the getAesEncryptionAlgorithm() method
-	 */
-	@Test
-	public void testGetAesEncryptionAlgorithm() {
-		try {
-			assertEquals(encrypter.getAesEncryptionAlgorithm(), "AES");
-		} catch (Exception e) {
-			// Test fails, caught an exception
-			fail("Caught exception when executing getAesEncryptionAlgorithm()");
-		}
 	}
 	
 }

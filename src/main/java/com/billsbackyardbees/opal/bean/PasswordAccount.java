@@ -56,15 +56,6 @@ public class PasswordAccount implements OpalDataType {
 	
 	@Column(name="notes", updatable = true, nullable = true)
 	private String notes;
-	
-	@Column(name="characterEncoding", updatable = true, nullable = false)
-	private String characterEncoding;
-	
-	@Column(name="cipherTransformation", updatable = true, nullable = false)
-	private String cipherTransformation;
-	
-	@Column(name="aesEncryptionAlgorithm", updatable = true, nullable = false)
-	private String aesEncryptionAlgorithm;
 
 	@Transient
 	private boolean modifiedFromDB;
@@ -82,9 +73,6 @@ public class PasswordAccount implements OpalDataType {
 	 */
 	public PasswordAccount() {
 		id = -1;
-		characterEncoding = "UTF-8";
-		cipherTransformation = "AES/CBC/PKCS5PADDING";
-		aesEncryptionAlgorithm = "AES";
 		encrypter = new DataEncrypter();
 	}
 
@@ -125,7 +113,7 @@ public class PasswordAccount implements OpalDataType {
 	@Override
 	public void setEncryptedData(String data, String masterPassword) {
 		// TODO: Fix hardcoded publicKey so it finds it in the table
-		this.encryptedPassword = encrypter.encryptString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		this.encryptedPassword = encrypter.encryptString(data, masterPassword);
 		modifiedFromDB = true;
 	}
 
@@ -190,57 +178,6 @@ public class PasswordAccount implements OpalDataType {
 	@Override
 	public void setOpalUser(String opalname) {
 		this.opalUser = opalname;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.bean.OpalDataType
-	 */
-	@Override
-	public String getCharacterEncoding() {
-		return characterEncoding;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.bean.OpalDataType
-	 */
-	@Override
-	public void setCharacterEncoding(String characterEncoding) {
-		this.characterEncoding = characterEncoding;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.bean.OpalDataType
-	 */
-	@Override
-	public String getCipherTransformation() {
-		return cipherTransformation;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.bean.OpalDataType
-	 */
-	@Override
-	public void setCipherTransformation(String cipherTransformation) {
-		this.cipherTransformation = cipherTransformation;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.bean.OpalDataType
-	 */
-	@Override
-	public String getAesEncryptionAlgorithm() {
-		return aesEncryptionAlgorithm;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.bean.OpalDataType
-	 */
-	@Override
-	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
-		this.aesEncryptionAlgorithm = aesEncryptionAlgorithm;
 		modifiedFromDB = true;
 	}
 

@@ -26,6 +26,7 @@
 CREATE table opalUsers(ID int auto_increment
 , username varchar(256) UNIQUE NOT NULL
 , fullName varchar(256)
+, password varchar(256) NOT NULL
 , keystore BLOB NOT NULL
 , primary key (id));
 
@@ -37,11 +38,8 @@ CREATE table passwordAccounts_template(ID int auto_increment
 , url varchar(2048)
 , name varchar(256) UNIQUE NOT NULL
 , username varchar(256) NOT NULL
-, encryptedPassword varchar(256)
+, encryptedPassword BLOB
 , notes varchar(10240)
-, characterEncoding varchar(128) NOT NULL
-, cipherTransformation varchar(128) NOT NULL
-, aesEncryptionAlgorithm varchar(128) NOT NULL
 , primary key (id));
 
 /*********************************************************************************************************/
@@ -60,7 +58,7 @@ CREATE table passwordAccounts_template(ID int auto_increment
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `add_new_opaluser` (In paramUsername varchar(256), In paramFullName varchar(256), In paramKeystore varchar(128))
+PROCEDURE `add_new_opaluser` (In paramUsername varchar(256), In paramFullName varchar(256), In paramPassword varchar(256), In paramKeystore BLOB)
 BEGIN
 	If not exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
@@ -72,8 +70,8 @@ BEGIN
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
 
-		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, keystore) VALUES (',"'",paramUsername,
-							"'",', ',"'",paramFullName,"'",', ',"'",paramKeystore,"'",')');
+		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password, keystore) VALUES (',"'",paramUsername,
+							"'",', ',"'",paramFullName,"'",',',"'",paramPassword,"'",', ',"'",paramKeystore,"'",')');
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
@@ -123,23 +121,18 @@ DELIMITER ;
  * Parameter paramAccountUsernmame			Username of the account being added
  * Parameter paramEncryptedPassword			Password after encryption
  * Parameter paramNotes						Any notes to store with the account
- * Parameter paramCharacterEncoding
- * Parameter paramCipherTransformation
- * Parameter paramAesEncryptionAlgorithm
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
 PROCEDURE `add_account` (In paramName varchar(256), In paramOpalName varchar(256), In paramURL varchar(2048), In paramAccountUsername varchar(256),
-							In paramEncryptedPassword varchar(256), In paramNotes varchar(10240), In paramCharacterEncoding varchar(128),
-                            In paramCipherTransformation varchar(128), In paramAesEncryptionAlgorithm varchar(128))
+							In paramEncryptedPassword BLOB, In paramNotes varchar(10240))
 BEGIN
 	If exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
 	AND table_name=CONCAT(paramOpalName,'_accounts') )
 	Then
 		SET @sql = CONCAT('INSERT INTO ', CONCAT(paramOpalName,'_accounts'),' (name, url, username, encryptedPassword, notes, characterEncoding, cipherTransformation, aesEncryptionAlgorithm) VALUES(',"'",
-							paramName,"'",', ',"'",paramURL,"'",', ',"'",paramAccountUsername,"'",', ',"'",paramEncryptedPassword,"'",', ',"'",paramNotes,"'",', ',"'",
-                            paramCharacterEncoding,"'",', ',"'",paramCipherTransformation,"'",', ',"'",paramAesEncryptionAlgorithm,"'",')');
+							paramName,"'",', ',"'",paramURL,"'",', ',"'",paramAccountUsername,"'",', ',"'",paramEncryptedPassword,"'",', ',"'",paramNotes,"'",')');
 		PREPARE s FROM @sql;
         EXECUTE s;
         DEALLOCATE PREPARE s;

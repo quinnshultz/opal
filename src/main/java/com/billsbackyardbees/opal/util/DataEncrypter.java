@@ -61,6 +61,34 @@ public class DataEncrypter {
 	}
 	
 	/**
+	 * Encrypt a String.
+	 * 
+	 * @param data String desired to be encrypted
+	 * @param publicKey Encryption key
+	 * @param cipherTransformation
+	 * @param characterEncoding
+	 * @param aesEncryptionAlgorithm
+	 * @return Encrypted data
+	 */
+	public String encryptString(String data, String password) {
+		String encryptedString = "";
+		try {
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			byte[] key = password.getBytes("UTF-8");
+			SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+			IvParameterSpec ivparameterspec = new IvParameterSpec(key);
+			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivparameterspec);
+			byte[] cipherText = cipher.doFinal(data.getBytes("UTF8"));
+			Base64.Encoder encoder = Base64.getEncoder();
+			encryptedString = encoder.encodeToString(cipherText);
+			
+		} catch (Exception e) {
+			System.err.println("Encrypt Exception : " + e.getMessage());
+		}
+		return encryptedString;
+	}
+	
+	/**
 	 * Decipher a String.
 	 * 
 	 * @param data String desired to be decrypted

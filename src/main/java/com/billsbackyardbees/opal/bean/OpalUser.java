@@ -57,6 +57,9 @@ public class OpalUser implements Serializable {
 
 	@Column(name = "fullName", updatable = true, nullable = true)
 	private String fullName;
+	
+	@Column(name = "password", updatable = true, nullable = false)
+	private String password;
 
 	@Transient
 	private KeyStore keystore;
