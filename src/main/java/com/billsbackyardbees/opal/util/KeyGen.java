@@ -27,7 +27,7 @@ import javax.crypto.SecretKey;
  */
 public class KeyGen {
 	
-	private static final int DEFAULT_KEY_LENGTH = 2048;
+	private static final int DEFAULT_KEY_LENGTH = 128;
 	
 	/**
 	 * Create a SecretKey for an OpalUser with AES Encryption,
