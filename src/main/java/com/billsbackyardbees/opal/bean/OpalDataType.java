@@ -54,7 +54,8 @@ public interface OpalDataType extends Serializable {
 	 * Sets obfuscated data to be stored in this Object and synced to the database.
 	 * 
 	 * @param data Plain-text data to be encrypted with the user's public key and
-	 *             stored
+	 * 				stored in the database
+	 * @param masterPassword The user's provided password
 	 */
 	public void setEncryptedData(String data, String masterPassword);
 

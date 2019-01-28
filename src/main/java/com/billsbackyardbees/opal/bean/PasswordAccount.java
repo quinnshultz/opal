@@ -26,10 +26,9 @@ import com.billsbackyardbees.opal.util.DataEncrypter;
 import com.billsbackyardbees.opal.util.OpalSerializer;
 
 /**
- * Best to think of this as a java password or account object that corresponds or will correspond
- * to a tuple in the account database.
+ * An user-name with an encrypted password.
+ * 
  * @author Quinn Shultz
- *
  */
 @Entity
 public class PasswordAccount implements OpalDataType {
@@ -90,7 +89,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public int getId() {
@@ -113,20 +112,15 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getEncryptedData() {
 		return encryptedPassword;
 	}
 	
-	public String getData(String masterPassword) {
-		String data = encrypter.decryptString(encryptedPassword, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
-		return data;
-	}
-	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setEncryptedData(String data, String masterPassword) {
@@ -136,7 +130,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getName() {
@@ -144,7 +138,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setName(String name) {
@@ -183,7 +177,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getOpalUser() {
@@ -191,7 +185,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setOpalUser(String opalname) {
@@ -200,7 +194,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getCharacterEncoding() {
@@ -208,7 +202,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setCharacterEncoding(String characterEncoding) {
@@ -217,7 +211,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getCipherTransformation() {
@@ -225,7 +219,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setCipherTransformation(String cipherTransformation) {
@@ -234,7 +228,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getAesEncryptionAlgorithm() {
@@ -242,7 +236,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
@@ -251,7 +245,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public boolean isModifiedFromDB() {
@@ -259,7 +253,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setModifiedFromDB(boolean modified) {

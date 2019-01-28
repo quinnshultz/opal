@@ -20,6 +20,11 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+/**
+ * Creates a SecretKey used to encrypt entities.
+ * 
+ * @author Quinn Shultz
+ */
 public class KeyGen {
 	
 	private static final int DEFAULT_KEY_LENGTH = 2048;
