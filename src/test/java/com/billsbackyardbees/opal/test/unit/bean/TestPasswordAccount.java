@@ -30,7 +30,7 @@ public class TestPasswordAccount extends TestCase {
 	private final String EXAMPLE_ACCOUNT_URL = "https://accounts.spotify.com/en/login";
 	private final String EXAMPLE_ACCOUNT_NAME = "Spotify";
 	private final String EXAMPLE_USERNAME = "johndoe";
-	private final String EXAMPLE_PASSWORD = "Uu%W@7Z2iaWa5@q7";
+//	private final String EXAMPLE_PASSWORD = "Uu%W@7Z2iaWa5@q7";
 	private final String EXAMPLE_NOTES = "My favorite streaming service!";
 	private final String EXAMPLE_CHARACTER_ENCODING = "UTF-8";
 	private final String EXAMPLE_CIPHER_TRANSFORMATION = "AES/CBC/PKCS5PADDING";
