@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			OpalUser user = new OpalUser();
 			user.setUsername(request.getParameter("username"));
-			user.setPassword(request.getParameter("password"));
+			user.setPassword(null, request.getParameter("password"));
 			
 			user = OpalUserDAO.login(user);
 			

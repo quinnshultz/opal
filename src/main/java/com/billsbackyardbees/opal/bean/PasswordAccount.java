@@ -36,41 +36,33 @@ public class PasswordAccount implements OpalDataType {
 	private static final long serialVersionUID = OpalSerializer.getSerialVersionUID();
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name="id", updatable = false, nullable = false)
 	private int id;
 
-	@Id
 	@Column(name="url", updatable = true, nullable = true)
 	private String url;
 	
 	// Name for the account
-	@Id
 	@Column(name="name", updatable = true, nullable = false)
 	private String name;
 	
 	// Account username credential
-	@Id
 	@Column(name="username", updatable = true, nullable = false)
 	private String username;
 	
-	@Id
 	@Column(name="encryptedPassword", updatable = true, nullable = false)
 	private String encryptedPassword;
 	
-	@Id
 	@Column(name="notes", updatable = true, nullable = true)
 	private String notes;
 	
-	@Id
 	@Column(name="characterEncoding", updatable = true, nullable = false)
 	private String characterEncoding;
 	
-	@Id
 	@Column(name="cipherTransformation", updatable = true, nullable = false)
 	private String cipherTransformation;
 	
-	@Id
 	@Column(name="aesEncryptionAlgorithm", updatable = true, nullable = false)
 	private String aesEncryptionAlgorithm;
 
@@ -135,7 +127,7 @@ public class PasswordAccount implements OpalDataType {
 	@Override
 	public void setEncryptedData(String data, String masterPassword) {
 		// TODO: Fix hardcoded publicKey so it finds it in the table
-		this.encryptedPassword = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+		this.encryptedPassword = encrypter.encryptString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
 		modifiedFromDB = true;
 	}
 

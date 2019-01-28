@@ -26,8 +26,7 @@
 CREATE table opalUsers(ID int auto_increment
 , username varchar(256) UNIQUE NOT NULL
 , fullName varchar(256)
--- In the future, we may need to force asymmetric key cryptography
-, password varchar(128)
+, keystore BLOB NOT NULL
 , primary key (id));
 
 /*
@@ -57,11 +56,11 @@ CREATE table passwordAccounts_template(ID int auto_increment
  *
  * Parameter paramUsername			Username address for the new account
  * Parameter paramFullName			Full name of the new account user (optional)
- * Parameter paramPassword			Key used for encryption (optional)
+ * Parameter paramKeystore			Key used for encryption
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `add_new_opaluser` (In paramUsername varchar(256), In paramFullName varchar(256), In paramPassword varchar(128))
+PROCEDURE `add_new_opaluser` (In paramUsername varchar(256), In paramFullName varchar(256), In paramKeystore varchar(128))
 BEGIN
 	If not exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
@@ -73,8 +72,8 @@ BEGIN
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
 
-		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password) VALUES (',"'",paramUsername,
-							"'",', ',"'",paramFullName,"'",', ',"'",paramPassword,"'",')');
+		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, keystore) VALUES (',"'",paramUsername,
+							"'",', ',"'",paramFullName,"'",', ',"'",paramKeystore,"'",')');
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;

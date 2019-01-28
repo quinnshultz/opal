@@ -42,7 +42,7 @@ public class DataEncrypter {
 	 * @param aesEncryptionAlgorithm
 	 * @return Encrypted data
 	 */
-	public String encrpytString(String data, String publicKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
+	public String encryptString(String data, String publicKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
 		String encryptedString = "";
 		try {
 			Cipher cipher = Cipher.getInstance(cipherTransformation);
@@ -61,14 +61,14 @@ public class DataEncrypter {
 	}
 	
 	/**
-	 * Decrypt a String.
+	 * Decipher a String.
 	 * 
 	 * @param data String desired to be decrypted
 	 * @param privateKey Encryption key
 	 * @param cipherTransformation
 	 * @param characterEncoding
 	 * @param aesEncryptionAlgorithm
-	 * @return Decrypted data
+	 * @return Deciphered data
 	 */
 	public String decryptString(String data, String privateKey, String cipherTransformation, String characterEncoding, String aesEncryptionAlgorithm) {
 		String decryptedString = "";

@@ -31,14 +31,11 @@ public class OpalUserDAO {
 	public static OpalUser login(OpalUser user) {
 		Statement stmt = null;
 		
-		String email = user.getUsername();
-		String password = user.getPassword();
+		String username = user.getUsername();
 		
 		String searchQuery =
 				"select * from opalUsers where username='"
-						+ email
-						+ "' AND password='"
-						+ password
+						+ username
 						+ "'";
 		
 		try {
