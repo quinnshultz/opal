@@ -62,7 +62,7 @@ public class OpalUser implements Serializable {
 	private String password;
 
 	@Transient
-	private KeyStore keystore;
+	private SecretKey key;
 
 	@Column(name = "keystore", updatable = true, nullable = false)
 	private byte[] serializedKeystore;
@@ -83,37 +83,13 @@ public class OpalUser implements Serializable {
 	 * @param username User-name for new account
 	 * @param password Password for user
 	 * @param fullName Full name of user
+	 * @throws NoSuchAlgorithmException 
 	 */
-	public OpalUser(String username, String password, String fullName) {
+	public OpalUser(String username, String password, String fullName) throws NoSuchAlgorithmException {
 		this.username = username;
 		this.fullName = fullName;
-
-		char[] keystorePassword = password.toCharArray();
-
-		// Generate a SecretKey and load it into the password
-		// protected KeyStore
-		try {
-			this.keystore = KeyStore.getInstance("AES");
-			keystore.load(null, keystorePassword);
-			SecretKey sKey = KeyGen.generateKey();
-
-			KeyStore.SecretKeyEntry ske = new KeyStore.SecretKeyEntry(sKey);
-			KeyStore.ProtectionParameter pp = new KeyStore.PasswordProtection(keystorePassword);
-			keystore.setEntry("secretkey", ske, pp);
-		} catch (KeyStoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CertificateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		this.password = password;
+		this.key = KeyGen.generateKey();
 	}
 
 	/**
@@ -158,20 +134,11 @@ public class OpalUser implements Serializable {
 	 * @return True if password matches, false otherwise
 	 */
 	public boolean isLoginTrue(String password) {
-		char[] keystorePassword = password.toCharArray();
-		try {
-			keystore.getKey("secretkey", keystorePassword);
-		} catch (UnrecoverableKeyException e) {
-			// Password is incorrect
+		if (password == this.password) {
+			return true;
+		} else {
 			return false;
-		} catch (KeyStoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return true;
 	}
 
 	/**
@@ -179,40 +146,22 @@ public class OpalUser implements Serializable {
 	 * 
 	 * @param oldPassword Enter last password, or null if new user
 	 * @param newPassword Enter desired password
-	 * @throws IOException
-	 * @throws CertificateException
+	 * @throws Exception
 	 * @throws NoSuchAlgorithmException
 	 */
-	public void setPassword(String oldPassword, String newPassword)
-			throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-		char[] keystorePassword = newPassword.toCharArray();
+	public void setPassword(String oldPassword, String newPassword) throws NoSuchAlgorithmException, Exception {
 
-		if (keystore == null) { // Brand-new user so we don't have to ask for existing password
+		if (key == null) { // Brand-new user so we don't have to ask for existing password
 
-			this.keystore = KeyStore.getInstance("AES");
-			keystore.load(null, keystorePassword);
-
-			SecretKey sKey = KeyGen.generateKey();
-
-			KeyStore.SecretKeyEntry ske = new KeyStore.SecretKeyEntry(sKey);
-			KeyStore.ProtectionParameter pp = new KeyStore.PasswordProtection(keystorePassword);
-			keystore.setEntry("secretkey", ske, pp);
+			this.key = KeyGen.generateKey();
 
 		} else { // First check to see that the user knows their former password
 			if (isLoginTrue(oldPassword)) {
-				this.keystore.deleteEntry("secretkey");
-				
-				this.keystore = KeyStore.getInstance("AES");
-				keystore.load(null, keystorePassword);
-
-				SecretKey sKey = KeyGen.generateKey();
-
-				KeyStore.SecretKeyEntry ske = new KeyStore.SecretKeyEntry(sKey);
-				KeyStore.ProtectionParameter pp = new KeyStore.PasswordProtection(keystorePassword);
-				keystore.setEntry("secretkey", ske, pp);
+				this.key = KeyGen.generateKey();
+				password = newPassword;
 
 			} else {
-				// User entered an incorrect previous password
+				throw new Exception();
 			}
 		}
 	}

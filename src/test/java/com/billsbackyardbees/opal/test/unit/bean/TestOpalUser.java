@@ -165,19 +165,16 @@ public class TestOpalUser extends TestCase {
 	 */
 	@Test
 	public void testIsLoginTrueAfterSetPassword() {
-		try {
-			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
+			try {
+				opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
+				
+				// Test fails if we catch any of these exceptions
+			} catch (NoSuchAlgorithmException e) {
+				fail("Caught NoSuchAlgorithmException when executing setPassword()");
+			} catch (Exception e) {
+				fail("Caught exception when executing setPassword()");
+			}
 			
-			// Test fails if we catch any of these exceptions
-		} catch (KeyStoreException e) {
-			fail("Caught KeyStoreException when executing setPassword()");
-		} catch (NoSuchAlgorithmException e) {
-			fail("Caught NoSuchAlgorithmException when executing setPassword()");
-		} catch (CertificateException e) {
-			fail("Caught CertificateException when executing setPassword()");
-		} catch (IOException e) {
-			fail("Caught IOException when execution setPassword()");
-		}
 		assertEquals(opalUser.isLoginTrue(EXAMPLE_NEW_PASSWORD), true);
 	}
 	
