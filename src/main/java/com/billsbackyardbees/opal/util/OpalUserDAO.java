@@ -20,14 +20,20 @@ import com.billsbackyardbees.opal.bean.OpalUser;
 import com.billsbackyardbees.opal.db.DatabaseDriver;
 
 /**
+ * Methods to use OpalUser beans with the database
  * 
- * @author met.guc.edu.eg
- *
+ * @author Quinn Shultz
  */
 public class OpalUserDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	
+	/**
+	 * See if an OpalUser can be found in the database
+	 * 
+	 * @param user OpalUser account to validate
+	 * @return OpalUser with appropriate isValid value
+	 */
 	public static OpalUser login(OpalUser user) {
 		Statement stmt = null;
 		
@@ -79,6 +85,43 @@ public class OpalUserDAO {
 		
 		return user;
 		
+	}
+	
+	/**
+	 * Create a new OpalUser in the database
+	 * 
+	 * @param user OpalUser to add
+	 * @return The same OpalUser
+	 */
+	public static OpalUser register(OpalUser user) {
+		Statement stmt = null;
+		
+		String username = user.getUsername();
+		String password = user.getPassword();
+		String fullName = user.getFullName();
+		byte[] key = user.getSerializedKey();
+		
+		String insertQuery =
+				"call add_new_opaluser('"
+						+ username
+						+ "', '"
+						+ fullName
+						+ "', '"
+						+ password
+						+ "', '"
+						+ key
+						+ "')";
+
+		try {
+			currentCon = DatabaseDriver.getConnection();
+			stmt = currentCon.createStatement();
+			rs = stmt.executeQuery(insertQuery);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
 
 }

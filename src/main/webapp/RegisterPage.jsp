@@ -16,7 +16,7 @@
 	
 		User-name for new account <input type="text" name="username" /><br>
 
-		Full name of user <input type="text" name="password" /><br>
+		Full name of user <input type="text" name="fullname" /><br>
 		
 		Password for new account <input type="password" name="password" />
 		<input type="submit" value="submit">

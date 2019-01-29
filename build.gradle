@@ -16,7 +16,7 @@ jcenter()
 
 dependencies {
 
-providedCompile 'mysql:mysql-connector-java:8.0.14'
+providedCompile ':mysql-connector-java:8.0.+'
 providedCompile 'javax:javaee-api:8.0.1-b5'
 testCompile 'junit:junit:4.12'
 

@@ -140,6 +140,10 @@ public class OpalUser implements Serializable {
 			return false;
 		}
 	}
+	
+	public String getPassword() {
+		return this.password;
+	}
 
 	/**
 	 * Set the password for this encrypted object
@@ -154,6 +158,7 @@ public class OpalUser implements Serializable {
 		if (key == null) { // Brand-new user so we don't have to ask for existing password
 
 			this.key = KeyGen.generateKey();
+			password = newPassword;
 
 		} else { // First check to see that the user knows their former password
 			if (isLoginTrue(oldPassword)) {
@@ -164,6 +169,10 @@ public class OpalUser implements Serializable {
 				throw new Exception();
 			}
 		}
+	}
+	
+	public byte[] getSerializedKey() {
+		return key.getEncoded();
 	}
 
 	/**
