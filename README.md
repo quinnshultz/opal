@@ -13,12 +13,6 @@ be produced. Then, large additions, untested code, or new features will be commi
 they are worthy of being merged back into the master branch.
 
 
-## Synopsis
-```
-./gradlew run
-```
-
-
 ## Description
 Opal is a password manager designed to run in a server environment. Future features such as a compatible Android app are
 planned.
@@ -39,6 +33,9 @@ Gradle handles dependencies (MySQL Connector J, and JUnit) for this project.
 # Run with
 java -jar build/libs/opal-0.jar
 ```
+
+## Documentation
+See https://quinnshultz.github.io/opal
 
 
 ## Testing
