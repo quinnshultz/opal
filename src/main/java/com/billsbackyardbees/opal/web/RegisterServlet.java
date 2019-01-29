@@ -37,6 +37,7 @@ public class RegisterServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		response.sendRedirect("LoginPage.jsp");
 		user = OpalUserDAO.register(user);
 		
 	}

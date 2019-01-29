@@ -57,7 +57,7 @@ public class TestPasswordAccount extends TestCase {
 	@Test
 	public void testGetId() {
 		try {
-			assertEquals(encrypter.getId(), -1);
+			assertEquals(encrypter.getId(), 0);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing getId()");

@@ -52,7 +52,7 @@ public class PasswordAccount implements OpalDataType {
 	private String username;
 	
 	@Column(name="encryptedPassword", updatable = true, nullable = false)
-	private String encryptedPassword;
+	private byte[] encryptedPassword;
 	
 	@Column(name="notes", updatable = true, nullable = true)
 	private String notes;
@@ -64,16 +64,22 @@ public class PasswordAccount implements OpalDataType {
 	// Opal user account
 	private String opalUser;
 	
-	@Transient
-	private DataEncrypter encrypter;
-	
 	/**
 	 * Create a new credential account, may then be populated with a stored account from the database,
 	 * or completed with new information and stored to the database.
 	 */
 	public PasswordAccount() {
-		id = -1;
-		encrypter = new DataEncrypter();
+		
+	}
+	
+	/**
+	 * Create a new credential account with specified parameters.
+	 */
+	public PasswordAccount(String name, String URL, String username) {
+		// TODO: Complete this constructor
+		this.name = name;
+		this.url = URL;
+		this.username = username;
 	}
 
 	/**
@@ -103,7 +109,7 @@ public class PasswordAccount implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
-	public String getEncryptedData() {
+	public byte[] getEncryptedData() {
 		return encryptedPassword;
 	}
 	
@@ -111,9 +117,8 @@ public class PasswordAccount implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
-	public void setEncryptedData(String data, String masterPassword) {
-		// TODO: Fix hardcoded publicKey so it finds it in the table
-		this.encryptedPassword = encrypter.encryptString(data, masterPassword);
+	public void setEncryptedData(String data, byte[] key) {
+		this.encryptedPassword = DataEncrypter.encryptString(data, key).getBytes();
 		modifiedFromDB = true;
 	}
 

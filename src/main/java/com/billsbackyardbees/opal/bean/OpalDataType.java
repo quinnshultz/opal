@@ -57,14 +57,14 @@ public interface OpalDataType extends Serializable {
 	 * 				stored in the database
 	 * @param masterPassword The user's provided password
 	 */
-	public void setEncryptedData(String data, String masterPassword);
+	public void setEncryptedData(String data, byte[] key);
 
 	/**
 	 * Gets obfuscated data that may be deciphered with the user's private key.
 	 * 
 	 * @return Encrypted data
 	 */
-	public String getEncryptedData();
+	public byte[] getEncryptedData();
 
 	/**
 	 * Sets the owner of this Object, corresponding to the primary key of a tuple in
