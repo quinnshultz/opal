@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.api;
+package com.billsbackyardbees.opal.web;
 
 import java.io.IOException;
+
+import javax.persistence.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			OpalUser user = new OpalUser();
 			user.setUsername(request.getParameter("username"));
-			user.setPassword(request.getParameter("password"));
+			user.setPassword(null, request.getParameter("password"));
 			
 			user = OpalUserDAO.login(user);
 			

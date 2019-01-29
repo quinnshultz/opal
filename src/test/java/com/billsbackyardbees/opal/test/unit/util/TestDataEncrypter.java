@@ -26,31 +26,15 @@ import com.billsbackyardbees.opal.util.DataEncrypter;
  * @author Quinn Shultz
  */
 public class TestDataEncrypter extends TestCase {
-
-	private DataEncrypter secretDecoderRing;
 	
 	private final String EXAMPLE_PLAIN_TEXT_PASSWORD = "vW@&Q9PL$njvu69*";
-	private final String EXAMPLE_PUBLIC_KEY = "ABCDEFGHIJKLMNOP";
-	
-	private final String EXAMPLE_CHARACTER_ENCODING = "UTF-8";
-	private final String EXAMPLE_CIPHER_TRANSFORMATION = "AES/CBC/PKCS5PADDING";
-	private final String EXAMPLE_AES_ENCRYPTION_ALGORITHM = "AES";
+	private final byte[] EXAMPLE_PRIVATE_KEY = EXAMPLE_PLAIN_TEXT_PASSWORD.getBytes();
 	
 	/**
 	 * Constructs a new DataEncrypter Object
 	 */
 	protected void setUp() throws Exception {
 		super.setUp();
-		
-		secretDecoderRing = new DataEncrypter();
-	}
-	
-	/**
-	 * Tests that a new DataEncrypter Object is constructed
-	 */
-	@Test
-	public void testConstructor() {
-		assertNotNull(secretDecoderRing);
 	}
 	
 	/**
@@ -58,8 +42,8 @@ public class TestDataEncrypter extends TestCase {
 	 */
 	@Test
 	public void testDecryptStringAfterEncryptString() {
-		String encryptedString = secretDecoderRing.encrpytString(EXAMPLE_PLAIN_TEXT_PASSWORD, EXAMPLE_PUBLIC_KEY, EXAMPLE_CIPHER_TRANSFORMATION, EXAMPLE_CHARACTER_ENCODING, EXAMPLE_AES_ENCRYPTION_ALGORITHM);
-		assertEquals(secretDecoderRing.decryptString(encryptedString, EXAMPLE_PUBLIC_KEY, EXAMPLE_CIPHER_TRANSFORMATION, EXAMPLE_CHARACTER_ENCODING, EXAMPLE_AES_ENCRYPTION_ALGORITHM), EXAMPLE_PLAIN_TEXT_PASSWORD);
+		String encryptedString = DataEncrypter.encryptString(EXAMPLE_PLAIN_TEXT_PASSWORD, EXAMPLE_PRIVATE_KEY);
+		assertEquals(DataEncrypter.decryptString(encryptedString, EXAMPLE_PRIVATE_KEY), EXAMPLE_PLAIN_TEXT_PASSWORD);
 	}
 
 }

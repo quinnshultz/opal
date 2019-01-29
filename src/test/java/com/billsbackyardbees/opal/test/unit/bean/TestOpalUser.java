@@ -16,11 +16,11 @@
 package com.billsbackyardbees.opal.test.unit.bean;
 
 import junit.framework.TestCase;
-
-import java.util.List;
-
+import java.io.IOException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import org.junit.Test;
-
 import com.billsbackyardbees.opal.bean.OpalUser;
 
 public class TestOpalUser extends TestCase {
@@ -48,6 +48,20 @@ public class TestOpalUser extends TestCase {
 	@Test
 	public void testConstructor() {
 		assertNotNull(opalUser);
+	}
+	
+	/**
+	 * Tests the getId() method
+	 */
+	@Test
+	public void testGetId() {
+		try {
+			// TODO: Test additional cases this method may experience
+			opalUser.getId();
+		} catch (Exception e) {
+			// Test fails, caught an exception
+			fail("Caught exception when executing getId()");
+		}
 	}
 	
 	/**
@@ -121,15 +135,15 @@ public class TestOpalUser extends TestCase {
 	}
 	
 	/**
-	 * Tests the getPassword() method
+	 * Tests that the isLoginTrue() method returns a password matching initialization
 	 */
 	@Test
-	public void testGetPassword() {
+	public void testPasswordMatchesInitialization() {
 		try {
-			assertEquals(opalUser.getPassword(), EXAMPLE_PASSWORD);
+			assertEquals(opalUser.isLoginTrue(EXAMPLE_PASSWORD), true);
 		} catch (Exception e) {
 			// Test fails, caught an exception
-			fail("Caught exception when executing getPassword()");
+			fail("Caught exception when executing isLoginTrue()");
 		}
 	}
 	
@@ -139,7 +153,7 @@ public class TestOpalUser extends TestCase {
 	@Test
 	public void testSetPassword() {
 		try {
-			opalUser.setPassword(EXAMPLE_NEW_PASSWORD);
+			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
 		} catch (Exception e) {
 			// Test fails, caught an exception
 			fail("Caught exception when executing setPassword()");
@@ -147,12 +161,37 @@ public class TestOpalUser extends TestCase {
 	}
 	
 	/**
-	 * Tests that the public key can be retrieved after it is set
+	 * Tests that the password can be retrieved after it is set
 	 */
 	@Test
-	public void testGetPasswordAfterSetPassword() {
-		opalUser.setFullName(EXAMPLE_NEW_PASSWORD);
-		assertEquals(opalUser.getFullName(), EXAMPLE_NEW_PASSWORD);
+	public void testIsLoginTrueAfterSetPassword() {
+			try {
+				opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
+				
+				// Test fails if we catch any of these exceptions
+			} catch (NoSuchAlgorithmException e) {
+				fail("Caught NoSuchAlgorithmException when executing setPassword()");
+			} catch (Exception e) {
+				fail("Caught exception when executing setPassword()");
+			}
+			
+		assertEquals(opalUser.isLoginTrue(EXAMPLE_NEW_PASSWORD), true);
 	}
+	
+	/**
+	 * Tests the isValid() method
+	 */
+	@Test
+	public void isValid() {
+		try {
+			assertEquals(opalUser.isValid(), null);
+		} catch (Exception e) {
+			fail("Caught an exception when execution isValid()");
+		}
+	}
+	
+	/**
+	 * Tests the setValid() method
+	 */
 
 }

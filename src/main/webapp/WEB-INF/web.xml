@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
 
 <welcome-file-list>
@@ -6,7 +7,7 @@
 
 <servlet>
 	<servlet-name>LoginServlet</servlet-name>
-	<servlet-class>com.billsbackyardbees.opal.api.LoginServlet</servlet-class>
+	<servlet-class>com.billsbackyardbees.opal.web.LoginServlet</servlet-class>
 </servlet>
 <servlet-mapping>
 	<servlet-name>LoginServlet</servlet-name>

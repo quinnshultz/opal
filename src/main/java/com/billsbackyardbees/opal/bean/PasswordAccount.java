@@ -20,15 +20,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import com.billsbackyardbees.opal.util.DataEncrypter;
 import com.billsbackyardbees.opal.util.OpalSerializer;
 
 /**
- * Best to think of this as a java password or account object that corresponds or will correspond
- * to a tuple in the account database.
+ * An user-name with an encrypted password.
+ * 
  * @author Quinn Shultz
- *
  */
 @Entity
 public class PasswordAccount implements OpalDataType {
@@ -40,61 +40,50 @@ public class PasswordAccount implements OpalDataType {
 	@Column(name="id", updatable = false, nullable = false)
 	private int id;
 
-	@Id
 	@Column(name="url", updatable = true, nullable = true)
 	private String url;
 	
 	// Name for the account
-	@Id
 	@Column(name="name", updatable = true, nullable = false)
 	private String name;
 	
 	// Account username credential
-	@Id
 	@Column(name="username", updatable = true, nullable = false)
 	private String username;
 	
-	@Id
 	@Column(name="encryptedPassword", updatable = true, nullable = false)
-	private String encryptedPassword;
+	private byte[] encryptedPassword;
 	
-	@Id
 	@Column(name="notes", updatable = true, nullable = true)
 	private String notes;
-	
-	@Id
-	@Column(name="characterEncoding", updatable = true, nullable = false)
-	private String characterEncoding;
-	
-	@Id
-	@Column(name="cipherTransformation", updatable = true, nullable = false)
-	private String cipherTransformation;
-	
-	@Id
-	@Column(name="aesEncryptionAlgorithm", updatable = true, nullable = false)
-	private String aesEncryptionAlgorithm;
 
+	@Transient
 	private boolean modifiedFromDB;
 	
+	@Transient
 	// Opal user account
 	private String opalUser;
-	
-	private DataEncrypter encrypter;
 	
 	/**
 	 * Create a new credential account, may then be populated with a stored account from the database,
 	 * or completed with new information and stored to the database.
 	 */
 	public PasswordAccount() {
-		id = -1;
-		characterEncoding = "UTF-8";
-		cipherTransformation = "AES/CBC/PKCS5PADDING";
-		aesEncryptionAlgorithm = "AES";
-		encrypter = new DataEncrypter();
+		
+	}
+	
+	/**
+	 * Create a new credential account with specified parameters.
+	 */
+	public PasswordAccount(String name, String URL, String username) {
+		// TODO: Complete this constructor
+		this.name = name;
+		this.url = URL;
+		this.username = username;
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public int getId() {
@@ -117,30 +106,24 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
-	public String getEncryptedData() {
+	public byte[] getEncryptedData() {
 		return encryptedPassword;
 	}
 	
-	public String getData(String masterPassword) {
-		String data = encrypter.decryptString(encryptedPassword, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
-		return data;
-	}
-	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
-	public void setEncryptedData(String data, String masterPassword) {
-		// TODO: Fix hardcoded publicKey so it finds it in the table
-		this.encryptedPassword = encrypter.encrpytString(data, masterPassword, cipherTransformation, characterEncoding, aesEncryptionAlgorithm);
+	public void setEncryptedData(String data, byte[] key) {
+		this.encryptedPassword = DataEncrypter.encryptString(data, key).getBytes();
 		modifiedFromDB = true;
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getName() {
@@ -148,7 +131,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setName(String name) {
@@ -187,7 +170,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public String getOpalUser() {
@@ -195,7 +178,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setOpalUser(String opalname) {
@@ -204,58 +187,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
-	 */
-	@Override
-	public String getCharacterEncoding() {
-		return characterEncoding;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
-	 */
-	@Override
-	public void setCharacterEncoding(String characterEncoding) {
-		this.characterEncoding = characterEncoding;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
-	 */
-	@Override
-	public String getCipherTransformation() {
-		return cipherTransformation;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
-	 */
-	@Override
-	public void setCipherTransformation(String cipherTransformation) {
-		this.cipherTransformation = cipherTransformation;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
-	 */
-	@Override
-	public String getAesEncryptionAlgorithm() {
-		return aesEncryptionAlgorithm;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
-	 */
-	@Override
-	public void setAesEncryptionAlgorithm(String aesEncryptionAlgorithm) {
-		this.aesEncryptionAlgorithm = aesEncryptionAlgorithm;
-		modifiedFromDB = true;
-	}
-
-	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public boolean isModifiedFromDB() {
@@ -263,7 +195,7 @@ public class PasswordAccount implements OpalDataType {
 	}
 	
 	/**
-	 * @see com.billsbackyardbees.opal.db.OpalDataType
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
 	public void setModifiedFromDB(boolean modified) {

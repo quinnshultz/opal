@@ -54,16 +54,17 @@ public interface OpalDataType extends Serializable {
 	 * Sets obfuscated data to be stored in this Object and synced to the database.
 	 * 
 	 * @param data Plain-text data to be encrypted with the user's public key and
-	 *             stored
+	 * 				stored in the database
+	 * @param masterPassword The user's provided password
 	 */
-	public void setEncryptedData(String data, String masterPassword);
+	public void setEncryptedData(String data, byte[] key);
 
 	/**
 	 * Gets obfuscated data that may be deciphered with the user's private key.
 	 * 
 	 * @return Encrypted data
 	 */
-	public String getEncryptedData();
+	public byte[] getEncryptedData();
 
 	/**
 	 * Sets the owner of this Object, corresponding to the primary key of a tuple in
@@ -80,46 +81,6 @@ public interface OpalDataType extends Serializable {
 	 * @return Integer id and primary key of account tuple in opalUsers
 	 */
 	public String getOpalUser();
-
-	/**
-	 * Sets the character encoding for the encrypted String, by default this is set
-	 * as UTF-8 when a new Object is constructed.
-	 * 
-	 * @param characterEncoding
-	 */
-	public void setCharacterEncoding(String characterEncoding);
-
-	/**
-	 * Gets the character encoding for the encrypted String, by default this is set
-	 * as UTF-8 when a new Object is constructed.
-	 * 
-	 * @return
-	 */
-	public String getCharacterEncoding();
-
-	/**
-	 * 
-	 * @param cipherTransformation
-	 */
-	public void setCipherTransformation(String cipherTransformation);
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getCipherTransformation();
-
-	/**
-	 * 
-	 * @param AesEncryptionAlgorithm
-	 */
-	public void setAesEncryptionAlgorithm(String AesEncryptionAlgorithm);
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getAesEncryptionAlgorithm();
 
 	/**
 	 * 
