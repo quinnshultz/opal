@@ -16,9 +16,10 @@
 
 		Please enter your user-name <input type="text" name="username" /><br>
 
-		Please enter your password <input type="password" name="password" /> <input
-			type="submit" value="submit">
+		Please enter your password <input type="password" name="password" />
+		<input type="submit" value="submit">
 
 	</form>
+	<button onClick="javasript:window.location.href='RegisterPage.jsp'">Register</button>
 </body>
 </html>
