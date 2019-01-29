@@ -2,40 +2,25 @@
 A password manager for an Apache Tomcat Server.
 
 
-## Development Note
-This branch is currently not working or stable.
-
-Opal is designed to be a secure password manager, however, not every commit will have this in mind. Release tags should be
-the most secure variants of this project.
-
-All changes will be pushed into the "master" branch until a tested, stable, version implementing the minimum feature set can
-be produced. Then, large additions, untested code, or new features will be commited to a features branch until testing proves
-they are worthy of being merged back into the master branch.
-
-
 ## Description
-Opal is a password manager designed to run in a server environment. Future features such as a compatible Android app are
-planned.
+Opal is a password manager designed to run on a JavaEE server. The front-end features are availiable in browser. Future features such as a compatible Android app are planned.
 
 
 ## Compiling and Using
-Edit password in src/main/sql/quickStartScript.sql and run as MySQL root. This script creates a database for our program and
-an user account authorized to manipulate it. Switch the account we just created in your MySQL shell.
+You must add MySQL Connector J to src/main/webapp/WEB-INF/lib. Then, create an appropriate database and db user as specified in src/main/webapp/META-INF/sql/quickstart.sql with your MySQL root or similar user.
 
-Now run src/main/sql/initTablesAndProcs.sql. This script creates a couple of tables and stored procedures necessary to the 
-functionality of opal. Soon, I will implement an install option that does this automatically on the first run.
+Additionally, you may need to create the tables, stored procedures, and views in your new database with /src/main/webapp/META-INF/sql/create.sql.
 
-Gradle handles dependencies (MySQL Connector J, and JUnit) for this project.
 ```
 # Build with
 ./gradlew build
-
-# Run with
-./gradlew appRun
 ```
 
-## Documentation
-See https://quinnshultz.github.io/opal
+Now deploy the web application resource in build/libs on Glassfish or similar J2EE server.
+
+
+## See Also
+Javadoc API Specification https://quinnshultz.github.io/opal
 
 
 ## Testing
