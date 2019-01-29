@@ -31,7 +31,7 @@ Gradle handles dependencies (MySQL Connector J, and JUnit) for this project.
 ./gradlew build
 
 # Run with
-java -jar build/libs/opal-0.jar
+./gradlew appRun
 ```
 
 ## Documentation

@@ -16,7 +16,7 @@
 
 /*********************************************************************************************************/
 /*                                                                                                       */
-/*                                          TABLE TEMPLATES                                              */
+/*                                              TABLES                                                   */
 /*                                                                                                       */
 /*********************************************************************************************************/
 
@@ -26,35 +26,20 @@
 CREATE table opalUsers(ID int auto_increment
 , username varchar(256) UNIQUE NOT NULL
 , fullName varchar(256)
--- In the future, we may need to force asymmetric key cryptography
-, publicKey varchar(128)
+, password varchar(256) NOT NULL
+, keystore BLOB NOT NULL
 , primary key (id));
 
 /*
  * Create a template table for Objects
  * with an username and password
  */
-CREATE table passwordaccounts_template(ID int auto_increment
+CREATE table passwordAccounts_template(ID int auto_increment
 , url varchar(2048)
 , name varchar(256) UNIQUE NOT NULL
 , username varchar(256) NOT NULL
-, encryptedPassword varchar(256)
+, encryptedPassword BLOB
 , notes varchar(10240)
-, characterEncoding varchar(128) NOT NULL
-, cipherTransformation varchar(128) NOT NULL
-, aesEncryptionAlgorithm varchar(128) NOT NULL
-, primary key (id));
-
-/*
- * Create a template table for Objects
- * with a lot of encrypted data
- */
-CREATE table secretnotes_template(ID int auto_increment
-, name varchar(256) UNIQUE NOT NULL
-, encryptedNotes varchar(10240)
-, characterEncoding varchar(128) NOT NULL
-, cipherTransformation varchar(128) NOT NULL
-, aesEncryptionAlgorithm varchar(128) NOT NULL
 , primary key (id));
 
 /*********************************************************************************************************/
@@ -67,26 +52,26 @@ CREATE table secretnotes_template(ID int auto_increment
  * Adds a new account by creating MySQL table:
  * userName_accounts and inserting into opalUsers
  *
- * Parameter paramUserName			Username for the new account
+ * Parameter paramUsername			Username address for the new account
  * Parameter paramFullName			Full name of the new account user (optional)
- * Parameter paramPublicKey			Key used for encryption (optional)
+ * Parameter paramKeystore			Key used for encryption
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `add_new_opaluser` (In paramUserName varchar(256), In paramFullName varchar(256), In paramPublicKey varchar(128))
+PROCEDURE `add_new_opaluser` (In paramUsername varchar(256), In paramFullName varchar(256), In paramPassword varchar(256), In paramKeystore BLOB)
 BEGIN
 	If not exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
-	AND table_name=CONCAT(paramUserName,'_accounts') )
+	AND table_name=CONCAT(paramUsername,'_accounts') )
 	Then
         
-        SET @sql = CONCAT('CREATE TABLE ', CONCAT(paramUserName,'_accounts'),' LIKE passwordaccounts_template');
+        SET @sql = CONCAT('CREATE TABLE ', CONCAT(paramUsername,'_accounts'),' LIKE passwordAccounts_template');
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
 
-		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, publicKey) VALUES (',"'",paramUserName,
-							"'",', ',"'",paramFullName,"'",', ',"'",paramPublicKey,"'",')');
+		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password, keystore) VALUES (',"'",paramUsername,
+							"'",', ',"'",paramFullName,"'",',',"'",paramPassword,"'",', ',"'",paramKeystore,"'",')');
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
@@ -100,24 +85,24 @@ DELIMITER ;
  * Removes an account by dropping MySQL table:
  * userName_accounts and deleting from opalUsers
  *
- * Parameter paramUserName	Username of the account
+ * Parameter paramUsername	Username of the account
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
-PROCEDURE `remove_opaluser` (In paramUserName varchar(256))
+PROCEDURE `remove_opaluser` (In paramUsername varchar(256))
 BEGIN
 
-	SET @sql = CONCAT('DELETE FROM opalUsers WHERE username= ',"'",paramUserName,"'");
+	SET @sql = CONCAT('DELETE FROM opalUsers WHERE username= ',"'",paramUsername,"'");
 	PREPARE s FROM @sql;
 	EXECUTE s;
 	DEALLOCATE PREPARE s;
 
 	If exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
-	AND table_name=CONCAT(paramUserName,'_accounts') )
+	AND table_name=CONCAT(paramUsername,'_accounts') )
 	Then
         
-        SET @sql = CONCAT('DROP TABLE ', CONCAT(paramUserName,'_accounts'));
+        SET @sql = CONCAT('DROP TABLE ', CONCAT(paramUsername,'_accounts'));
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
@@ -136,23 +121,18 @@ DELIMITER ;
  * Parameter paramAccountUsernmame			Username of the account being added
  * Parameter paramEncryptedPassword			Password after encryption
  * Parameter paramNotes						Any notes to store with the account
- * Parameter paramCharacterEncoding
- * Parameter paramCipherTransformation
- * Parameter paramAesEncryptionAlgorithm
  */
 DELIMITER //
 CREATE DEFINER=`jdbcopal`@`localhost`
 PROCEDURE `add_account` (In paramName varchar(256), In paramOpalName varchar(256), In paramURL varchar(2048), In paramAccountUsername varchar(256),
-							In paramEncryptedPassword varchar(256), In paramNotes varchar(10240), In paramCharacterEncoding varchar(128),
-                            In paramCipherTransformation varchar(128), In paramAesEncryptionAlgorithm varchar(128))
+							In paramEncryptedPassword BLOB, In paramNotes varchar(10240))
 BEGIN
 	If exists (Select 1 FROM information_schema.TABLES
 	WHERE table_schema=DATABASE()
 	AND table_name=CONCAT(paramOpalName,'_accounts') )
 	Then
 		SET @sql = CONCAT('INSERT INTO ', CONCAT(paramOpalName,'_accounts'),' (name, url, username, encryptedPassword, notes, characterEncoding, cipherTransformation, aesEncryptionAlgorithm) VALUES(',"'",
-							paramName,"'",', ',"'",paramURL,"'",', ',"'",paramAccountUsername,"'",', ',"'",paramEncryptedPassword,"'",', ',"'",paramNotes,"'",', ',"'",
-                            paramCharacterEncoding,"'",', ',"'",paramCipherTransformation,"'",', ',"'",paramAesEncryptionAlgorithm,"'",')');
+							paramName,"'",', ',"'",paramURL,"'",', ',"'",paramAccountUsername,"'",', ',"'",paramEncryptedPassword,"'",', ',"'",paramNotes,"'",')');
 		PREPARE s FROM @sql;
         EXECUTE s;
         DEALLOCATE PREPARE s;
@@ -185,3 +165,9 @@ BEGIN
 
 END //
 DELIMITER ;
+
+/*********************************************************************************************************/
+/*                                                                                                       */
+/*                                               VIEWS                                                   */
+/*                                                                                                       */
+/*********************************************************************************************************/

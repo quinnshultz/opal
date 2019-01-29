@@ -13,36 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.billsbackyardbees.opal.test.unit.util;
-
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
-import com.billsbackyardbees.opal.util.OpalUserAuthenticator;
+package com.billsbackyardbees.opal.util;
 
 /**
- * Tests the OpalUserAuthenticator class
+ * Stores the database version. Used to serialize java beans.
+ * 
  * @author Quinn Shultz
  */
-public class TestOpalUserAuthenticator extends TestCase {
+public class OpalSerializer {
 	
-	private OpalUserAuthenticator opalUserAuthy;
-
-	/**
-	 * Constructs a new OpalUserAuthenticator Object
-	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-		opalUserAuthy = new OpalUserAuthenticator("", "NULL");
-	}
+	// Official database version.
+	// This must be incremented every
+	// time the schema is changed
+	static final long DATABASE_SCHEMA_VERSION = 4L;
 	
 	/**
-	 * Tests that a new OpalUserAuthenticator Object is constructed
+	 * @return The database schema version
 	 */
-	@Test
-	public void testConstructor() {
-		assertNotNull(opalUserAuthy);
+	public static long getSerialVersionUID() {
+		return DATABASE_SCHEMA_VERSION;
 	}
 
 }
