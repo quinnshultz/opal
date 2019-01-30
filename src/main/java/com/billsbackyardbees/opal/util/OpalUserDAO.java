@@ -116,9 +116,22 @@ public class OpalUserDAO {
 			currentCon = DatabaseDriver.getConnection();
 			stmt = currentCon.createStatement();
 			rs = stmt.executeQuery(insertQuery);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception ex) {
+		
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {}
+				rs = null;
+			}
+			
+			if (stmt != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {}
+				stmt = null;
+			}
 		}
 		
 		return user;

@@ -89,6 +89,14 @@ public class PasswordAccount implements OpalDataType {
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
+	 */
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the url
@@ -117,7 +125,15 @@ public class PasswordAccount implements OpalDataType {
 	 * @see com.billsbackyardbees.opal.bean.OpalDataType
 	 */
 	@Override
-	public void setEncryptedData(String data, byte[] key) {
+	public void setEncryptedData(byte[] encryptedData) {
+		this.encryptedPassword = encryptedData;
+	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
+	 */
+	@Override
+	public void setData(String data, byte[] key) {
 		this.encryptedPassword = DataEncrypter.encryptString(data, key).getBytes();
 		modifiedFromDB = true;
 	}

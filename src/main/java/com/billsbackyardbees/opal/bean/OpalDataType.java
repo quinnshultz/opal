@@ -33,6 +33,8 @@ public interface OpalDataType extends Serializable {
 	 * @return id and primary key of tuple
 	 */
 	public int getId();
+	
+	public void setId(int id);
 
 	/**
 	 * Sets the name of this Object, corresponding to a column entry in the
@@ -53,11 +55,9 @@ public interface OpalDataType extends Serializable {
 	/**
 	 * Sets obfuscated data to be stored in this Object and synced to the database.
 	 * 
-	 * @param data Plain-text data to be encrypted with the user's public key and
-	 * 				stored in the database
-	 * @param masterPassword The user's provided password
+	 * @param encrptedData Bytecode of data
 	 */
-	public void setEncryptedData(String data, byte[] key);
+	public void setEncryptedData(byte[] encryptedData);
 
 	/**
 	 * Gets obfuscated data that may be deciphered with the user's private key.
@@ -65,6 +65,15 @@ public interface OpalDataType extends Serializable {
 	 * @return Encrypted data
 	 */
 	public byte[] getEncryptedData();
+	
+	/**
+	 * Sets data to be stored in this Object and synced to the database.
+	 * 
+	 * @param data Plain-text data to be encrypted with the user's public key and
+	 * 				stored in the database
+	 * @param key The user's secret key
+	 */
+	public void setData(String data, byte[] key);
 
 	/**
 	 * Sets the owner of this Object, corresponding to the primary key of a tuple in
