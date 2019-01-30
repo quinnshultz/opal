@@ -118,9 +118,9 @@ public class PasswordAccountDAO {
 								+ url
 								+ "', '"
 								+ username
-								+ "', '"
+								+ "', "
 								+ encryptedPass
-								+ "', '"
+								+ ", '"
 								+ notes
 								+ "')";
 		

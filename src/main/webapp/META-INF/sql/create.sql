@@ -131,7 +131,7 @@ BEGIN
 	WHERE table_schema=DATABASE()
 	AND table_name=CONCAT(paramOpalName,'_accounts') )
 	Then
-		SET @sql = CONCAT('INSERT INTO ', CONCAT(paramOpalName,'_accounts'),' (name, url, username, encryptedPassword, notes, characterEncoding, cipherTransformation, aesEncryptionAlgorithm) VALUES(',"'",
+		SET @sql = CONCAT('INSERT INTO ', CONCAT(paramOpalName,'_accounts'),' (name, url, username, encryptedPassword, notes) VALUES(',"'",
 							paramName,"'",', ',"'",paramURL,"'",', ',"'",paramAccountUsername,"'",', ',"'",paramEncryptedPassword,"'",', ',"'",paramNotes,"'",')');
 		PREPARE s FROM @sql;
         EXECUTE s;

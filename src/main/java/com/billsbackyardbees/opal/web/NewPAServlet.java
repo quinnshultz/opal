@@ -43,6 +43,8 @@ public class NewPAServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		OpalUser currentUser = (OpalUser) (session.getAttribute("currentSessionUser"));
 		PasswordAccount site = new PasswordAccount();
+		// TODO: Might want to pass a OpalUser to PasswordAccount.setOpalUser() rather than a string
+		site.setOpalUser(currentUser.getUsername());
 		site.setUrl(request.getParameter("url"));
 		site.setName(request.getParameter("name"));
 		site.setUsername(request.getParameter("username"));
