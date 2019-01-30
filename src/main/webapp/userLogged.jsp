@@ -20,6 +20,19 @@
 		Welcome
 		<%= currentUser.getFullName() %>
 	</center>
+	
+	<form action="NewPAServlet">
+		Please enter the URL this site is located at: <input type="text" name="url" /><br>
+		
+		Please enter a name for this site: <input type="text" name="name" /><br>
+		
+		Please enter your user-name for this site: <input type="text" name="username" /><br>
+
+		Please enter your password for this site: <input type="password" name="password" /><br>
+		
+		Notes: <input type="text" name="notes" />
+		<input type="submit" value="submit">
+	</form>
 
 </body>
 
