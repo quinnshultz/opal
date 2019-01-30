@@ -2,7 +2,7 @@
 apply plugin: 'war'
 
 war {
-archiveName 'opal.war'
+archiveName 'opal-1.0.0-devel.war'
 
 }
 
