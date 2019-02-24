@@ -16,14 +16,15 @@
 package com.billsbackyardbees.opal.test.unit.bean;
 
 import junit.framework.TestCase;
-import java.io.IOException;
-import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import org.junit.Test;
+import org.junit.*;
 import com.billsbackyardbees.opal.bean.OpalUser;
 
-public class TestOpalUser extends TestCase {
+/**
+ * Tests the OpalUser class
+ * @author Quinn Shultz
+ */
+public class TestOUDefaultConstructor extends TestCase {
 	
 	private final String EXAMPLE_USERNAME = "jdoe323";
 	private final String EXAMPLE_NEW_USERNAME = "johndoe";
@@ -37,6 +38,7 @@ public class TestOpalUser extends TestCase {
 	/**
 	 * Constructs a new OpalUser Object
 	 */
+	@Before
 	protected void setUp() throws Exception {
 		super.setUp();
 		opalUser = new OpalUser(EXAMPLE_USERNAME, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);

@@ -19,7 +19,7 @@ import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
 
-import org.junit.Test;
+import org.junit.*;
 import com.billsbackyardbees.opal.util.KeyGen;
 
 /**

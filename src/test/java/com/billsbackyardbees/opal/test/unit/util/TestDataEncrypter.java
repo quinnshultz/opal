@@ -17,7 +17,7 @@ package com.billsbackyardbees.opal.test.unit.util;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
+import org.junit.*;
 
 import com.billsbackyardbees.opal.util.DataEncrypter;
 
@@ -33,6 +33,7 @@ public class TestDataEncrypter extends TestCase {
 	/**
 	 * Constructs a new DataEncrypter Object
 	 */
+	@Before
 	protected void setUp() throws Exception {
 		super.setUp();
 	}

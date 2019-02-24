@@ -17,7 +17,7 @@ package com.billsbackyardbees.opal.test.unit.bean;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
+import org.junit.*;
 
 import com.billsbackyardbees.opal.bean.PasswordAccount;
 
@@ -38,6 +38,7 @@ public class TestPADefaultConstructor extends TestCase {
 	/**
 	 * Constructs a new AccountDBLoader Object
 	 */
+	@Before
 	protected void setUp() throws Exception {
 		super.setUp();
 		encrypter = new PasswordAccount();
