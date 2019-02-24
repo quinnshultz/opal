@@ -39,7 +39,7 @@ public class TestPAParamConstructor extends TestCase {
 	private final int METHOD_ID = 22;
 	private final String METHOD_URL = "https://www.deezer.com/us/login";
 	private final String METHOD_ACCOUNT_NAME = "Deezer";
-	private final String METHOD_OWNER = "janedoe";
+	private final String METHOD_OWNER = "jdoe323";
 	private final String METHOD_USERNAME = "janedoe";
 	private final String METHOD_PASSWORD = "6A6l$!nEe4ifD0@E";
 	private final String METHOD_NOTES = "A music streaming service.";

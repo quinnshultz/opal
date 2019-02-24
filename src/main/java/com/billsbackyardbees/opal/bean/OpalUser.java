@@ -74,7 +74,7 @@ public class OpalUser implements Serializable {
 	 * Create an user of this program with blank attributes
 	 */
 	public OpalUser() {
-
+		valid = false;
 	}
 
 	/**
@@ -90,6 +90,7 @@ public class OpalUser implements Serializable {
 		this.fullName = fullName;
 		this.password = password;
 		this.key = KeyGen.generateKey();
+		valid = false;
 	}
 
 	/**
@@ -97,6 +98,13 @@ public class OpalUser implements Serializable {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * @param id The Id
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**

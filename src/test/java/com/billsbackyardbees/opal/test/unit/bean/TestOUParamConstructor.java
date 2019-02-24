@@ -16,7 +16,9 @@
 package com.billsbackyardbees.opal.test.unit.bean;
 
 import junit.framework.TestCase;
+
 import java.security.NoSuchAlgorithmException;
+
 import org.junit.*;
 import com.billsbackyardbees.opal.bean.OpalUser;
 
@@ -24,15 +26,16 @@ import com.billsbackyardbees.opal.bean.OpalUser;
  * Tests the OpalUser class
  * @author Quinn Shultz
  */
-public class TestOUDefaultConstructor extends TestCase {
+public class TestOUParamConstructor extends TestCase {
 	
-	private final int EXAMPLE_ID = 101;
-	private final String EXAMPLE_USERNAME = "jdoe323";
-	private final String EXAMPLE_NEW_USERNAME = "johndoe";
-	private final String EXAMPLE_FULL_NAME = "John Doe";
-	private final String EXAMPLE_NEW_NAME = "Jane Doe";
-	private final String EXAMPLE_PASSWORD = "47OLdsMd5%!ELIwr";
-	private final String EXAMPLE_NEW_PASSWORD = "h0d2IYa4K8h^&giP";
+	private final String CONSTRUCTOR_USERNAME = "jdoe323";
+	private final String CONSTRUCTOR_FULL_NAME = "John Doe";
+	private final String CONSTRUCTOR_PASSWORD = "47OLdsMd5%!ELIwr";
+	
+	private final int METHOD_ID = 101;
+	private final String METHOD_USERNAME = "jane.doe";
+	private final String METHOD_FULL_NAME = "Jane Doe";
+	private final String METHOD_PASSWORD = "@792A5qF#dDSkN!3";
 	
 	private OpalUser opalUser;
 
@@ -40,13 +43,13 @@ public class TestOUDefaultConstructor extends TestCase {
 	 * Constructs a new OpalUser Object
 	 */
 	@Before
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
-		opalUser = new OpalUser();
+		opalUser = new OpalUser(CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, CONSTRUCTOR_FULL_NAME);
 	}
-	
+
 	/**
-	 * Tests that a new OpalUser was constructed without error
+	 * Tests that a new OpalUser Object is constructed without error
 	 */
 	@Test
 	public void testConstructor() {
@@ -71,7 +74,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testSetId() {
 		try {
-			opalUser.setId(EXAMPLE_ID);
+			opalUser.setId(METHOD_ID);
 		} catch (Exception e) {
 			fail("Caught Exception when executing setId()");
 		}
@@ -82,8 +85,8 @@ public class TestOUDefaultConstructor extends TestCase {
 	 */
 	@Test
 	public void testGetIdAfterSetId() {
-		opalUser.setId(EXAMPLE_ID);
-		assertEquals(opalUser.getId(), EXAMPLE_ID);
+		opalUser.setId(METHOD_ID);
+		assertEquals(opalUser.getId(), METHOD_ID);
 	}
 	
 	/**
@@ -92,7 +95,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testGetUsername() {
 		try {
-			assertEquals(opalUser.getUsername(), null);
+			assertEquals(opalUser.getUsername(), CONSTRUCTOR_USERNAME);
 		} catch (Exception e) {
 			fail("Caught Exception when executing getUsername()");
 		}
@@ -104,7 +107,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testSetUsername() {
 		try {
-			opalUser.setUsername(EXAMPLE_NEW_USERNAME);
+			opalUser.setUsername(METHOD_USERNAME);
 		} catch (Exception e) {
 			fail("Caught Exception when executing setUsername()");
 		}
@@ -115,8 +118,8 @@ public class TestOUDefaultConstructor extends TestCase {
 	 */
 	@Test
 	public void testGetUsernameAfterSetUsername() {
-		opalUser.setUsername(EXAMPLE_NEW_USERNAME);
-		assertEquals(opalUser.getUsername(), EXAMPLE_NEW_USERNAME);
+		opalUser.setUsername(METHOD_USERNAME);
+		assertEquals(opalUser.getUsername(), METHOD_USERNAME);
 	}
 	
 	/**
@@ -125,7 +128,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testGetFullName() {
 		try {
-			assertEquals(opalUser.getFullName(), null);
+			assertEquals(opalUser.getFullName(), CONSTRUCTOR_FULL_NAME);
 		} catch (Exception e) {
 			fail("Caught Exception when executing getFullName()");
 		}
@@ -137,7 +140,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testSetFullName() {
 		try {
-			opalUser.setFullName(EXAMPLE_NEW_NAME);
+			opalUser.setFullName(METHOD_FULL_NAME);
 		} catch (Exception e) {
 			fail("Caught Exception when executing setFullName()");
 		}
@@ -148,16 +151,24 @@ public class TestOUDefaultConstructor extends TestCase {
 	 */
 	@Test
 	public void testGetFullNameAfterSetFullName() {
-		opalUser.setFullName(EXAMPLE_NEW_NAME);
-		assertEquals(opalUser.getFullName(), EXAMPLE_NEW_NAME);
+		opalUser.setFullName(METHOD_FULL_NAME);
+		assertEquals(opalUser.getFullName(), METHOD_FULL_NAME);
 	}
 	
 	/**
-	 * Tests that the isLoginTrue() method returns false because it hasn't been initialized with one yet
+	 * Tests that the isLoginTrue() method returns true when correct password is passed to it
 	 */
 	@Test
 	public void testIsLoginTrue() {
-		assertFalse(opalUser.isLoginTrue(EXAMPLE_PASSWORD));
+		assertTrue(opalUser.isLoginTrue(CONSTRUCTOR_PASSWORD));
+	}
+	
+	/**
+	 * Tests that the isLoginTrue() method returns false when incorrect password is passed to it
+	 */
+	@Test
+	public void testIsLoginFalse() {
+		assertFalse(opalUser.isLoginTrue(METHOD_PASSWORD));
 	}
 	
 	/**
@@ -166,8 +177,8 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testIsLoginTrueAfterSetPassword() {
 		try {
-			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
-			assertTrue(opalUser.isLoginTrue(EXAMPLE_NEW_PASSWORD));
+			opalUser.setPassword(CONSTRUCTOR_PASSWORD, METHOD_PASSWORD);
+			assertTrue(opalUser.isLoginTrue(METHOD_PASSWORD));
 		} catch (NoSuchAlgorithmException e) {
 		} catch (Exception e) {
 		}
@@ -179,7 +190,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testIsLoginTrueThrowsNoException() {
 		try {
-			opalUser.isLoginTrue(EXAMPLE_PASSWORD);
+			opalUser.isLoginTrue(CONSTRUCTOR_PASSWORD);
 		} catch (Exception e) {
 			fail("Caught Exception when executing isLoginTrue()");
 		}
@@ -191,7 +202,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testGetPassword() {
 		try {
-			assertEquals(opalUser.getPassword(), null);
+			assertEquals(opalUser.getPassword(), CONSTRUCTOR_PASSWORD);
 		} catch (Exception e) {
 			fail("Caught Exception when executing getPassword()");
 		}
@@ -203,7 +214,7 @@ public class TestOUDefaultConstructor extends TestCase {
 	@Test
 	public void testSetPasswordValid() {
 		try {
-			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
+			opalUser.setPassword(CONSTRUCTOR_PASSWORD, METHOD_PASSWORD);
 		} catch (NoSuchAlgorithmException e) {
 			fail("Caught NoSuchAlgorithmException when executing setPassword()");
 		} catch (Exception e) {
