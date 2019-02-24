@@ -15,6 +15,8 @@
  */
 package com.billsbackyardbees.opal.bean;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -69,7 +71,7 @@ public class PasswordAccount implements OpalDataType {
 	 * or completed with new information and stored to the database.
 	 */
 	public PasswordAccount() {
-		
+		modifiedFromDB = true;
 	}
 	
 	/**
@@ -90,6 +92,7 @@ public class PasswordAccount implements OpalDataType {
 		this.username = username;
 		this.setData(password, key);
 		this.notes = notes;
+		modifiedFromDB = true;
 	}
 
 	/**
@@ -146,6 +149,21 @@ public class PasswordAccount implements OpalDataType {
 	public void setData(String data, byte[] key) {
 		this.encryptedPassword = DataEncrypter.encryptString(data, key).getBytes();
 		modifiedFromDB = true;
+	}
+	
+	/**
+	 * @see com.billsbackyardbees.opal.bean.OpalDataType
+	 */
+	@Override
+	public String getData(byte[] key) {
+		String password = null;
+		try {
+			password = new String(encryptedPassword, "UTF8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return DataEncrypter.decryptString(password, key);
 	}
 
 	/**

@@ -27,13 +27,18 @@ public interface OpalDataType extends Serializable {
 
 	/**
 	 * All classes that implement this interface are Objects that correspond to
-	 * tuples in the RDBMS. The id is the primary key of all tables. It has option
-	 * auto increment so there will not be a java method to set the id.
+	 * tuples in the RDBMS. The id is the primary key of all tables.
 	 * 
-	 * @return id and primary key of tuple
+	 * @return id and primary key of object
 	 */
 	public int getId();
 	
+	/**
+	 * Objects in the RDBMS are assigned an id with the MySQL auto increment option.
+	 * Use this method to set the Java Object id with the corresponding SQL entry id.
+	 * 
+	 * @param id The id and primary key of object
+	 */
 	public void setId(int id);
 
 	/**
@@ -74,6 +79,14 @@ public interface OpalDataType extends Serializable {
 	 * @param key The user's secret key
 	 */
 	public void setData(String data, byte[] key);
+	
+	/**
+	 * Gets data stored in this Object. Must provide the appropriate OpalUser key in order to get
+	 * meaningful results.
+	 * 
+	 * @param key The OpalUser's secret key
+	 */
+	public String getData(byte[] key);
 
 	/**
 	 * Sets the owner of this Object, corresponding to the primary key of a tuple in

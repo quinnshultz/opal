@@ -19,13 +19,22 @@ import junit.framework.TestCase;
 
 import org.junit.*;
 
+import com.billsbackyardbees.opal.bean.OpalUser;
 import com.billsbackyardbees.opal.bean.PasswordAccount;
 
 /**
  * Tests class PasswordAccount
  * @author Quinn Shultz
  */
-public class TestPADefaultConstructor extends TestCase {
+public class TestPAParamConstructor extends TestCase {
+	
+	private final String CONSTRUCTOR_URL = "https://accounts.spotify.com/en/login";
+	private final String CONSTRUCTOR_ACCOUNT_NAME = "Spotify";
+	private final String CONSTRUCTOR_OWNER = "johndoe";
+	private final String CONSTRUCTOR_USERNAME = "johndoe";
+	private final String CONSTRUCTOR_FULL_NAME = "John Doe";
+	private final String CONSTRUCTOR_PASSWORD = "Uu%W@7Z2iaWa5@q7";
+	private final String CONSTRUCTOR_NOTES = "My favorite streaming service!";
 	
 	private final int METHOD_ID = 22;
 	private final String METHOD_URL = "https://www.deezer.com/us/login";
@@ -36,16 +45,19 @@ public class TestPADefaultConstructor extends TestCase {
 	private final String METHOD_NOTES = "A music streaming service.";
 	
 	private PasswordAccount encrypter;
+	private OpalUser account;
 
 	/**
 	 * Constructs a new PasswordAccount Object
 	 */
 	@Before
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
-		encrypter = new PasswordAccount();
+		account = new OpalUser(CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, CONSTRUCTOR_FULL_NAME);
+		byte[] key = account.getSerializedKey();
+		encrypter = new PasswordAccount(CONSTRUCTOR_ACCOUNT_NAME, CONSTRUCTOR_URL, CONSTRUCTOR_OWNER, CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, key, CONSTRUCTOR_NOTES);
 	}
-	
+
 	/**
 	 * Tests that a new PasswordAccount Object is constructed without error
 	 */
@@ -93,7 +105,7 @@ public class TestPADefaultConstructor extends TestCase {
 	@Test
 	public void testGetUrl() {
 		try {
-			assertEquals(encrypter.getUrl(), null);
+			assertEquals(encrypter.getUrl(), CONSTRUCTOR_URL);
 		} catch (Exception e) {
 			fail("Caught an Exception when executing getUrl()");
 		}
@@ -145,7 +157,7 @@ public class TestPADefaultConstructor extends TestCase {
 	@Test
 	public void testGetName() {
 		try {
-			assertEquals(encrypter.getName(), null);
+			assertEquals(encrypter.getName(), CONSTRUCTOR_ACCOUNT_NAME);
 		} catch (Exception e) {
 			fail("Caught an Exception when executing getName()");
 		}
@@ -178,7 +190,7 @@ public class TestPADefaultConstructor extends TestCase {
 	@Test
 	public void testGetUsername() {
 		try {
-			assertEquals(encrypter.getUsername(), null);
+			assertEquals(encrypter.getUsername(), CONSTRUCTOR_USERNAME);
 		} catch (Exception e) {
 			fail("Caught an Exception when executing getUsername()");
 		}
@@ -211,7 +223,7 @@ public class TestPADefaultConstructor extends TestCase {
 	@Test
 	public void testGetNotes() {
 		try {
-			assertEquals(encrypter.getNotes(), null);
+			assertEquals(encrypter.getNotes(), CONSTRUCTOR_NOTES);
 		} catch (Exception e) {
 			fail("Caught an Exception when executing getNotes()");
 		}
@@ -244,7 +256,7 @@ public class TestPADefaultConstructor extends TestCase {
 	@Test
 	public void testGetOpalUser() {
 		try {
-			assertEquals(encrypter.getOpalUser(), null);
+			assertEquals(encrypter.getOpalUser(), CONSTRUCTOR_OWNER);
 		} catch (Exception e) {
 			fail("Caught an Exception when executing getOpalUser()");
 		}
@@ -303,5 +315,4 @@ public class TestPADefaultConstructor extends TestCase {
 		encrypter.setModifiedFromDB(false);
 		assertEquals(encrypter.isModifiedFromDB(), false);
 	}
-	
 }
