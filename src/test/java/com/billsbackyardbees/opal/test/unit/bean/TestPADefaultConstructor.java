@@ -25,7 +25,7 @@ import com.billsbackyardbees.opal.bean.PasswordAccount;
  * Tests class PasswordAccount
  * @author Quinn Shultz
  */
-public class TestPasswordAccount extends TestCase {
+public class TestPADefaultConstructor extends TestCase {
 	
 	private final String EXAMPLE_ACCOUNT_URL = "https://accounts.spotify.com/en/login";
 	private final String EXAMPLE_ACCOUNT_NAME = "Spotify";

@@ -74,12 +74,22 @@ public class PasswordAccount implements OpalDataType {
 	
 	/**
 	 * Create a new credential account with specified parameters.
+	 * 
+	 * @param name Name for the account
+	 * @param URL Address associated with account
+	 * @param opalUser User name of account owner
+	 * @param username User name authentication token for account
+	 * @param password Password authentication token for account
+	 * @param key Secret key to encrypt password
+	 * @param notes Any notes to store with the account
 	 */
-	public PasswordAccount(String name, String URL, String username) {
-		// TODO: Complete this constructor
+	public PasswordAccount(String name, String URL, String opalUser, String username, String password, byte[] key, String notes) {
+		this.opalUser = opalUser;
 		this.name = name;
 		this.url = URL;
 		this.username = username;
+		this.setData(password, key);
+		this.notes = notes;
 	}
 
 	/**
