@@ -17,9 +17,11 @@ package com.billsbackyardbees.opal.test.unit.db;
 
 import junit.framework.TestCase;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import org.junit.Test;
+import org.junit.*;
 
 import com.billsbackyardbees.opal.db.DatabaseDriver;
 
@@ -27,32 +29,35 @@ import com.billsbackyardbees.opal.db.DatabaseDriver;
  * Tests class DatabaseDriver
  * @author Quinn Shultz
  */
-public class TestDatabaseDriver extends TestCase {
+public class TestDatabaseDriverReturnsConn extends TestCase {
+	
+	private Connection connection;
 
-	/**
-	 * Tests that the getConnection() method does not throw a SQLException
-	 */
-	@Test
-	public void testGetConnectionSQLException() {
-		try {
-			DatabaseDriver.getConnection();
-		} catch (ClassNotFoundException e) {
-		} catch (SQLException e) {
-			fail("Caught SQLException when executing getConnection()");
-		} 
-	}
+	private final String EXAMPLE_QUERY = "select * from opalUsers limit 1000";
 	
 	/**
-	 * Tests that the getConnection() method does not throw a ClassNotFoundException
+	 * Gets a MySQL database connection for use by test methods
 	 */
-	@Test
-	public void testGetConnectionClassException() {
-		try {
-			DatabaseDriver.getConnection();
-		} catch (SQLException e) {
-		} catch (ClassNotFoundException e) {
-			fail("Caught ClassNotFoundException when executing getConnection()");
-		}
+	@Before
+	public void setUp() throws Exception {
+		connection = DatabaseDriver.getConnection();
 	}
 
+	/**
+	 * Tests that an example query is able to be executed and that the
+	 * opalUsers table exists in the schema
+	 */
+	@Test
+	public void testExampleQuery() {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			statement.executeQuery(EXAMPLE_QUERY);
+		} catch (SQLException e) {
+			fail("Caught SQLConnection when querying database");
+		}
+	}
+	
+	// TODO: Add more test cases and ensure that database results are as expected
+	
 }
