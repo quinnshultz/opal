@@ -31,25 +31,15 @@ public class DatabaseDriver {
 	
 	/**
 	 * @return The database connection
+	 * @throws ClassNotFoundException 
+	 * @throws SQLException 
 	 */
-	public static Connection getConnection() {
-		
-		try {
+	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		
-		
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			//System.out.println(e);
-		}
-		
-		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		return conn;
 	}
 	
