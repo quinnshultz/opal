@@ -20,8 +20,7 @@ Now deploy the web application resource in build/libs on Glassfish or similar J2
 
 
 ## See Also
-Javadoc API Specification https://quinnshultz.github.io/opal
-
+Javadoc API Specification (coming soon!)
 
 ## Testing
 ```
