@@ -42,21 +42,26 @@ public class TestDatabaseDriverReturnsConn extends TestCase {
 	public void setUp() throws Exception {
 		connection = DatabaseDriver.getConnection();
 	}
+	
+	@Test
+	public void test() {
+		// Not yet implemented
+	}
 
 	/**
 	 * Tests that an example query is able to be executed and that the
 	 * opalUsers table exists in the schema
 	 */
-	@Test
-	public void testExampleQuery() {
-		Statement statement = null;
-		try {
-			statement = connection.createStatement();
-			statement.executeQuery(EXAMPLE_QUERY);
-		} catch (SQLException e) {
-			fail("Caught SQLConnection when querying database");
-		}
-	}
+//	@Test
+//	public void testExampleQuery() {
+//		Statement statement = null;
+//		try {
+//			statement = connection.createStatement();
+//			statement.executeQuery(EXAMPLE_QUERY);
+//		} catch (SQLException e) {
+//			fail("Caught SQLConnection when querying database");
+//		}
+//	}
 	
 	// TODO: Add more test cases and ensure that database results are as expected
 	
