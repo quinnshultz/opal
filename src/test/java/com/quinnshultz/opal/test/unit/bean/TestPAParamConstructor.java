@@ -17,10 +17,16 @@ package com.quinnshultz.opal.test.unit.bean;
 
 import junit.framework.TestCase;
 
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.SecretKey;
+
 import org.junit.*;
 
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.bean.PasswordAccount;
+import com.quinnshultz.opal.util.DataEncrypter;
+import com.quinnshultz.opal.util.KeyGen;
 
 /**
  * Tests class PasswordAccount
@@ -44,6 +50,8 @@ public class TestPAParamConstructor extends TestCase {
 	private final String METHOD_PASSWORD = "6A6l$!nEe4ifD0@E";
 	private final String METHOD_NOTES = "A music streaming service.";
 	
+	private byte[] key;
+	
 	private PasswordAccount encrypter;
 	private OpalUser account;
 
@@ -54,7 +62,7 @@ public class TestPAParamConstructor extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		account = new OpalUser(CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, CONSTRUCTOR_FULL_NAME);
-		byte[] key = account.getSerializedKey();
+		key = account.getSerializedKey();
 		encrypter = new PasswordAccount(CONSTRUCTOR_ACCOUNT_NAME, CONSTRUCTOR_URL, CONSTRUCTOR_OWNER, CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, key, CONSTRUCTOR_NOTES);
 	}
 
@@ -145,11 +153,56 @@ public class TestPAParamConstructor extends TestCase {
 		}
 	}
 	
-	// TODO: Test setEncryptedData()
+	/**
+	 * Tests that the setEncryptedData() method does not throw an Exception
+	 * @throws NoSuchAlgorithmException Likely because the algorithm was mismatched somewhere, "AES" may be hardcoded
+	 */
+	@Test
+	public void testSetEncryptedData() throws NoSuchAlgorithmException {
+		SecretKey key = KeyGen.generateKey();
+		String encryptedData = DataEncrypter.encryptString(METHOD_PASSWORD, key.getEncoded());
+		try {
+			// TODO: Get bytes may be a nondeterministic method, this may need to be corrected in multiple locations
+			encrypter.setEncryptedData(encryptedData.getBytes());
+		} catch (Exception e) {
+			fail("Caught an Exception when executing setEncryptedData()");
+		}
+	}
+	
 	// TODO: Test getEncryptedData() after setEncryptedData()
-	// TODO: Test getData()
-	// TODO: Test setData()
-	// TODO: Test getData() after setData()
+	
+	/**
+	 * Tests that the getData() method returns expected results and throws no Exception
+	 */
+	@Test
+	public void testGetData() {
+		try {
+			assertEquals(encrypter.getData(key), CONSTRUCTOR_PASSWORD);
+		} catch (Exception e) {
+			fail("Caught an Exception when executing getData()");
+		}
+	}
+	
+	/**
+	 * Tests that the setData() method does not throw an Exception
+	 */
+	@Test
+	public void testSetData() {
+		try {
+			encrypter.setData(METHOD_PASSWORD, key);
+		} catch (Exception e) {
+			fail("Caught an Exception when executing setData()");
+		}
+	}
+	
+	/**
+	 * Tests that expected results are returned by getData() after the the setData() method is called
+	 */
+	@Test
+	public void testGetDataAfterSetData() {
+		encrypter.setData(METHOD_PASSWORD, key);
+		assertEquals(encrypter.getData(key), METHOD_PASSWORD);
+	}
 	
 	/**
 	 * Tests that the getName() method returns expected results and throws no Exception
