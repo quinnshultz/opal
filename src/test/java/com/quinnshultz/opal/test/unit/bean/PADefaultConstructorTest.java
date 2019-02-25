@@ -32,7 +32,7 @@ import com.quinnshultz.opal.util.KeyGen;
  * Tests class PasswordAccount
  * @author Quinn Shultz
  */
-public class TestPADefaultConstructor extends TestCase {
+public class PADefaultConstructorTest extends TestCase {
 	
 	private final String CONSTRUCTOR_FULL_NAME = "John Doe";
 	

@@ -32,7 +32,7 @@ import com.quinnshultz.opal.db.OpalUserDAO;
  * Tests the DatabaseDriver class
  * @author Quinn Shultz
  */
-public class TestOpalUserNotFound extends BasicJDBCTestCaseAdapter {
+public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 	
 	private String EXAMPLE_USERNAME = "johndoe";
 	private String EXAMPLE_FULL_NAME = "John Doe";

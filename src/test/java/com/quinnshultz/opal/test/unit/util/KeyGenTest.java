@@ -27,7 +27,7 @@ import com.quinnshultz.opal.util.KeyGen;
  * Tests the KeyGen class
  * @author Quinn Shultz
  */
-public class TestKeyGen extends TestCase {
+public class KeyGenTest extends TestCase {
 
 	/**
 	 * Tests that the generateKey() method does not throw an exception

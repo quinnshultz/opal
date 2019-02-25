@@ -25,7 +25,7 @@ import com.quinnshultz.opal.util.DataEncrypter;
  * Tests the DataEncrypter class
  * @author Quinn Shultz
  */
-public class TestDataEncrypter extends TestCase {
+public class DataEncrypterTest extends TestCase {
 	
 	private final String EXAMPLE_PLAIN_TEXT_PASSWORD = "vW@&Q9PL$njvu69*";
 	private final byte[] EXAMPLE_PRIVATE_KEY = EXAMPLE_PLAIN_TEXT_PASSWORD.getBytes();

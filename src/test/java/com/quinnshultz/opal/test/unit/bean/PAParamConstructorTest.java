@@ -32,7 +32,7 @@ import com.quinnshultz.opal.util.KeyGen;
  * Tests class PasswordAccount
  * @author Quinn Shultz
  */
-public class TestPAParamConstructor extends TestCase {
+public class PAParamConstructorTest extends TestCase {
 	
 	private final String CONSTRUCTOR_URL = "https://accounts.spotify.com/en/login";
 	private final String CONSTRUCTOR_ACCOUNT_NAME = "Spotify";
