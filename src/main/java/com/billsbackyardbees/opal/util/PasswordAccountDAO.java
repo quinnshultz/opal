@@ -49,7 +49,7 @@ public class PasswordAccountDAO {
 		+ "'";
 		
 		try {
-			currentCon = DatabaseDriver.getConnection();
+			currentCon = DatabaseDriver.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 			stmt = currentCon.createStatement();
 			rs = stmt.executeQuery(searchQuery);
 			boolean more = rs.next();
@@ -125,7 +125,7 @@ public class PasswordAccountDAO {
 								+ "')";
 		
 		try {
-			currentCon = DatabaseDriver.getConnection();
+			currentCon = DatabaseDriver.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 			stmt = currentCon.createStatement();
 			rs = stmt.executeQuery(insertQuery);
 		} catch (Exception ex) {

@@ -30,11 +30,16 @@ public class DatabaseDriver {
 	static String url;
 	
 	/**
+	 * Returns a MySQL Connection Object used for querying the database.
+	 * 
+	 * @param database The name of the database. Supplied identically as to MySQL Connector J (jdbc:mysql://<url or ip>:<port>/<database name>)
+	 * @param username MySQL user name
+	 * @param password MySQL password
 	 * @return The database connection
-	 * @throws ClassNotFoundException 
-	 * @throws SQLException 
+	 * @throws ClassNotFoundException If the driver could not be loaded. Check that com.mysql.cj.jdbc.Driver is in your classpath.
+	 * @throws SQLException
 	 */
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+	public static Connection getConnection(String database, String username, String password) throws ClassNotFoundException, SQLException {
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		
