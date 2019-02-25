@@ -16,6 +16,7 @@
 package com.quinnshultz.opal.web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.persistence.*;
 import javax.servlet.ServletException;
@@ -42,10 +43,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			OpalUser user = new OpalUser();
+			OpalUserDAO userDAO = new OpalUserDAO();
+			
 			user.setUsername(request.getParameter("username"));
 			user.setPassword(null, request.getParameter("password"));
-			
-			user = OpalUserDAO.login(user);
+
+			userDAO.connect();
+			user = userDAO.login(user);
+			userDAO.disconnect();
 			
 			if (user.isValid()) {
 				HttpSession session = request.getSession(true);
@@ -54,6 +59,9 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				response.sendRedirect("invalidLogin.jsp");//error page
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (Throwable theException) {
 			
 		}

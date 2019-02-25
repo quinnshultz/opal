@@ -19,7 +19,9 @@ dependencies {
 providedCompile ':mysql-connector-java:8.0.+'
 providedCompile 'javax:javaee-api:8.0.1-b5'
 providedCompile 'com.mockrunner:mockrunner-jdbc:2.0.1'
-testCompile 'junit:junit:4.12'
+testCompile 'org.junit.jupiter:junit-jupiter:5.4.0'
+testCompile 'org.junit.vintage:junit-vintage-engine:5.4.0'
+testCompile 'org.junit.platform:junit-platform-launcher:1.4.0'
 
 }
 

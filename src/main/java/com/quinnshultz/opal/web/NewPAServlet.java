@@ -16,6 +16,7 @@
 package com.quinnshultz.opal.web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +44,8 @@ public class NewPAServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		OpalUser currentUser = (OpalUser) (session.getAttribute("currentSessionUser"));
 		PasswordAccount site = new PasswordAccount();
+		PasswordAccountDAO paDAO = new PasswordAccountDAO();
+		
 		// TODO: Might want to pass a OpalUser to PasswordAccount.setOpalUser() rather than a string
 		site.setOpalUser(currentUser.getUsername());
 		site.setUrl(request.getParameter("url"));
@@ -50,7 +53,14 @@ public class NewPAServlet extends HttpServlet {
 		site.setUsername(request.getParameter("username"));
 		site.setData(request.getParameter("password"), currentUser.getSerializedKey());
 		response.sendRedirect("userLogged.jsp");
-		site = PasswordAccountDAO.createAccount(currentUser, site);
+		try {
+			paDAO.connect();
+			site = paDAO.createAccount(currentUser, site);
+			paDAO.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

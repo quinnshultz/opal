@@ -26,8 +26,29 @@ import com.quinnshultz.opal.bean.PasswordAccount;
  * @author Quinn Shultz
  */
 public class PasswordAccountDAO {
-	static Connection currentCon = null;
-	static ResultSet rs = null;
+	
+	private Connection currentCon;
+	
+	/**
+	 * Connect to the MySQL Database
+	 * @throws SQLException if a database access error occurs
+	 */
+	public void connect() throws SQLException {
+		disconnect();
+		currentCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+		currentCon.setAutoCommit(false);
+	}
+	
+	/**
+	 * Disconnect from the MySQL Database
+	 * @throws SQLException if a database access error occurs
+	 */
+	public void disconnect() throws SQLException {
+		if (null != currentCon) {
+			currentCon.close();
+			currentCon = null;
+		}
+	}
 
 	/**
 	 * See if a PasswordAccount can be found in the database
@@ -36,8 +57,10 @@ public class PasswordAccountDAO {
 	 * @param passwordAccount The PasswordAccount (with valid name)
 	 * @return If passwordAccount exists, the same PasswordAccount is returned with its data initialized
 	 */
-	public static PasswordAccount findAccount(OpalUser currentUser, PasswordAccount passwordAccount) {
+	public PasswordAccount findAccount(OpalUser currentUser, PasswordAccount passwordAccount) throws SQLException {
 		Statement stmt = null;
+		ResultSet rs = null;
+		
 		String name = passwordAccount.getName();
 		String opalname = passwordAccount.getOpalUser();
 
@@ -48,29 +71,32 @@ public class PasswordAccountDAO {
 		+ "'";
 		
 		try {
-			currentCon = DatabaseDriver.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 			stmt = currentCon.createStatement();
 			rs = stmt.executeQuery(searchQuery);
 			boolean more = rs.next();
 
 			if (!more) {
-				// No result returned
-			} else if (more) {
-				int id = rs.getInt("id");
-				String url = rs.getString("url");
-				String username = rs.getString("username");
-				byte[] encryptedPass = rs.getBytes("encryptedPassword");
-				String notes = rs.getString("notes");
-
-				passwordAccount.setId(id);
-				passwordAccount.setUrl(url);
-				passwordAccount.setUsername(username);
-				passwordAccount.setEncryptedData(encryptedPass);
-				passwordAccount.setNotes(notes);
-
+				currentCon.rollback();
+				return null;
 			}
-		} catch (Exception ex) {
+			
+			int id = rs.getInt("id");
+			String url = rs.getString("url");
+			String username = rs.getString("username");
+			byte[] encryptedPass = rs.getBytes("encryptedPassword");
+			String notes = rs.getString("notes");
 
+			passwordAccount.setId(id);
+			passwordAccount.setUrl(url);
+			passwordAccount.setUsername(username);
+			passwordAccount.setEncryptedData(encryptedPass);
+			passwordAccount.setNotes(notes);
+			
+			return passwordAccount;
+
+		} catch (Exception ex) {
+			currentCon.rollback();
+			return null;
 		} finally {
 			if (rs != null) {
 				try {
@@ -81,15 +107,12 @@ public class PasswordAccountDAO {
 			}
 			if (stmt != null) {
 				try {
-					rs.close();
+					stmt.close();
 				} catch (Exception e) {
 				}
 				currentCon = null;
 			}
 		}
-		
-		return passwordAccount;
-
 	}
 	
 	/**
@@ -99,8 +122,9 @@ public class PasswordAccountDAO {
 	 * @param passwordAccount The PasswordAccount (instantiated with appropriate data)
 	 * @return The same PasswordAccount
 	 */
-	public static PasswordAccount createAccount(OpalUser currentUser, PasswordAccount  passwordAccount) {
+	public PasswordAccount createAccount(OpalUser currentUser, PasswordAccount  passwordAccount) throws SQLException {
 		Statement stmt = null;
+		ResultSet rs = null;
 		
 		String url = passwordAccount.getUrl();
 		String name = passwordAccount.getName();
@@ -124,11 +148,13 @@ public class PasswordAccountDAO {
 								+ "')";
 		
 		try {
-			currentCon = DatabaseDriver.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 			stmt = currentCon.createStatement();
 			rs = stmt.executeQuery(insertQuery);
+			currentCon.commit();
+			return passwordAccount;
 		} catch (Exception ex) {
-
+			currentCon.rollback();
+			return null;
 		} finally {
 			if (rs != null) {
 				try {
@@ -140,13 +166,11 @@ public class PasswordAccountDAO {
 
 			if (stmt != null) {
 				try {
-					rs.close();
+					stmt.close();
 				} catch (Exception e) {
 				}
 				stmt = null;
 			}
 		}
-
-		return passwordAccount;
 	}
 }

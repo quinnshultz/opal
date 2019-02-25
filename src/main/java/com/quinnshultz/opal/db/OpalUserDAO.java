@@ -25,8 +25,29 @@ import com.quinnshultz.opal.bean.OpalUser;
  * @author Quinn Shultz
  */
 public class OpalUserDAO {
-	static Connection currentCon = null;
-	static ResultSet rs = null;
+	
+	private Connection currentCon;
+	
+	/**
+	 * Connect to the MySQL Database
+	 * @throws SQLException if a database access error occurs
+	 */
+	public void connect() throws SQLException {
+		disconnect();
+		currentCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+		currentCon.setAutoCommit(false);
+	}
+	
+	/**
+	 * Disconnect from the MySQL Database
+	 * @throws SQLException if a database access error occurs
+	 */
+	public void disconnect() throws SQLException {
+		if (null != currentCon) {
+			currentCon.close();
+			currentCon = null;
+		}
+	}
 	
 	/**
 	 * See if an OpalUser can be found in the database
@@ -34,8 +55,9 @@ public class OpalUserDAO {
 	 * @param user OpalUser account to validate
 	 * @return OpalUser with appropriate isValid value
 	 */
-	public static OpalUser login(OpalUser user) {
+	public OpalUser login(OpalUser user) throws SQLException {
 		Statement stmt = null;
+		ResultSet rs = null;
 		
 		String username = user.getUsername();
 		
@@ -45,25 +67,29 @@ public class OpalUserDAO {
 						+ "'";
 		
 		try {
-			currentCon = DatabaseDriver.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 			stmt=currentCon.createStatement();
 			rs = stmt.executeQuery(searchQuery);
 			boolean more = rs.next();
 			
 			// If user does not exist set the isValid variable to false
 			if(!more) {
+				currentCon.rollback();
 				user.setValid(false);
+				return user;
 			}
 			
 			// If user exists set the isValid variable to true
-			else if (more) {
-				String fullName = rs.getString("fullName");
-				
-				user.setFullName(fullName);
-				user.setValid(true);
-			}
+			user.setId(rs.getInt("id"));
+			user.setFullName(rs.getString("fullName"));
+			user.setUsername(rs.getString("username"));
+			// TODO: Set user's password
+
+			return user;
 			
 		} catch (Exception ex) {
+			currentCon.rollback();
+			user.setValid(false);
+			return user;
 			
 		} finally {
 			if (rs != null) {
@@ -82,9 +108,6 @@ public class OpalUserDAO {
 				currentCon = null;
 			}
 		}
-		
-		return user;
-		
 	}
 	
 	/**
@@ -93,8 +116,9 @@ public class OpalUserDAO {
 	 * @param user OpalUser to add
 	 * @return The same OpalUser
 	 */
-	public static OpalUser register(OpalUser user) {
+	public OpalUser register(OpalUser user) throws SQLException {
 		Statement stmt = null;
+		ResultSet rs = null;
 		
 		String username = user.getUsername();
 		String password = user.getPassword();
@@ -113,10 +137,15 @@ public class OpalUserDAO {
 						+ "')";
 
 		try {
-			currentCon = DatabaseDriver.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 			stmt = currentCon.createStatement();
 			rs = stmt.executeQuery(insertQuery);
+			currentCon.commit();
+			user.setValid(true);
+			return user;
 		} catch (Exception ex) {
+			currentCon.rollback();
+			user.setValid(false);
+			return user;
 		
 		} finally {
 			if (rs != null) {
@@ -128,13 +157,10 @@ public class OpalUserDAO {
 			
 			if (stmt != null) {
 				try {
-					rs.close();
+					stmt.close();
 				} catch (Exception e) {}
 				stmt = null;
 			}
 		}
-		
-		return user;
 	}
-
 }
