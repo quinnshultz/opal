@@ -210,7 +210,7 @@ public class TestOUParamConstructor extends TestCase {
 	}
 	
 	/**
-	 * Tests that the setPassword() method does not throw an Exception when a valid old password is provided
+	 * Tests that the setPassword() method does not throw an Exception when a valid existing password is provided
 	 */
 	@Test
 	public void testSetPasswordValid() {
@@ -223,8 +223,32 @@ public class TestOUParamConstructor extends TestCase {
 		}
 	}
 	
-	// TODO: Test setPassword() with invalid password
-	// TODO: Test getSerializedKey()
+	/**
+	 * Tests that the setPassword() method throws an Exception when an invalid existing password is provided
+	 */
+	@Test
+	public void testSetPasswordInvalid() {
+		try {
+			opalUser.setPassword(METHOD_PASSWORD, METHOD_PASSWORD);
+			fail("Ideally an InvalidPasswordException will be thrown or maybe it returns.");
+		} catch (Exception e) {
+			// TODO: Catch more specific Exception
+		}
+	}
+	
+	/**
+	 * Tests that the getSerializedKey() method does not throw an Exception
+	 */
+	@Test
+	public void testGetSerializedKeyThrowsNoException() {
+		try {
+			opalUser.getSerializedKey();
+		} catch (Exception e) {
+			fail("Caught Exception when executing getSerializedKey()");
+		}
+	}
+	
+	// TODO: Test getSerializedKey() in more ways
 	
 	/**
 	 * Tests that the isValid() method returns expected results and throws no Exception

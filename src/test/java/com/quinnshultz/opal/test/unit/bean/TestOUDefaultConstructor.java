@@ -212,8 +212,50 @@ public class TestOUDefaultConstructor extends TestCase {
 		}
 	}
 	
-	// TODO: Test setPassword() with invalid password
-	// TODO: Test getSerializedKey()
+	/**
+	 * Tests that the setPassword() method throws an Exception when the setPassword() method is called twice,
+	 * the second time with an invalid password
+	 */
+	@Test
+	public void testSetPasswordDuplicateInvalid() {
+		try {
+			opalUser.setPassword(EXAMPLE_NEW_PASSWORD, EXAMPLE_NEW_PASSWORD);
+			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
+			fail("Ideally an InvalidPasswordException will be thrown or maybe it returns.");
+		} catch (Exception e) {
+			// TODO: Catch a more specific Exception
+		}
+	}
+	
+	/**
+	 * Tests that the setPassword() method does not throw an Exception when the setPassword() method is called twice,
+	 * the first time with any password, the second execution must match the first 
+	 */
+	@Test
+	public void testSetPasswordDuplicateValid() {
+		try {
+			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_PASSWORD);
+			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_NEW_PASSWORD);
+		} catch (Exception e) {
+			// TODO: Catch a more specific Exception
+			fail("Caught Exception when executing setPassword()");
+		}
+	}
+	
+	/**
+	 * Tests that the getSerializedKey() method does not throw an Exception after a password is set
+	 */
+	@Test
+	public void testGetSerializedKey() {
+		try {
+			opalUser.setPassword(EXAMPLE_PASSWORD, EXAMPLE_PASSWORD);
+			opalUser.getSerializedKey();
+		} catch (Exception e) {
+			fail("Caught Exception when executing getSerializedKey()");
+		}
+	}
+	
+	// TODO: Test getSerializedKey() in more ways
 	
 	/**
 	 * Tests that the isValid() method returns expected results and throws no Exception
