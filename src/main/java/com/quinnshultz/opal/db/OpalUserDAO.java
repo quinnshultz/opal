@@ -78,10 +78,10 @@ public class OpalUserDAO {
 				return user;
 			}
 			
-			// If user exists set the isValid variable to true
 			user.setId(rs.getInt("id"));
 			user.setFullName(rs.getString("fullName"));
 			user.setUsername(rs.getString("username"));
+			user.setValid(true);
 			// TODO: Set user's password
 
 			return user;
