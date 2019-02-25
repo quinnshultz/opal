@@ -22,7 +22,7 @@ import com.mockrunner.jdbc.StatementResultSetHandler;
 import com.mockrunner.mock.jdbc.MockConnection;
 import com.mockrunner.mock.jdbc.MockResultSet;
 import com.quinnshultz.opal.bean.OpalUser;
-import com.quinnshultz.opal.util.OpalUserDAO;
+import com.quinnshultz.opal.db.OpalUserDAO;
 
 
 /**

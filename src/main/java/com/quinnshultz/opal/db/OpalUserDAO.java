@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.quinnshultz.opal.util;
+package com.quinnshultz.opal.db;
 
 import java.sql.*;
 
 import com.quinnshultz.opal.bean.OpalUser;
-import com.quinnshultz.opal.db.DatabaseDriver;
 
 /**
  * Methods to use OpalUser beans with the database

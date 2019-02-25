@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.quinnshultz.opal.bean.OpalUser;
+import com.quinnshultz.opal.db.OpalUserDAO;
 import com.quinnshultz.opal.util.OpalSerializer;
-import com.quinnshultz.opal.util.OpalUserDAO;
 
 /**
  * Servlet implementation class HelloServlet

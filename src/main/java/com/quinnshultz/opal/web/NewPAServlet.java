@@ -26,8 +26,8 @@ import javax.servlet.http.HttpSession;
 
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.bean.PasswordAccount;
+import com.quinnshultz.opal.db.PasswordAccountDAO;
 import com.quinnshultz.opal.util.OpalSerializer;
-import com.quinnshultz.opal.util.PasswordAccountDAO;
 
 /**
  * Creates a new PasswordAccount when form is submitted
