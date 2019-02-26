@@ -15,11 +15,11 @@
  */
 package com.quinnshultz.opal.test.unit.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.fail;
 
 import java.security.NoSuchAlgorithmException;
 
-import org.junit.*;
+import org.junit.Test;
 
 import com.quinnshultz.opal.util.KeyGen;
 
@@ -27,7 +27,7 @@ import com.quinnshultz.opal.util.KeyGen;
  * Tests the KeyGen class
  * @author Quinn Shultz
  */
-public class KeyGenTest extends TestCase {
+public class KeyGenTest {
 
 	/**
 	 * Tests that the generateKey() method does not throw an exception

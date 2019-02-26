@@ -15,9 +15,9 @@
  */
 package com.quinnshultz.opal.test.unit.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.Test;
 
 import com.quinnshultz.opal.util.DataEncrypter;
 
@@ -25,18 +25,10 @@ import com.quinnshultz.opal.util.DataEncrypter;
  * Tests the DataEncrypter class
  * @author Quinn Shultz
  */
-public class DataEncrypterTest extends TestCase {
+public class DataEncrypterTest {
 	
 	private final String EXAMPLE_PLAIN_TEXT_PASSWORD = "vW@&Q9PL$njvu69*";
 	private final byte[] EXAMPLE_PRIVATE_KEY = EXAMPLE_PLAIN_TEXT_PASSWORD.getBytes();
-	
-	/**
-	 * Constructs a new DataEncrypter Object
-	 */
-	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
-	}
 	
 	/**
 	 * Tests that text can be deciphered after it is encrypted

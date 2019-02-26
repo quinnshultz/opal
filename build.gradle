@@ -6,6 +6,12 @@ archiveName 'opal.war'
 
 }
 
+test {
+	filter {
+		includeTestsMatching "*TestSuite"
+	}
+}
+
 
 repositories {
 flatDir { dirs "src/main/webapp/WEB-INF/lib" }

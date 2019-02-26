@@ -15,13 +15,16 @@
  */
 package com.quinnshultz.opal.test.unit.bean;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.SecretKey;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.bean.PasswordAccount;
@@ -32,7 +35,7 @@ import com.quinnshultz.opal.util.KeyGen;
  * Tests class PasswordAccount
  * @author Quinn Shultz
  */
-public class PAParamConstructorTest extends TestCase {
+public class PAParamConstructorTest {
 	
 	private final String CONSTRUCTOR_URL = "https://accounts.spotify.com/en/login";
 	private final String CONSTRUCTOR_ACCOUNT_NAME = "Spotify";
@@ -57,10 +60,10 @@ public class PAParamConstructorTest extends TestCase {
 
 	/**
 	 * Constructs a new PasswordAccount Object
+	 * @throws NoSuchAlgorithmException 
 	 */
 	@Before
-	public void setUp() throws Exception {
-		super.setUp();
+	public void setUp() throws NoSuchAlgorithmException {
 		account = new OpalUser(CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, CONSTRUCTOR_FULL_NAME);
 		key = account.getSerializedKey();
 		encrypter = new PasswordAccount(CONSTRUCTOR_ACCOUNT_NAME, CONSTRUCTOR_URL, CONSTRUCTOR_OWNER, CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, key, CONSTRUCTOR_NOTES);

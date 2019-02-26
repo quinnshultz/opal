@@ -17,9 +17,10 @@ package com.quinnshultz.opal.test.unit.db;
 
 import java.sql.SQLException;
 
-import org.junit.*;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.mockrunner.jdbc.BasicJDBCTestCaseAdapter;
 import com.mockrunner.jdbc.StatementResultSetHandler;
 import com.mockrunner.mock.jdbc.MockConnection;
@@ -56,7 +57,7 @@ public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 	 * Simulates a scenario where an empty ResultSet is returned because the OpalUser does not exist
 	 * in the table
 	 */
-	@Disabled("Cannot verify SQL Statement was executed")
+	@Ignore
 	@Test
 	public void testWrongId() throws SQLException {
 		OpalUserDAO userDAO = new OpalUserDAO();

@@ -15,9 +15,16 @@
  */
 package com.quinnshultz.opal.test.unit.bean;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.security.NoSuchAlgorithmException;
-import org.junit.*;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import com.quinnshultz.opal.bean.OpalUser;
 
@@ -25,7 +32,7 @@ import com.quinnshultz.opal.bean.OpalUser;
  * Tests the OpalUser class
  * @author Quinn Shultz
  */
-public class OUDefaultConstructorTest extends TestCase {
+public class OUDefaultConstructorTest {
 	
 	private final int EXAMPLE_ID = 101;
 	private final String EXAMPLE_USERNAME = "jdoe323";
@@ -41,8 +48,7 @@ public class OUDefaultConstructorTest extends TestCase {
 	 * Constructs a new OpalUser Object
 	 */
 	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void setUp() {
 		opalUser = new OpalUser();
 	}
 	
