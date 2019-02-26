@@ -17,11 +17,9 @@ package com.quinnshultz.opal.test.unit.db;
 
 import static org.junit.Assert.fail;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mockrunner.jdbc.BasicJDBCTestCaseAdapter;
@@ -61,7 +59,7 @@ public class OpalUserTest extends BasicJDBCTestCaseAdapter {
 	 * Simulates a scenario in which a new OpalUser is successfully register to the database
 	 */
 	@Test
-	void test() {
+	public void test() {
 		OpalUserDAO userDAO = new OpalUserDAO();
 		try {
 			userDAO.connect();
