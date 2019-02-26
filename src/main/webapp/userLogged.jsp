@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=windows-1256"
-	pageEncoding="windows-1256" import="com.billsbackyardbees.opal.bean.OpalUser"%>
+	pageEncoding="windows-1256" import="com.quinnshultz.opal.bean.OpalUser"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
    "http://www.w3.org/TR/html4/loose.dtd">
