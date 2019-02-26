@@ -9,6 +9,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @SuiteClasses({ OpalUserNotFoundTest.class })
 
-public class DatabaseTestSuite {
+public class DatabaseUnitTestSuite {
 
 }

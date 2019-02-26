@@ -10,6 +10,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ OUDefaultConstructorTest.class,
 		OUParamConstructorTest.class })
 
-public class OpalUserTestSuite {
+public class OpalUserUnitTestSuite {
 
 }

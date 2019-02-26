@@ -10,6 +10,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ PADefaultConstructorTest.class,
 		PAParamConstructorTest.class })
 
-public class PasswordAccountTestSuite {
+public class PasswordAccountUnitTestSuite {
 
 }
