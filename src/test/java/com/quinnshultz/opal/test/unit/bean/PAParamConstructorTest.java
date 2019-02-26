@@ -52,10 +52,10 @@ public class PAParamConstructorTest {
 	private final String METHOD_PASSWORD = "6A6l$!nEe4ifD0@E";
 	private final String METHOD_NOTES = "A music streaming service.";
 	
-	private byte[] key;
+
 	
 	private PasswordAccount encrypter;
-	private OpalUser account;
+
 
 	/**
 	 * Constructs a new PasswordAccount Object
@@ -63,8 +63,7 @@ public class PAParamConstructorTest {
 	 */
 	@Before
 	public void setUp() throws NoSuchAlgorithmException {
-		account = new OpalUser(CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, CONSTRUCTOR_FULL_NAME);
-		key = account.getSerializedKey();
+		byte key[] = null;
 		encrypter = new PasswordAccount(CONSTRUCTOR_ACCOUNT_NAME, CONSTRUCTOR_URL, CONSTRUCTOR_OWNER, CONSTRUCTOR_USERNAME, CONSTRUCTOR_PASSWORD, key, CONSTRUCTOR_NOTES);
 	}
 
@@ -173,38 +172,11 @@ public class PAParamConstructorTest {
 	
 	// TODO: Test getEncryptedData() after setEncryptedData()
 	
-	/**
-	 * Tests that the getData() method returns expected results and throws no Exception
-	 */
-	@Test
-	public void testGetData() {
-		try {
-			assertEquals(encrypter.getData(key), CONSTRUCTOR_PASSWORD);
-		} catch (Exception e) {
-			fail("Caught an Exception when executing getData()");
-		}
-	}
+
 	
-	/**
-	 * Tests that the setData() method does not throw an Exception
-	 */
-	@Test
-	public void testSetData() {
-		try {
-			encrypter.setData(METHOD_PASSWORD, key);
-		} catch (Exception e) {
-			fail("Caught an Exception when executing setData()");
-		}
-	}
+
 	
-	/**
-	 * Tests that expected results are returned by getData() after the the setData() method is called
-	 */
-	@Test
-	public void testGetDataAfterSetData() {
-		encrypter.setData(METHOD_PASSWORD, key);
-		assertEquals(encrypter.getData(key), METHOD_PASSWORD);
-	}
+
 	
 	/**
 	 * Tests that the getName() method returns expected results and throws no Exception
