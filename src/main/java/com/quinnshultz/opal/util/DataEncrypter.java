@@ -15,9 +15,12 @@
  */
 package com.quinnshultz.opal.util;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -27,7 +30,45 @@ import javax.crypto.spec.SecretKeySpec;
  *
  */
 public class DataEncrypter {
+	
+	private static final int DEFAULT_KEY_LENGTH = 128;
 
+	/**
+	 * Create a SecretKey for an OpalUser with AES Encryption,
+	 * 2048 bytes in length.
+	 * 
+	 * @return A new secret key
+	 * @throws NoSuchAlgorithmException 
+	 */
+	public static SecretKey generateKey() throws NoSuchAlgorithmException {
+		SecretKey generatedSecretKey;
+		
+		KeyGenerator secretKeyGen = KeyGenerator.getInstance("AES");
+		secretKeyGen.init(DEFAULT_KEY_LENGTH);
+		generatedSecretKey = secretKeyGen.generateKey();
+		
+		return generatedSecretKey;
+	}
+	
+	/**
+	 * Create a SecretKey for an OpalUser with user specified
+	 * encryption algorithm and length.
+	 * 
+	 * @param encryptionAlgorithm The encryption algorithm
+	 * @param keyLength Length in bytes of the new key
+	 * @return A new secret key
+	 * @throws NoSuchAlgorithmException If the provided encryption algorithm is invalid.
+	 */
+	public static SecretKey generateKey(String encryptionAlgorithm, int keyLength) throws NoSuchAlgorithmException {
+		SecretKey generatedSecretKey;
+		
+		KeyGenerator secretKeyGen = KeyGenerator.getInstance(encryptionAlgorithm);
+		secretKeyGen.init(keyLength);
+		generatedSecretKey = secretKeyGen.generateKey();
+		
+		return generatedSecretKey;
+	}
+	
 	/**
 	 * Encrypt a String.
 	 * 

@@ -29,7 +29,6 @@ import org.junit.Test;
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.bean.PasswordAccount;
 import com.quinnshultz.opal.util.DataEncrypter;
-import com.quinnshultz.opal.util.KeyGen;
 
 /**
  * Tests class PasswordAccount
@@ -162,7 +161,7 @@ public class PAParamConstructorTest {
 	 */
 	@Test
 	public void testSetEncryptedData() throws NoSuchAlgorithmException {
-		SecretKey key = KeyGen.generateKey();
+		SecretKey key = DataEncrypter.generateKey();
 		String encryptedData = DataEncrypter.encryptString(METHOD_PASSWORD, key.getEncoded());
 		try {
 			// TODO: Get bytes may be a nondeterministic method, this may need to be corrected in multiple locations

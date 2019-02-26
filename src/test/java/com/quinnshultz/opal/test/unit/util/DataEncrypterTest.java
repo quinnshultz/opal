@@ -16,6 +16,9 @@
 package com.quinnshultz.opal.test.unit.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
 
@@ -29,6 +32,31 @@ public class DataEncrypterTest {
 	
 	private final String EXAMPLE_PLAIN_TEXT_PASSWORD = "vW@&Q9PL$njvu69*";
 	private final byte[] EXAMPLE_PRIVATE_KEY = EXAMPLE_PLAIN_TEXT_PASSWORD.getBytes();
+	
+	/**
+	 * Tests that the generateKey() method does not throw an exception
+	 */
+	@Test
+	public void testGenerateKey() {
+		try {
+			DataEncrypter.generateKey();
+		} catch (NoSuchAlgorithmException e) {
+			fail("Caught NoSuchAlgorithmException when executing generateKey()");
+		}
+	}
+	
+	/**
+	 * Tests that the generateKey(encryptionAlgorithm, keyLength) method does not throw an exception
+	 */
+	@Test
+	public void testGenerateKeyWithParam() {
+		try {
+			// TODO: Test for something other than AES
+			DataEncrypter.generateKey("AES", 256);
+		} catch (NoSuchAlgorithmException e) {
+			fail("Caught NoSuchAlgorithmException when executing generateKey() with parameters");
+		}
+	}
 	
 	/**
 	 * Tests that text can be deciphered after it is encrypted

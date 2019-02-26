@@ -6,8 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 
-@SuiteClasses({ DataEncrypterTest.class,
-	KeyGenTest.class })
+@SuiteClasses({ DataEncrypterTest.class })
 
 public class EncryptionTestSuite {
 

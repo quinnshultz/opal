@@ -32,7 +32,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.quinnshultz.opal.util.KeyGen;
+import com.quinnshultz.opal.util.DataEncrypter;
 import com.quinnshultz.opal.util.OpalSerializer;
 
 /**
@@ -89,7 +89,7 @@ public class OpalUser implements Serializable {
 		this.username = username;
 		this.fullName = fullName;
 		this.password = password;
-		this.key = KeyGen.generateKey();
+		this.key = DataEncrypter.generateKey();
 		valid = false;
 	}
 
@@ -165,12 +165,12 @@ public class OpalUser implements Serializable {
 
 		if (key == null) { // Brand-new user so we don't have to ask for existing password
 
-			this.key = KeyGen.generateKey();
+			this.key = DataEncrypter.generateKey();
 			password = newPassword;
 
 		} else { // First check to see that the user knows their former password
 			if (isLoginTrue(oldPassword)) {
-				this.key = KeyGen.generateKey();
+				this.key = DataEncrypter.generateKey();
 				password = newPassword;
 
 			} else {
