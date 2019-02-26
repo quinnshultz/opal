@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 // Database Suite Test
 @RunWith(Suite.class)
 
-@SuiteClasses({ OpalUserNotFoundTest.class })
+@SuiteClasses({ OpalUserTest.class, OpalUserNotFoundTest.class })
 
 public class DatabaseUnitTestSuite {
 

@@ -17,6 +17,7 @@ package com.quinnshultz.opal.test.unit.db;
 
 import static org.junit.Assert.fail;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.junit.Before;
@@ -35,7 +36,7 @@ import com.quinnshultz.opal.db.OpalUserDAO;
  * Tests the DatabaseDriver class
  * @author Quinn Shultz
  */
-public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
+public class OpalUserTest extends BasicJDBCTestCaseAdapter {
 	
 	private final String EXAMPLE_USERNAME = "johndoe";
 	private final String EXAMPLE_FULL_NAME = "John Doe";
@@ -44,23 +45,23 @@ public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 	private OpalUser opalUser;
 	
 	/**
-	 * Prepares an empty ResultSet
+	 * Prepares a ResultSet with 10000 rows
 	 */
 	@Before
 	public void setUp() throws Exception {
 		MockConnection connection = getJDBCMockObjectFactory().getMockConnection();
-		StatementResultSetHandler statementHandler = connection.getStatementResultSetHandler();
-		MockResultSet result = statementHandler.createResultSet();
-		statementHandler.prepareGlobalResultSet(result);
-		opalUser = new OpalUser(EXAMPLE_USERNAME, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);
+	    StatementResultSetHandler statementHandler = connection.getStatementResultSetHandler();
+	    MockResultSet result = statementHandler.createResultSet();
+	    result.addRow(new Integer[] {new Integer(10000)});
+	    statementHandler.prepareGlobalResultSet(result);
+	    opalUser = new OpalUser(EXAMPLE_USERNAME, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);
 	}
 
 	/**
-	 * Simulates a scenario where an empty ResultSet is returned because the OpalUser does not exist
-	 * in the table
+	 * Simulates a scenario in which a new OpalUser is successfully register to the database
 	 */
 	@Test
-	public void testLoginReturnsEmpty() {
+	void test() {
 		OpalUserDAO userDAO = new OpalUserDAO();
 		try {
 			userDAO.connect();
@@ -70,9 +71,9 @@ public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 			fail("Caught SQLException when executing connect()");
 		}
 		try {
-			userDAO.login(opalUser);
+			userDAO.register(opalUser);
 		} catch (SQLException e) {
-			fail("Caught SQLException when executing login()");
+			fail("Caught SQLException when executing register()");
 		}
 		try {
 			userDAO.disconnect();

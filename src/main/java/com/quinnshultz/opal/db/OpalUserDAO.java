@@ -31,9 +31,11 @@ public class OpalUserDAO {
 	/**
 	 * Connect to the MySQL Database
 	 * @throws SQLException if a database access error occurs
+	 * @throws ClassNotFoundException 
 	 */
-	public void connect() throws SQLException {
+	public void connect() throws SQLException, ClassNotFoundException {
 		disconnect();
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		currentCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
 		currentCon.setAutoCommit(false);
 	}
