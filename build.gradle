@@ -6,6 +6,12 @@ archiveName 'opal-devel-1.0.0-NIGHTLY.war'
 
 }
 
+test {
+	filter {
+		includeTestsMatching "*TestSuite"
+	}
+}
+
 
 repositories {
 flatDir { dirs "src/main/webapp/WEB-INF/lib" }
@@ -18,7 +24,10 @@ dependencies {
 
 providedCompile ':mysql-connector-java:8.0.+'
 providedCompile 'javax:javaee-api:8.0.1-b5'
-testCompile 'junit:junit:4.12'
+providedCompile 'com.mockrunner:mockrunner-jdbc:2.0.1'
+testCompile 'org.junit.jupiter:junit-jupiter:5.4.0'
+testCompile 'org.junit.vintage:junit-vintage-engine:5.4.0'
+testCompile 'org.junit.platform:junit-platform-launcher:1.4.0'
 
 }
 

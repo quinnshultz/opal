@@ -6,8 +6,8 @@
   
   <persistence-unit name="opal-persistence-unit" transaction-type="RESOURCE_LOCAL">
   
-  <class>com.billsbackyardbees.opal.bean.OpalUser</class>
-  <class>com.billsbackyardbees.opal.bean.PasswordAccount</class>
+  <class>com.quinnshultz.opal.bean.OpalUser</class>
+  <class>com.quinnshultz.opal.bean.PasswordAccount</class>
   
     <properties>
     	<property name="javax.persistence.jdbc.url"
