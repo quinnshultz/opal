@@ -31,7 +31,7 @@ public class OpalUserNotFoundIT {
 	private Connection connection;
 
 	/**
-	 * Constructs a database schema
+	 * Gets a database connection
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
@@ -39,16 +39,14 @@ public class OpalUserNotFoundIT {
 	public void setUp() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
-		// TODO: Run the create script
 	}
 	
 	/**
-	 * Destroys the database schema
+	 * Destroys the database connection
 	 * @throws SQLException
 	 */
 	@After
 	public void tearDown() throws SQLException {
-		// TODO: Run drop script
 		if (null != connection) {
 			connection.close();
 			connection = null;
@@ -62,6 +60,7 @@ public class OpalUserNotFoundIT {
 	@Ignore("Not yet implemented")
 	@Test
 	public void test() {
+		
 	}
 
 }
