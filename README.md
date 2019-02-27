@@ -1,7 +1,7 @@
 # Opal
 A password manager for an Apache Tomcat Server.
 
-[<img alt="Jenkins" src="https://img.shields.io/badge/-Download_from_Jenkins-D24939.svg?logo=jenkins&style=flat-square&logoColor=white" height=32>](http://ci.quinnshultz.com/job/Opal/)
+[<img alt="Jenkins" src="https://img.shields.io/badge/-Download_from_Jenkins-D24939.svg?logo=jenkins&style=flat-square&logoColor=white" height=32>](http://ci.quinnshultz.com/job/Opal/)                                                 [<img alt="Deployment" src="https://img.shields.io/badge/-Try_on_App_Server-367588.svg?logo=java&style=flat-square&logoColor=white" height=32>](http://app.quinnshultz.com:8080/opal/)
 
 ## Description
 Opal is a password manager designed to run on a JavaEE server. The front-end features are availiable in browser. Future features such as a compatible Android app are planned.
