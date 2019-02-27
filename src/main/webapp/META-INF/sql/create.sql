@@ -21,8 +21,6 @@
 /*                                                                                                       */
 /*********************************************************************************************************/
  
-DROP database opalPasswordManager;
- 
 CREATE database opalPasswordManager;
 
 USE opalPasswordManager;
