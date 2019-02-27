@@ -61,7 +61,7 @@ public class OpalUserNotFoundIT {
 	 */
 	@Ignore("Not yet implemented")
 	@Test
-	void test() {
+	public void test() {
 	}
 
 }
