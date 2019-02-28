@@ -44,9 +44,16 @@ public class ConfigFile {
 	 */
 	public String[] getDBProperties() throws IOException {
 		
+		String propFileName;
+		
+		if (System.getProperty("opal.properties") != null) {
+			propFileName = System.getProperty("opal.properties");
+		} else {
+			propFileName = "config.properties";
+		}
+		
 		try {
 			Properties prop = new Properties();
-			String propFileName = "config.properties";
 			
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
 			
