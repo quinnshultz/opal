@@ -14,4 +14,4 @@
  * limitations under the License.
  */
  
-DROP DATABASE opalPasswordManager;
+DROP DATABASE IF EXISTS opalPasswordManager;
