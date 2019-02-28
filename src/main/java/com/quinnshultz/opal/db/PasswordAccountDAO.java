@@ -15,10 +15,12 @@
  */
 package com.quinnshultz.opal.db;
 
+import java.io.IOException;
 import java.sql.*;
 
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.bean.PasswordAccount;
+import com.quinnshultz.opal.util.ConfigFile;
 
 /**
  * Methods to use PasswordAccount beans with the database
@@ -32,10 +34,14 @@ public class PasswordAccountDAO {
 	/**
 	 * Connect to the MySQL Database
 	 * @throws SQLException if a database access error occurs
+	 * @throws IOException 
 	 */
-	public void connect() throws SQLException {
+	public void connect() throws SQLException, IOException {
 		disconnect();
-		currentCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+		ConfigFile dbparamfetcher = new ConfigFile();
+		String[] dbparams = dbparamfetcher.getDBProperties();
+		
+		currentCon = DriverManager.getConnection(dbparams[0], dbparams[1], dbparams[2]);
 		currentCon.setAutoCommit(false);
 	}
 	

@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 // Suite Tests for static methods or classes not meant to be instantiated
 @RunWith(Suite.class)
 
-@SuiteClasses({ DataEncrypterTest.class, OpalSerializerTest.class })
+@SuiteClasses({ DataEncrypterTest.class, OpalSerializerTest.class, ConfigFileTest.class })
 
 public class StaticUnitTestSuite {
 
