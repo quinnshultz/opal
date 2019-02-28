@@ -17,6 +17,7 @@ package com.quinnshultz.opal.test.unit.db;
 
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.junit.Before;
@@ -58,9 +59,10 @@ public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 	/**
 	 * Simulates a scenario where an empty ResultSet is returned because the OpalUser does not exist
 	 * in the table
+	 * @throws IOException 
 	 */
 	@Test
-	public void testLoginReturnsEmpty() {
+	public void testLoginReturnsEmpty() throws IOException {
 		OpalUserDAO userDAO = new OpalUserDAO();
 		try {
 			userDAO.connect();
