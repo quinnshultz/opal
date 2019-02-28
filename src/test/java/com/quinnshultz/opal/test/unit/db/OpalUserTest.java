@@ -17,6 +17,7 @@ package com.quinnshultz.opal.test.unit.db;
 
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.junit.Before;
@@ -57,9 +58,10 @@ public class OpalUserTest extends BasicJDBCTestCaseAdapter {
 
 	/**
 	 * Simulates a scenario in which a new OpalUser is successfully register to the database
+	 * @throws IOException 
 	 */
 	@Test
-	public void test() {
+	public void test() throws IOException {
 		OpalUserDAO userDAO = new OpalUserDAO();
 		try {
 			userDAO.connect();

@@ -15,9 +15,11 @@
  */
 package com.quinnshultz.opal.db;
 
+import java.io.IOException;
 import java.sql.*;
 
 import com.quinnshultz.opal.bean.OpalUser;
+import com.quinnshultz.opal.util.ConfigFile;
 
 /**
  * Methods to use OpalUser beans with the database
@@ -32,11 +34,14 @@ public class OpalUserDAO {
 	 * Connect to the MySQL Database
 	 * @throws SQLException if a database access error occurs
 	 * @throws ClassNotFoundException 
+	 * @throws IOException 
 	 */
-	public void connect() throws SQLException, ClassNotFoundException {
+	public void connect() throws SQLException, ClassNotFoundException, IOException {
 		disconnect();
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		currentCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/opalPasswordManager", "jdbcopal", "Nth@Z8giog5uL3tD");
+		ConfigFile dbparamfetcher = new ConfigFile();
+		String[] dbparams = dbparamfetcher.getDBProperties();
+		Class.forName(dbparams[0]);
+		currentCon = DriverManager.getConnection(dbparams[1], dbparams[2], dbparams[3]);
 		currentCon.setAutoCommit(false);
 	}
 	

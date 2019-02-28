@@ -1,6 +1,8 @@
 package com.quinnshultz.opal.test.unit.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -82,6 +84,22 @@ public class ConfigFileTest {
 		try {
 			String[] result = configFile.getDBProperties();
 			assertEquals(result[3], PASSWORD);
+		} catch (Exception e) {
+			fail("Caught Exception when executing getDBProperties()");
+		}
+	}
+	
+	/**
+	 * Tests that getDBProperties() throws an IndexOutOfBoundsException when we try to read
+	 * a line in the file that does not exist
+	 */
+	@Test
+	public void testPropetiesValuesEnd() {
+		try {
+			String[] result = configFile.getDBProperties();
+			assertNotNull(result[4]);
+		} catch (IndexOutOfBoundsException e) {
+			// Pass: There is no fifth parameter in the configuration file
 		} catch (Exception e) {
 			fail("Caught Exception when executing getDBProperties()");
 		}
