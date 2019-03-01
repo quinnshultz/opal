@@ -19,7 +19,7 @@
 		Full name of user <input type="text" name="fullname" /><br>
 		
 		Password for new account <input type="password" name="password" />
-		<input type="submit" value="submit">
+		<input type="submit" value="submit" name="submit">
 	</form>
 
 </body>
