@@ -1,6 +1,7 @@
 package com.quinnshultz.opal.web;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
@@ -8,11 +9,12 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
 /**
  * Authenticates an OpalUser for use with the API.
- * @author Quinn Shultz, cassiomolin (Stack Overflow)
+ * @author Quinn Shultz, cassiomolin (StackOverflow)
  *
  */
 @Secured
@@ -23,8 +25,15 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	private static final String REALM = "example";
 	private static final String AUTHENTICATION_SCHEME = "SecretKey";
 
+	/**
+	 * Attempts to authenticate an user from their API token provided in the authorization header.
+	 * 
+	 * @param requestContext
+	 * @throws IOException
+	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
+
 		// Get the Authorization header from the request
 		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 		
@@ -40,6 +49,32 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 		// Validate the token
 		try {
 			validateToken(token);
+			
+			final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
+			requestContext.setSecurityContext(new SecurityContext() {
+				
+				@Override
+				public Principal getUserPrincipal() {
+					// TODO Return the OpalUser's name by searching for the provided token
+					return null;
+				}
+				
+				@Override
+				public boolean isUserInRole(String role) {
+					return true;
+				}
+				
+				@Override
+				public boolean isSecure() {
+					return currentSecurityContext.isSecure();
+				}
+
+				@Override
+				public String getAuthenticationScheme() {
+					return AUTHENTICATION_SCHEME;
+				}
+			});
+			
 		} catch (Exception e) {
 			abortWithUnauthorized(requestContext);
 		}
