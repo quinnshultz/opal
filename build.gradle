@@ -2,8 +2,7 @@
 apply plugin: 'war'
 
 war {
-archiveName 'opal-devel-1.0.0.war'
-
+	archiveName 'opal-devel-1.0.0.war'
 }
 
 test {
@@ -14,14 +13,11 @@ test {
 
 
 repositories {
-flatDir { dirs "src/main/webapp/WEB-INF/lib" }
-jcenter()
-
+	jcenter()
 }
 
 
 dependencies {
-
 compile 'mysql:mysql-connector-java:8.0.+'
 providedCompile 'javax:javaee-api:8.0.1-b5'
 providedCompile 'org.glassfish.jersey.containers:jersey-container-servlet:2.28'
@@ -30,6 +26,5 @@ testCompile 'com.mockrunner:mockrunner-jdbc:2.0.1'
 testCompile 'org.junit.jupiter:junit-jupiter:5.4.0'
 testCompile 'org.junit.vintage:junit-vintage-engine:5.4.0'
 testCompile 'org.junit.platform:junit-platform-launcher:1.4.0'
-
 }
 
