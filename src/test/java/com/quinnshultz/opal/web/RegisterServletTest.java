@@ -21,12 +21,6 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.*;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import static org.junit.Assert.fail;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,7 +43,6 @@ public class RegisterServletTest {
 	
 	@Mock private HttpServletRequest request;
     @Mock private HttpServletResponse response;
-    @Mock private RequestDispatcher requestDispatcher;
 
     /**
      * Constructs mock HttpServletRequest, HttpServletResponse, and RequestDispatcher Objects
