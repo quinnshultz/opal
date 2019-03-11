@@ -11,6 +11,7 @@
 </servlet>
 <servlet-mapping>
 	<servlet-name>LoginServlet</servlet-name>
+	<url-pattern>/LoginServlet</url-pattern>
 </servlet-mapping>
 
 <servlet>
@@ -18,7 +19,7 @@
 	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 	<init-param>
 		<param-name>jersey.config.server.provider.classnames</param-name>
-		<param-value>com.quinnshultz.opal.web.PasswordAccountService</param-value>
+		<param-value>com.quinnshultz.opal.web.PasswordAccountService, com.quinnshultz.opal.web.AuthenticationEndpoint</param-value>
 	</init-param>
 	<load-on-startup>1</load-on-startup>
 </servlet>

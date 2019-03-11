@@ -1,6 +1,9 @@
 package com.quinnshultz.opal.web;
 
+import java.util.UUID;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,9 +26,12 @@ public class AuthenticationEndpoint {
 	 */
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response authenticateUser(OpalUser opalUser) {
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 		try {
+			OpalUser opalUser = new OpalUser();
+			opalUser.setUsername(username);
+			opalUser.setPassword(password, password);
 			// Authenticate the user using the OpalUser credentials
 			authenticate(opalUser);
 			
@@ -53,9 +59,7 @@ public class AuthenticationEndpoint {
 		opalUser = userDAO.login(opalUser);
 		userDAO.disconnect();
 		
-		if (opalUser.isValid()) {
-			// The Opal user must be valid
-		} else {
+		if (!opalUser.isValid()) {
 			throw new Exception();
 		}
 	}
@@ -68,7 +72,10 @@ public class AuthenticationEndpoint {
 	 * @return API session token for user
 	 */
 	private String issueToken(OpalUser opalUser) {
-		// TODO Issue a token for user api session
-		return null;
+		UUID uid = UUID.randomUUID();
+		String token = uid.toString();
+		
+		// TODO Store token
+		return token;
 	}
 }

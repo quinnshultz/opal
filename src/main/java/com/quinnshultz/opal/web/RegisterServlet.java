@@ -18,7 +18,7 @@ import com.quinnshultz.opal.util.OpalSerializer;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet("/login")
+@WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = OpalSerializer.getSerialVersionUID();
 
