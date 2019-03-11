@@ -24,10 +24,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.mockrunner.jdbc.BasicJDBCTestCaseAdapter;
-import com.mockrunner.jdbc.StatementResultSetHandler;
-import com.mockrunner.mock.jdbc.MockConnection;
-import com.mockrunner.mock.jdbc.MockResultSet;
+
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.db.OpalUserDAO;
 
@@ -36,7 +33,7 @@ import com.quinnshultz.opal.db.OpalUserDAO;
  * Tests the DatabaseDriver class
  * @author Quinn Shultz
  */
-public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
+public class OpalUserNotFoundTest {
 	
 	private final String EXAMPLE_USERNAME = "johndoe";
 	private final String EXAMPLE_FULL_NAME = "John Doe";
@@ -49,10 +46,10 @@ public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		MockConnection connection = getJDBCMockObjectFactory().getMockConnection();
-		StatementResultSetHandler statementHandler = connection.getStatementResultSetHandler();
-		MockResultSet result = statementHandler.createResultSet();
-		statementHandler.prepareGlobalResultSet(result);
+//		MockConnection connection = getJDBCMockObjectFactory().getMockConnection();
+//		StatementResultSetHandler statementHandler = connection.getStatementResultSetHandler();
+//		MockResultSet result = statementHandler.createResultSet();
+//		statementHandler.prepareGlobalResultSet(result);
 		opalUser = new OpalUser(EXAMPLE_USERNAME, EXAMPLE_PASSWORD, EXAMPLE_FULL_NAME);
 	}
 
@@ -61,6 +58,7 @@ public class OpalUserNotFoundTest extends BasicJDBCTestCaseAdapter {
 	 * in the table
 	 * @throws IOException 
 	 */
+	@Ignore("Switching to mockito")
 	@Test
 	public void testLoginReturnsEmpty() throws IOException {
 		OpalUserDAO userDAO = new OpalUserDAO();
