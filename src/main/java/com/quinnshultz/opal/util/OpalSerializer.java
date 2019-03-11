@@ -25,7 +25,7 @@ public class OpalSerializer {
 	// Official database version.
 	// This must be incremented every
 	// time the schema is changed
-	static final long DATABASE_SCHEMA_VERSION = 6L;
+	static final long DATABASE_SCHEMA_VERSION = 7L;
 	
 	/**
 	 * @return The database schema version

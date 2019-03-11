@@ -105,6 +105,20 @@ BEGIN
 		PREPARE s FROM @sql;
 		EXECUTE s;
 		DEALLOCATE PREPARE s;
+        
+        SET @sql = CONCAT('CREATE VIEW ', CONCAT(paramUsername, '_apiKeys'),' AS SELECT ',
+			'opalUsers_apiKeys.ID
+            , opalUsers_apiKeys.token
+            , opalUsers_apiKeys.expires',
+		' FROM ',
+			'opalUsers_apiKeys',
+				' INNER JOIN ',
+			'opalUsers ON opalUsers_apiKeys.opalUser = opalUsers.ID',
+		' WHERE ',
+			'opalUsers.username=',"'", paramUsername, "'");
+		PREPARE s FROM @sql;
+        EXECUTE s;
+        DEALLOCATE PREPARE s;
 
 		SET @sql = CONCAT('INSERT INTO opalUsers (username, fullName, password, keystore) VALUES (',"'",paramUsername,
 							"'",', ',"'",paramFullName,"'",',',"'",paramPassword,"'",', ',"'",paramKeystore,"'",')');
