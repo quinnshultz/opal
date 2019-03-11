@@ -33,7 +33,7 @@ USE opalPasswordManager;
 /*********************************************************************************************************/
 
 /*
- * Create table for storing user encryption keys
+ * Create a table for storing user encryption keys
  */
 CREATE table opalUsers(ID int auto_increment
 , username varchar(256) UNIQUE NOT NULL
@@ -41,6 +41,16 @@ CREATE table opalUsers(ID int auto_increment
 , password varchar(256) NOT NULL
 , keystore BLOB NOT NULL
 , primary key (id));
+
+/*
+ * Create a table for storing user api tokens
+ */
+CREATE table opalUsers_apiKeys(ID int auto_increment
+, token varchar(128) UNIQUE NOT NULL
+, expires date
+, opalUser int
+, primary key(id)
+, foreign key(opalUser) references opalUsers(id));
 
 /*
  * Create a template table for Objects
@@ -53,6 +63,20 @@ CREATE table passwordAccounts_template(ID int auto_increment
 , encryptedPassword BLOB
 , notes varchar(10240)
 , primary key (id));
+
+/*********************************************************************************************************/
+/*                                                                                                       */
+/*                                            FUNCTIONS                                                  */
+/*                                                                                                       */
+/*********************************************************************************************************/
+
+/*
+ * Returns opalUser ID given opalUser username
+ */
+CREATE DEFINER =`jdbcopal`@`localhost`
+FUNCTION `getUserId` (paramOpalName varchar(256))
+RETURNS int deterministic
+RETURN (SELECT id FROM opalUsers WHERE username=paramOpalName);
 
 /*********************************************************************************************************/
 /*                                                                                                       */
@@ -175,5 +199,25 @@ BEGIN
         
 	END IF;
 
+END //
+DELIMITER ;
+
+/*
+ * Stores an api token to the opalUsers_apiKeys table
+ *
+ * Parameter paramOpalName					Opal username this token should be stored under
+ * Parameter paramToken						Token used by api
+ * Parameter paramExpires					Date this token becomes unusable
+ */
+DELIMITER //
+CREATE DEFINER =`jdbcopal`@`localhost`
+PROCEDURE `store_api_token` (In paramOpalName varchar(256), In paramToken varchar(128), In paramExpires date)
+BEGIN
+	SET @opalUser := (SELECT getUserId(paramOpalName));
+	SET @sql = CONCAT('INSERT INTO opalUsers_apiKeys (token, expires, opalUser) VALUES(',"'",paramToken,"'",', ',"'",paramExpires,"'",', ',"'",@opalUser,"'",')');
+    PREPARE s FROM @sql;
+    EXECUTE s;
+    DEALLOCATE PREPARE s;
+    
 END //
 DELIMITER ;

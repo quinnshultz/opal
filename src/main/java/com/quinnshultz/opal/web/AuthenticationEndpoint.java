@@ -1,5 +1,7 @@
 package com.quinnshultz.opal.web;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -16,7 +18,7 @@ import com.quinnshultz.opal.db.OpalUserDAO;;
 /**
  * @author Quinn Shultz, cassiomolin (StackOverflow)
  */
-@Path("/authentication")
+@Path("/gettoken")
 public class AuthenticationEndpoint {
 
 	/**
@@ -25,7 +27,7 @@ public class AuthenticationEndpoint {
 	 * @return
 	 */
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 		try {
@@ -39,7 +41,13 @@ public class AuthenticationEndpoint {
 			String token = issueToken(opalUser);
 			
 			// Return the token on the response
-			return Response.ok(token).build();
+			String response = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + 
+							"<authentication>" +
+								"<username>" + opalUser.getUsername() + "</username>" +
+								"<token>" + token + "</token>" +
+							"</authentication>";
+			
+			return Response.ok(response).build();
 			
 		} catch (Exception e) {
 			return Response.status(Response.Status.FORBIDDEN).build();
@@ -69,13 +77,27 @@ public class AuthenticationEndpoint {
 	 * Issue a api session token for the user so credentials do not need to be passed back and forth
 	 * 
 	 * @param opalUser OpalUser Object containing credentials
-	 * @return API session token for user
+	 * @return API session token for user or empty string if token could not be stored to the database
 	 */
 	private String issueToken(OpalUser opalUser) {
+		// Generate token
 		UUID uid = UUID.randomUUID();
 		String token = uid.toString();
 		
-		// TODO Store token
-		return token;
+		// Store to database
+		OpalUserDAO userDAO = new OpalUserDAO();
+		
+		try {
+			userDAO.connect();
+			userDAO.storeAPIToken(opalUser, token, "3000-01-01");
+			userDAO.disconnect();
+			return token;
+		} catch (SQLException e) {
+			return "";
+		} catch (ClassNotFoundException e) {
+			return "";
+		} catch (IOException e) {
+			return "";
+		}
 	}
 }

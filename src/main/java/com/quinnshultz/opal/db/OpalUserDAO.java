@@ -170,4 +170,51 @@ public class OpalUserDAO {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @param opalUser
+	 * @param token
+	 * @param expires Date the token becomes inactive, expected format YYYY-MM-DD
+	 * @throws SQLException 
+	 */
+	public void storeAPIToken(OpalUser opalUser, String token, String expires) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		String username = opalUser.getUsername();
+		
+		String insertQuery =
+				"call store_api_token('"
+						+ username
+						+ "', '"
+						+ token
+						+ "', '"
+						+ expires
+						+ "')";
+		
+		try {
+			stmt = currentCon.createStatement();
+			rs = stmt.executeQuery(insertQuery);
+			currentCon.commit();
+		} catch (Exception ex) {
+			currentCon.rollback();
+			
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {}
+				rs = null;
+			}
+			
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (Exception e) {}
+				stmt = null;
+			}
+		}
+	}
+	
 }

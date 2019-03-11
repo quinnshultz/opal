@@ -25,6 +25,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.MediaType;
 
 import com.quinnshultz.opal.bean.OpalUser;
 import com.quinnshultz.opal.bean.PasswordAccount;
@@ -40,7 +41,7 @@ public class PasswordAccountService {
 	 * Loads the first 100 password accounts from the users view
 	 */
 	@GET
-	@Produces("application/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	public String loadFirstAccounts() {
 		
 		// Temporary
@@ -52,7 +53,8 @@ public class PasswordAccountService {
 		String paPassword = "6P%#aHTC9K1YhVl$";
 		String paNotes = "A music streaming service.";
 		
-		return "<opalpa>" +
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+				"<opalpa>" +
 					"<opalname>" + opalUsername + "</opalname>" +
 					"<paparams>" +
 						"<id>" + paId + "</id>" +
@@ -62,7 +64,7 @@ public class PasswordAccountService {
 						"<password>" + paPassword + "</password>" +
 						"<notes>" + paNotes + "</notes>" +
 					"</paparams>" +
-		"</opalpa>";
+				"</opalpa>";
 	}
 	
 	/**
@@ -71,7 +73,7 @@ public class PasswordAccountService {
 	 */
 	@Path("/search")
 	@GET
-	@Produces("application/xml")
+	@Produces(MediaType.APPLICATION_XML)
 	public String findAccount(@QueryParam("name") String name) {
 //		// Get OpalUser username and PasswordAccount name
 //		Principal principal = securityContext.getUserPrincipal();
@@ -107,7 +109,8 @@ public class PasswordAccountService {
 //		String outputNotes = "\n\nUsername: \n\n" + passwordAccount.getUsername();
 //		String result = "@Produces(\"application/xml\") Output: " + outputName;
 
-		return "<opalpa>" +
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + 
+				"<opalpa>" +
 					"<opalname>" + "nullfortesting" + "</opalname>" +
 					"<paparams>" +
 						"<id>" + "nullfortesting" + "</id>" +
